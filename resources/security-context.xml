@@ -10,17 +10,18 @@
 
 
    <security:http auto-config="true" use-expressions="true" create-session="always">
-    <security:intercept-url pattern="/login" access="permitAll" />
+    <security:intercept-url pattern="/landing" access="permitAll" />
     <security:intercept-url pattern="/compTest" access="permitAll" />
+    <security:intercept-url pattern="/signup" access="permitAll" /> 
 	 <security:intercept-url pattern="/addAdmin" access="hasRole('ROLE_ADMIN')" />
-	 <security:intercept-url pattern="/reviews" access="hasRole('ROLE_USER')" />
+	 <security:intercept-url pattern="/trackerHome" access="hasRole('ROLE_USER')" />
 	 <security:intercept-url pattern="/reviewsSearchBook" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/reviewsAddBook" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/reviewsSearchDocs" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/reviewsReviewBook" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/retrieveNextSegment" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getBookReviewsList" access="hasRole('ROLE_USER')" />
-     <security:intercept-url pattern="/searchForBook" access="hasRole('ROLE_USER')" />
+     <security:intercept-url pattern="/searchForEmployee" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/addNewBook" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/searchForDocs" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getFeeds" access="hasRole('ROLE_USER')" />
@@ -44,9 +45,9 @@
 		
 		
 		<security:form-login 
-		    login-page="/login" 
-		    default-target-url="/reviews" 
-			authentication-failure-url="/login?error" 
+		    login-page="/landing" 
+		    default-target-url="/trackerHome" 
+			authentication-failure-url="/landing?error" 
 			login-processing-url="/j_spring_security_check"
 			username-parameter="username"
 			password-parameter="password" 		

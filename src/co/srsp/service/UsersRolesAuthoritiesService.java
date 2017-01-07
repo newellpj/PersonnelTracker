@@ -27,16 +27,19 @@ public class UsersRolesAuthoritiesService {
 	/**
 	 * @param userModel
 	 */
-	public void addUser(UsersModel userModel){
+	public void addUser(String username, String password){
 		Users user = new Users();
-		user.setUsername(userModel.getUsername());
-		user.setPassword(userBO.encryptPassword(userModel.getPassword()));
+		user.setUsername(username);
+		user.setPassword(userBO.encryptPassword(password));
 		user.setEnabled("Y");
 		
 		Authorities authorities = new Authorities();
-		authorities.setUsername(userModel.getUsername());
+		authorities.setUsername(username);
 		authorities.setAuthority("ROLE_USER");
 		
 		userBO.save(user, authorities);
 	}
+	
+
+	
 }

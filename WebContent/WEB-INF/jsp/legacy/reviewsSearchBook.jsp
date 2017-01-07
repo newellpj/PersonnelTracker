@@ -2,19 +2,21 @@
     <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
 <%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html ng-app="searchBookPageApp">
 <head>
 
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap-custom.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/search.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/font-awesome.css">
 
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
-<script type="text/javascript" src="./presentationResources/js/reviews.js"></script>
-<script type="text/javascript" src="./presentationResources/js/jquery.jscroll.js"></script>
+<script type="text/javascript" src="./presentationResources/js/jsCustomScript.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.jscroll.min.js"></script>
+<script type="text/javascript" src="./presentationResources/js/angular.js"></script>
+<script type="text/javascript" src="./presentationResources/js/search.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Book Reviews</title>
@@ -38,8 +40,16 @@ var html = $(".bookRevList").html();
 
 	
 	
-		searchPageReadyInit();
+		var acc = document.getElementsByClassName("accordion");
+		var i;
 
+		for (i = 0; i < acc.length; i++) {
+			acc[i].onclick = function(){
+				this.classList.toggle("active");
+				$('.search-box').toggle("hide");
+				//this.nextElementSibling.nextElementSibling.classList.toggle("hide");
+			}
+		}
 		
 		   
 	});
@@ -60,10 +70,14 @@ var html = $(".bookRevList").html();
 </head>
 <body background="./presentationResources/images/bgimg.jpg">
 
-<br/>
-	<div id="search-box" class="search-box">
+<button class="glyphicon glyphicon-search accordion responsive"> <span style="font-family:Arial;">Show or Hide Search Books </span></button>
 
-		<h3>PJs Book Reviews Page</h3>
+<div ng-controller="searchPageController" ng-init="titleText=''; authorText=''; publisherText=''" >
+	<div class="logoImg">
+		<img width='300' height='150' src='./presentationResources/images/eyeball.png' style='position:absolute; margin-left: 56%; margin-top:3%' />
+	</div>
+
+	<div id="se" class="search-box responsive" >
 
 		<c:if test="${not empty error}">
 			<div class="error alert alert-error">${error}</div>
@@ -72,70 +86,90 @@ var html = $(".bookRevList").html();
 			<div class="message">${message}</div>
 		</c:if>
 		
-		<p><span style="align-center;">Please type in the criteria to find a book to review.</span></p>
+		<p><span style="align-center; font-style:italic;">Please type in the criteria to find a book to review</span></p>
 
 
-			<form:form id="reviewsForm"  commandName="bookReviewsModel">
+			<form:form id="searchForm" name="searchForm"  commandName="bookReviewsModel">
 	
-		<table style="width:100%;">
-			<tr><td colspan="3">Search a Book to Review</td></tr>		
-				<tr>
-					<td>Title:</td>
-					<td><input id="titleText" style="width:262px !important;" type='text' name='titleText'><span class="glyphicon glyphicon-book iconspan2"></span></td>
+	
+				<div class="titleAndGenre responsive" >
+					Title:
+					<input ng-model="titleText" id="titleText"  placeholder="title search..."  type='text' name='titleText' style="width:40%;"><span class="glyphicon glyphicon-book iconspan2"></span>
 					
 					
-					<td><input id="genre" type="checkbox" name="genre" value="genre" onclick="renderTagList($(this));"/>Genre <br /> </td>
-					<td><select style="visibility:hidden; width:240px;" id="genreSelect"></select></td>
-							
+					<input id="genre" type="checkbox"  ng-model="genreCheck" name="genre" value="genre" ng-click="genreHide = !genreHide" />Genre 
+					<select ng-model="genreSelect.selectedOption" class="responsive" ng-hide="genreHide" style="width:30%; margin-left:1.7em; " id="genreSelect" 
+							ng-options="option.name for option in genreSelect.availableOptions track by option.value">
 					
-				</tr>
-				<tr>
-					<td>Author:</td>
-					<td><input id="authorText" style="width:262px !important;" type='text' name='authorText' /><span class="glyphicon glyphicon-pencil iconspan2"></span></td>
+					</select>
+					   
+						 <ul class="titleSearchPossibles" ng-mouseleave="mouseLeave('titleSearchPossibles')">
+							<li ng-repeat="d in data | filter: titleText track by $index" style="margin-left:2em;">
+							 <span ng-mousedown="displayTitles(d)">{{d.titleText}}</span>
+							</li>
+						   </ul>
+						  
+			
+				</div>	
+            		
+				<div class="authorCategory responsive">
+					Author:
+					<input ng-model="authorText" id="authorText"  placeholder="author search..." style="width:40%;" type='text' name='authorText' /><span class="glyphicon glyphicon-pencil iconspan2"></span>
 					
-					<td><input id="category" type="checkbox" name="category" value="category" onclick="renderTagList($(this));" />Category<br /></td>
-					<td><select style="visibility:hidden; width:240px;" id="categorySelect"></select></td>
+					<input id="category" type="checkbox" ng-model="catCheck"  name="category" value="category" ng-click="categoryHide = !categoryHide" />Category
+					<select  ng-model="catSelect.selectedOption" name="catText" ng-hide="categoryHide" class="responsive" style="width:30%; margin-left:0.4em;" id="categorySelect" 
+					    ng-options="option.name for option in catSelect.availableOptions track by option.value" >
+					</select>
 					
-				</tr>
-				<tr>
-					<td>Publisher:</td>
-					<td><input id="publisherText" style="width:262px !important;" type='text' name='publisherText' /><span class="glyphicon glyphicon-barcode iconspan2"></span></td>
-					
-					<td><input id="language" type="checkbox" name="language" value="language" onclick="renderTagList($(this));" />Language<br /></td>
-					<td><select style="visibility:hidden; width:240px;" id="languageSelect"></select></td>
-					
-				</tr>
+					 <ul class="authorSearchPossibles" ng-mouseleave="mouseLeave('authorSearchPossibles')">
+							<li ng-repeat="d in data | unique: authorText" style="width:100%;   padding-left:-2em !important; margin-left:2em;">
+							 <span ng-mousedown="displayAuthors(d)">{{d.authorText}}</span>
+							</li>
+					  </ul>
+	
+				</div>	
 				
-						
+				<div class="publisherLang responsive">
+					Publisher:  
+					<input ng-model="publisherText" id="publisherText"  placeholder="publisher search..." style="width:40%;" type='text' name='publisherText' /><span class="glyphicon glyphicon-barcode iconspan2"></span>
+					
+					<input id="language" ng-model="langCheck" type="checkbox" name="language" value="language" ng-click="languageHide = !languageHide" />Language
+					<select ng-model="langSelect.selectedOption" ng-hide="languageHide" name="langText" class="responsive" style="width:30%;" id="languageSelect" 
+							ng-options="option.name for option in langSelect.availableOptions track by option.value" >	
+					</select>
+					 <ul class="publisherSearchPossibles"  ng-mouseleave="mouseLeave('publisherSearchPossibles')">
+							<li ng-repeat="d in data | unique: publisherText " style="margin-left:2em;">
+							 <span ng-mousedown="displayPublishers(d)">{{d.publisherText}}</span>
+							</li>
+					  </ul>
+		          </div>	
 			
-			</table>
-			
-			  <div class="tagSearches" style="margin-left:200px !important;"> 
-						<table width="100%">
-							<tr>
-								<td colspan='1'></td><td> <button id="searchBook" name="searchBook" type="button" onclick="performAjaxSearch();" style="width: 110px; height: 42px;" value="Search.." > 
-								<span class="glyphicon glyphicon-eye-open" style="padding-right:5px;" ></span>Search...
+			  <div class="tagSearches responsive" ng-controller="searchSubmitter"> 
+					
+							
+								<button id="searchBook" class="searchBook responsive" name="searchBook" type="button" 
+								 ng-disabled="titleText == '' && authorText == '' && publisherText == '' && langSelect.selectedOption.value == '' 
+											&& catSelect.selectedOption.value == '' && genreSelect.selectedOption.value == '' "  ng-click="performBookSearch();" value="Search.." > 
+								<span class="glyphicon glyphicon-eye-open" style="padding-right:0.5em;" ></span>Search...
 								</button>
-								<button id="resetSearch" class="resetSearch" style="width: 110px; height: 42px;" name="resetSearch" type="button" onclick="resetTheSearch();"  value="Reset" >
-										<span class="glyphicon glyphicon-erase" style="padding-right:5px;" ></span>Reset
-								</button>
-								</td>
-									
-	
-							</tr>
-						</table>
+								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" onclick="resetTheSearch();"  value="Reset" >
+										<span class="glyphicon glyphicon-erase" style="padding-right:0.5em;" ></span> Reset...
+								</button> 
+
+					
 					</div>		
 			<br/>
 
 			
 		</form:form>
 </div>	
-<div id="resultsSection" class="resultsSection">
+
+<div id="resultsSection" class="resultsSection responsive" >
 		<form:form id="searchResults" class="searchResults">
 		
-				<div id="search" class="search" style="display:none; width:1000px !important;">
-					<ul id="bookRevList" class="bookRevList" >				
-					</ul>
+			<div id="search" class="search" style="display:none; width:1000px !important;">
+				<ul id="bookRevList" class="bookRevList">				
+				</ul>
 			</div>
 		
 		</form:form>
@@ -146,6 +180,8 @@ var html = $(".bookRevList").html();
 <div class="facebookFooter" >
 	<div id="fb-root" ></div>
 <div class="fb-like" data-href="http://www.w3schools.com/" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+</div>
+
 </div>
 </body>
 </html>

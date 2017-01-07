@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>iFindit4U</groupId>
-  <artifactId>iFindit4U</artifactId>
+  <groupId>PersonnelTracker</groupId>
+  <artifactId>PersonnelTracker</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
   <build>
@@ -32,7 +32,7 @@
 				<configuration>
 					<filesets>
 						<fileset>
-							<directory>C:/Tomcat_8/webapps/iFindit4U</directory>
+							<directory>C:/Tomcat_8/webapps/PersonnelTracker</directory>
 							<includes>
 								<include>**/*</include>
 							</includes>
@@ -56,10 +56,10 @@
 						</goals>
 
 						<configuration>
-							<outputDirectory>C:/Tomcat_8/webapps/iFindit4U</outputDirectory>
+							<outputDirectory>C:/Tomcat_8/webapps/PersonnelTracker</outputDirectory>
 							<resources>
 								<resource>
-									<directory>target/iFindit4U</directory>
+									<directory>target/PersonnelTracker</directory>
 
 								</resource>
 							</resources>
@@ -75,7 +75,7 @@
 
 
 							<configuration>
-								<outputDirectory>C:/Tomcat_8/webapps/iFindit4U/WEB-INF/classes</outputDirectory>
+								<outputDirectory>C:/Tomcat_8/webapps/PersonnelTracker/WEB-INF/classes</outputDirectory>
 								<resources>
 									<resource>
 										<directory>resources</directory>
@@ -93,7 +93,7 @@
 			
 			
 		</plugins>
-			<finalName>iFindit4U</finalName>
+			<finalName>PersonnelTracker</finalName>
   </build>
   
   <dependencies>

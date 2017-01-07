@@ -35,8 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.srsp.config.ConfigHandler;
 import co.srsp.exceptions.IllegalFileUploadException;
-import co.srsp.service.BooksAndReviewsService;
-import co.srsp.viewmodel.BookReviewsModel;
+import co.srsp.viewmodel.EmployeeModel;
 
 @WebServlet(name = "AddBookUploadServlet", urlPatterns = {"/addNewBook"})
 @MultipartConfig
@@ -196,32 +195,32 @@ public class AddBookUploadServlet extends HttpServlet {
 			        
 			        log.info("creating book reviews model");
 					
-			        BooksAndReviewsService booksService = new BooksAndReviewsService();
+			       
 			        
 					log.info("creating book reviews model 1111");
-					
-					BookReviewsModel bookReviewsModel = new BookReviewsModel();
-					bookReviewsModel.setTitleText(request.getSession().getAttribute("bookTitleFound").toString());
-					bookReviewsModel.setAuthorText(request.getSession().getAttribute("bookAuthorFound").toString());
-					
-					if(request.getSession().getAttribute("bookPublisherFound") != null){
-						bookReviewsModel.setPublisherText(request.getSession().getAttribute("bookPublisherFound").toString());
-					}
-					
-					if(request.getSession().getAttribute("excerpt") != null){
-						bookReviewsModel.setExcerpt(request.getSession().getAttribute("excerpt").toString());
-					}
-					
-					if(request.getSession().getAttribute("thumbnailLocation") != null){
-						
-						String tempStr = request.getSession().getAttribute("thumbnailLocation").toString();
-						
-						String imageFileNameMinusDirPath = tempStr.substring(tempStr.lastIndexOf("/")+1);
-						
-						bookReviewsModel.setThumbnnalLocation(imageFileNameMinusDirPath);
-					}else{
-						bookReviewsModel.setThumbnnalLocation("noimage.jpg");
-					}
+//					
+//					EmployeeModel bookReviewsModel = new EmployeeModel();
+//					bookReviewsModel.setTitleText(request.getSession().getAttribute("bookTitleFound").toString());
+//					bookReviewsModel.setAuthorText(request.getSession().getAttribute("bookAuthorFound").toString());
+//					
+//					if(request.getSession().getAttribute("bookPublisherFound") != null){
+//						bookReviewsModel.setPublisherText(request.getSession().getAttribute("bookPublisherFound").toString());
+//					}
+//					
+//					if(request.getSession().getAttribute("excerpt") != null){
+//						bookReviewsModel.setExcerpt(request.getSession().getAttribute("excerpt").toString());
+//					}
+//					
+//					if(request.getSession().getAttribute("thumbnailLocation") != null){
+//						
+//						String tempStr = request.getSession().getAttribute("thumbnailLocation").toString();
+//						
+//						String imageFileNameMinusDirPath = tempStr.substring(tempStr.lastIndexOf("/")+1);
+//						
+//						bookReviewsModel.setThumbnnalLocation(imageFileNameMinusDirPath);
+//					}else{
+//						bookReviewsModel.setThumbnnalLocation("noimage.jpg");
+//					}
 					
 					
 					
@@ -242,7 +241,8 @@ public class AddBookUploadServlet extends HttpServlet {
 
 					log.info("creating book reviews model 3333");
 					
-					booksService.addBook(bookReviewsModel, tagsAndValueMap);
+					//TODO add employee with upload
+					//booksService.addBook(bookReviewsModel, tagsAndValueMap);
 				
 					log.info("creating book reviews model 4444");
 					

@@ -4,8 +4,8 @@
 	margin-left: 33%;
 	margin-top: 5%;
 	margin-bottom:2%;
-	background: #fff;	
-	background-color: #ededed;
+	background: #fff;
+	background-color: white;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border: 1px solid #000;
@@ -17,15 +17,25 @@
 	width: 100%;
 	min-width:100%;
 	margin-left:4em;
-	margin-top: -4em;
+
+}
+
+.signupBtnsDiv{
+	margin-bottom: 2.6%;
+}
+
+
+element{
+	margin-left: 0;
 }
 
 .usernameInput {
   padding: 5px;
-  border-right: none !important;
+  min-width:80%;
+  margin-left:0 !important;
   border: solid 1.5px #dcdcdc;
   transition: box-shadow 0.3s, border 0.3s;
-  border-radius: 7px 0px 0px 7px;
+  border-radius: 3px;
 }
 
 .userFields{
@@ -51,6 +61,47 @@
 	border-left: none;
 	border-radius: 0px 7px 7px 0px;
 }
+
+/* Style the list */
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+
+
 
 .loginButton{width:80%; margin-top:1em; margin-left:4em;}
 
@@ -83,7 +134,7 @@
 @media screen and (max-width:680px) {
 
   	div#loginFields.loginFields.responsive{margin-top: 0em;}
-   div.logoimg.responsive{display:none;} 
+   div.logoimg.responsive{display:none;}
 
  ul.topnav.responsive {position: relative; padding:0;}
   ul.topnav.responsive li.icon {
@@ -110,9 +161,3 @@
 @media screen and (max-width:420px){
 	 button.loginButton.responsive{margin-left:1em; width:93%;}
 }
-
-
-
-
-   
-

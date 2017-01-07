@@ -19,6 +19,10 @@ public interface SessionConstants {
 	public static String TITLE_TEXT = "title";
 	public static String PARTIAL_TEXT = "partialSearch";
 	public static String SESSION_TIMEOUT = "sessionTimeout";
+	public static String USER_PARAM = "username";
+	public static String PASS_PARAM = "password";
+	
+	public static String EMPLOYEE_SEARCH_STRING = "empSearchString";
 	
 	//public static String SEARCH_TYPE_TAG = "searchType";
 	public static String FIND_BY_BOOKS_BY_PUBLISHER_LAZY_LOAD = "findBooksByPublisherLazyLoad";

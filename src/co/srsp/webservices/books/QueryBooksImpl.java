@@ -3,9 +3,6 @@ package co.srsp.webservices.books;
 import java.util.List;
 
 import javax.jws.WebService;
-
-import co.srsp.hibernate.orm.Books;
-import co.srsp.service.BooksAndReviewsService;
 import co.srsp.webservices.books.model.BooksReviewsWSModel;
 
 @WebService(endpointInterface = "co.srsp.webservices.books.QueryBooks")
@@ -31,24 +28,24 @@ public class QueryBooksImpl implements QueryBooks {
 	
 	private BooksReviewsWSModel[] queryBooks(String title, String author){
 		
-		BooksAndReviewsService booksService = new BooksAndReviewsService();
-		List<Books> books = booksService.searchBooksByTitleAndOrAuthor(title, author);	
-		BooksReviewsWSModel[] returnModelArray = new BooksReviewsWSModel[books.size()];
-		BooksReviewsWSModel model = null;
+	//	BooksAndReviewsService booksService = new BooksAndReviewsService();
+	//	List<Books> books = booksService.searchBooksByTitleAndOrAuthor(title, author);	
+	//	BooksReviewsWSModel[] returnModelArray = new BooksReviewsWSModel[books.size()];
+	//	BooksReviewsWSModel model = null;
 		
 		int count = 0;
 		
-		for(Books book : books){
-			model = new BooksReviewsWSModel();
-			model.setAuthorText(book.getAuthor());
-			model.setTitleText(book.getTitle());
-			model.setPublisherText(book.getPublisher());
-			model.setBooksID(book.getIdbooks());
-			returnModelArray[count] = model;
-			count++;
-		}
+//		for(Books book : books){
+//			model = new BooksReviewsWSModel();
+//			model.setAuthorText(book.getAuthor());
+//			model.setTitleText(book.getTitle());
+//			model.setPublisherText(book.getPublisher());
+//			model.setBooksID(book.getIdbooks());
+//			returnModelArray[count] = model;
+//			count++;
+//		}
 		
-		return returnModelArray;
+		return  null; //returnModelArray;
 	}
 
 

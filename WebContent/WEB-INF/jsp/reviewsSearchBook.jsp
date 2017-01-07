@@ -46,7 +46,7 @@ var html = $(".bookRevList").html();
 		for (i = 0; i < acc.length; i++) {
 			acc[i].onclick = function(){
 				this.classList.toggle("active");
-				$('.search-box').toggle("hide");
+				this.nextElementSibling.classList.toggle("hide");
 				//this.nextElementSibling.nextElementSibling.classList.toggle("hide");
 			}
 		}
@@ -77,7 +77,7 @@ var html = $(".bookRevList").html();
 		<img width='300' height='150' src='./presentationResources/images/eyeball.png' style='position:absolute; margin-left: 56%; margin-top:3%' />
 	</div>
 
-	<div id="se" class="search-box responsive" >
+	<div class="search-box responsive" >
 
 		<c:if test="${not empty error}">
 			<div class="error alert alert-error">${error}</div>

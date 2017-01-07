@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2016 10:08:45 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="co.srsp.hibernate.orm.EmployeeSkillset" table="employee_skillset" catalog="personnel_tracker" optimistic-lock="version">
+        <id name="idemployeeSkillset" type="java.lang.Integer">
+            <column name="idemployee_skillset" />
+            <generator class="identity" />
+        </id>
+        <property name="skillsetName" type="string">
+            <column name="skillset_name" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="proficiency" type="string">
+            <column name="proficiency" length="45" not-null="true" />
+        </property>
+        <property name="currentPositionRelevance" type="string">
+            <column name="current_position_relevance" length="45" not-null="true" />
+        </property>
+        <property name="yearsExperience" type="java.lang.Integer">
+            <column name="years_experience" />
+        </property>
+        <set name="employeeToSkillsetRatingses" table="employee_to_skillset_ratings" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idemployee_skillset" />
+            </key>
+            <one-to-many class="co.srsp.hibernate.orm.EmployeeToSkillsetRatings" />
+        </set>
+    </class>
+</hibernate-mapping>

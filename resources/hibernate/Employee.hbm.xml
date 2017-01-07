@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2016 10:08:45 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="co.srsp.hibernate.orm.Employee" table="employee" catalog="personnel_tracker" optimistic-lock="version">
+        <id name="idemployee" type="java.lang.Integer">
+            <column name="idemployee" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="companyPositions" class="co.srsp.hibernate.orm.CompanyPositions" fetch="select">
+            <column name="idcompany_positions" not-null="true" />
+        </many-to-one>
+        <many-to-one name="orgDepartment" class="co.srsp.hibernate.orm.OrgDepartment" fetch="select">
+            <column name="idorg_department" not-null="true" />
+        </many-to-one>
+        <property name="employeeSurname" type="string">
+            <column name="employee_surname" length="45" not-null="true" />
+        </property>
+        <property name="employeeFirstName" type="string">
+            <column name="employee_first_name" length="45" not-null="true" />
+        </property>
+        <property name="employeeGivenNames" type="string">
+            <column name="employee_given_names" length="45" />
+        </property>
+        <property name="employeeAddress" type="string">
+            <column name="employee_address" length="45" />
+        </property>
+        <property name="employeeAge" type="string">
+            <column name="employee_age" length="45" not-null="true" />
+        </property>
+        <property name="employeeGender" type="string">
+            <column name="employee_gender" length="45" not-null="true" />
+        </property>
+        <property name="employeeMaritalStatus" type="string">
+            <column name="employee_marital_status" length="45" />
+        </property>
+        <property name="employeecol" type="string">
+            <column name="employeecol" length="45" not-null="true" />
+        </property>
+        <set name="employeeToSkillsetRatingses" table="employee_to_skillset_ratings" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idemployee" />
+            </key>
+            <one-to-many class="co.srsp.hibernate.orm.EmployeeToSkillsetRatings" />
+        </set>
+    </class>
+</hibernate-mapping>

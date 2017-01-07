@@ -20,7 +20,7 @@ public class ConfigHandler {
 
 	private final static Logger log = Logger.getLogger(ConfigHandler.class); 
 	
-	public static final String CONFIG_ROOT_DIR = "../webapps/iFindit4U/presentationResources/";
+	public static final String CONFIG_ROOT_DIR = "../webapps/PersonnelTracker/presentationResources/";
 	public static final String CONFIG_ROOT_DIR_UNIT_TEST = "./WebContent/presentationResources/";
 	
 	private static ConfigHandler instance = null;

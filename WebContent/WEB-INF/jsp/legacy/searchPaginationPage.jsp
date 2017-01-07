@@ -10,11 +10,11 @@
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap-custom.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/search.css">
 
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
-<script type="text/javascript" src="./presentationResources/js/reviews.js"></script>
-<script type="text/javascript" src="./presentationResources/js/reviews.js"></script>
+<script type="text/javascript" src="./presentationResources/js/jsCustomScript.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.jscroll.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.jscroll.min.js"></script>
 
@@ -43,16 +43,12 @@
 	<ul id="bookRevList2" class="bookRevList2" >				
 				
 				<c:if test="${not empty booksLists2}">
-
-					
 						<c:forEach var="listValue2" items="${booksLists2}">
-					
-						
-							<div> ${listValue2} &nbsp; <a style='font-style:italic !important;' href="<c:url value="reviewsReviewBook?titleAuthorText=${listValue2}" />"> Review this</a> </div>
+							<div class="searchSegment"> ${listValue2} </div>
 						</c:forEach>
 						
 					
-						</ul>
+		</ul>
 				 <div class="next"><a href="retrieveNextSearchSegment">next</a> </div>
 					
 			

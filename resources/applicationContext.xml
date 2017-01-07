@@ -13,7 +13,7 @@
 	
 	   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	      <property name="url" value="jdbc:mysql://localhost:3306/sakila"/>
+	      <property name="url" value="jdbc:mysql://localhost:3306/personnel_tracker"/>
 	      <property name="username" value="root"/>
 	      <property name="password" value="fdg78DSA78"/>
 	   </bean>
@@ -51,7 +51,7 @@
 	   </bean>
 	   
   	 	<bean id="transactionManagerHibernate" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		  <property name="sessionFactory" ref="bookReviewsHibernateSessionFactory" />
+		  <property name="sessionFactory" ref="employeeHibernateSessionFactory" />
 	    </bean>
    
   
@@ -60,9 +60,7 @@
 	    </bean>
    
    		<bean id="myAuthenticationSuccessHandler"  class="co.srsp.config.SimpleUrlAuthenticationSuccessHandler" />
- 
-    	<bean id="pushNotificationsController" class="co.srsp.controller.PushNotificationsController">  
-	    </bean>
+
  
  		<bean id="solrAndDbSearchController" class="co.srsp.controller.SolrAndDbSearchingPageController">  
 	    </bean>
@@ -80,8 +78,6 @@
 	    <bean id="testController" class="co.srsp.controller.TestController">  
 	    </bean>
 	    
-	    <bean id="feedsController" class="co.srsp.controller.FeedsController">  
-	    </bean>
 	    
 	      <bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 			<constructor-arg name="strength" value="11" />
@@ -91,31 +87,21 @@
    	
 	   
 	   <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
-	   		<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory" />
+	   		<property name="sessionFactory" ref="employeeHibernateSessionFactory" />
 	   </bean>
 	   
 	   <bean id="usersBusinessObject" class="co.srsp.hibernate.UsersBusinessObjectImpl">
-	   			<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory"></property>	
+	   			<property name="sessionFactory" ref="employeeHibernateSessionFactory"></property>	
 	   </bean>
 	   
 
 	    <bean id="authoritiesBusinessObject" class="co.srsp.hibernate.AuthoritiesBusinessObjectImpl">
-	   			<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory"></property>	
+	   			<property name="sessionFactory" ref="employeeHibernateSessionFactory"></property>	
 	   </bean>
 	   
-	    <bean id="booksBusinessObject" class="co.srsp.hibernate.BooksBusinessObjectImpl">
-	   			<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory"></property>	
-	   </bean>
-	    <bean id="booksReviewsBusinessObject" class="co.srsp.hibernate.BookReviewsBusinessObjectImpl">
-	   			<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory"></property>	
-	   </bean>
 	   
-	   <bean id="tagsBusinessObject" class="co.srsp.hibernate.TagsBusinessObjectImpl">
-	   			<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory"></property>	
-	   </bean>
-	   
-	     <bean id="notificationsBusinessObject" class="co.srsp.hibernate.NotificationsBusinessObjectImpl">
-	   			<property name="sessionFactory" ref="bookReviewsHibernateSessionFactory"></property>	
+	     <bean id="employeeBusinessObject" class="co.srsp.hibernate.EmployeeBusinessObjectImpl">
+	   			<property name="sessionFactory" ref="employeeHibernateSessionFactory"></property>	
 	   </bean>
 	   
 	   

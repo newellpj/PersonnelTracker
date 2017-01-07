@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2016 10:08:45 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="co.srsp.hibernate.orm.EmployeeToSkillsetRatings" table="employee_to_skillset_ratings" catalog="personnel_tracker" optimistic-lock="version">
+        <id name="idemployeeToSkillsetRatings" type="java.lang.Integer">
+            <column name="idemployee_to_skillset_ratings" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="employee" class="co.srsp.hibernate.orm.Employee" fetch="select">
+            <column name="idemployee" />
+        </many-to-one>
+        <many-to-one name="employeeSkillset" class="co.srsp.hibernate.orm.EmployeeSkillset" fetch="select">
+            <column name="idemployee_skillset" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

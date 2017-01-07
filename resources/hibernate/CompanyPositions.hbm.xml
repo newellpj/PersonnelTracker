@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2016 10:08:45 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="co.srsp.hibernate.orm.CompanyPositions" table="company_positions" catalog="personnel_tracker" optimistic-lock="version">
+        <id name="idcompanyPositions" type="java.lang.Integer">
+            <column name="idcompany_positions" />
+            <generator class="identity" />
+        </id>
+        <property name="positionName" type="string">
+            <column name="position_name" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="positionImportance" type="string">
+            <column name="position_importance" length="45" not-null="true" />
+        </property>
+        <property name="fromDate" type="date">
+            <column name="from_date" length="10" not-null="true" />
+        </property>
+        <property name="toDate" type="date">
+            <column name="to_date" length="10" />
+        </property>
+        <set name="employees" table="employee" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idcompany_positions" not-null="true" />
+            </key>
+            <one-to-many class="co.srsp.hibernate.orm.Employee" />
+        </set>
+    </class>
+</hibernate-mapping>

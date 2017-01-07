@@ -16,7 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import co.srsp.constants.SessionConstants;
+import co.srsp.service.UsersRolesAuthoritiesService;
 
 @Controller
 public class LoginController implements AuthenticationSuccessHandler, AuthenticationFailureHandler{
@@ -31,7 +35,7 @@ public class LoginController implements AuthenticationSuccessHandler, Authentica
 		log.info("login code");
 		
 		ModelAndView model = new ModelAndView();		
-		model.setViewName("login");
+		model.setViewName("landing");
 		return model;
 
 	}
@@ -57,7 +61,31 @@ public class LoginController implements AuthenticationSuccessHandler, Authentica
 		return model;
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET) 
+	
+	@RequestMapping(value = { "/signup"}, method = RequestMethod.GET)
+	public @ResponseBody String signupUser(HttpServletRequest request, HttpServletResponse response){
+		String pass = request.getParameter(SessionConstants.PASS_PARAM);
+		String user = request.getParameter(SessionConstants.USER_PARAM);
+		
+		UsersRolesAuthoritiesService userService = new UsersRolesAuthoritiesService();		
+		ModelAndView modelAndView = new ModelAndView();
+		boolean userAvailable = userService.isUsernameAvailable(user);
+		
+		String responseMessage = "";
+		
+		if(!userAvailable){
+			responseMessage = "User name "+user+" is not available please try another";
+		}else{
+			userService.addUser(user, pass);
+			responseMessage = "Congratulations now please sign in";
+		}
+		
+		return responseMessage;
+	}
+
+	
+	
+	@RequestMapping(value = "/landing", method = RequestMethod.GET) 
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		//request.getSession(true);
@@ -71,9 +99,9 @@ public class LoginController implements AuthenticationSuccessHandler, Authentica
 		if (error != null) {
 			System.out.println("error != null : "+error);
 			model.addObject("error", "Incorrect username and password!");
-			model.setViewName("login");	
+			model.setViewName("landing");	
 		}else{
-			model.setViewName("login");
+			model.setViewName("landing");
 			log.info("ELSE!!!!!!");
 			//response.sendRedirect("login");
 		}
@@ -94,7 +122,7 @@ public class LoginController implements AuthenticationSuccessHandler, Authentica
 	public void onAuthenticationSuccess(HttpServletRequest arg0, HttpServletResponse response, Authentication arg2)
 			throws IOException, ServletException {
 		log.info("onAuthenticationSuccess");
-		response.sendRedirect("reviews");
+		response.sendRedirect("trackerHome");
 	}
 
 	public String getDefaultTargetUrl() {

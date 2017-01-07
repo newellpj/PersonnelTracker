@@ -62,7 +62,7 @@ public class SimpleUrlAuthenticationSuccessHandler implements AuthenticationSucc
         }
  
         if (isUser) {
-            return "/reviews";
+            return "/trackerHome";
         } else if (isAdmin) {
             return "/signup";
         } else {

@@ -7,14 +7,14 @@
 <html>
 <head>
 
-<link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.dfsdfdscss">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap-custom.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/reviewBook.css">
 
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
-<script type="text/javascript" src="./presentationResources/js/reviews.js"></script>
-<script type="text/javascript" src="./presentationResources/js/reviews.js"></script>
+<script type="text/javascript" src="./presentationResources/js/jsCustomScript.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.jscroll.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.jscroll.min.js"></script>
 
@@ -44,7 +44,7 @@
 				
 					<ul id="bookRevList">
 						<c:forEach var="listValue2" items="${reviewLists2}">
-							<li>${listValue2}</li>
+							<li><div class="reviewSegment">${listValue2}</div></li>
 						</c:forEach>
 					</ul>
 					

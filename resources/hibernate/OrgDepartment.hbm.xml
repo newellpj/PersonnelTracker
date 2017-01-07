@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24/12/2016 10:08:45 AM by Hibernate Tools 5.1.0.Alpha1 -->
+<hibernate-mapping>
+    <class name="co.srsp.hibernate.orm.OrgDepartment" table="org_department" catalog="personnel_tracker" optimistic-lock="version">
+        <id name="idorgDepartment" type="java.lang.Integer">
+            <column name="idorg_department" />
+            <generator class="identity" />
+        </id>
+        <property name="deptName" type="string">
+            <column name="dept_name" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="location" type="string">
+            <column name="location" length="45" />
+        </property>
+        <set name="employees" table="employee" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idorg_department" not-null="true" />
+            </key>
+            <one-to-many class="co.srsp.hibernate.orm.Employee" />
+        </set>
+    </class>
+</hibernate-mapping>
