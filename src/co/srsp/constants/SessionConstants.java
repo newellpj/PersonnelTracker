@@ -21,6 +21,8 @@ public interface SessionConstants {
 	public static String SESSION_TIMEOUT = "sessionTimeout";
 	public static String USER_PARAM = "username";
 	public static String PASS_PARAM = "password";
+	public static String FAIL = "FAILURE";
+	public static String SUCCESS = "SUCCESS";
 	
 	public static String EMPLOYEE_SEARCH_STRING = "empSearchString";
 	

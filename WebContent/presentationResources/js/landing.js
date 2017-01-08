@@ -9,9 +9,8 @@
 
 							<div id="loginFields" class="loginFields responsive">
 
-
 									<div id="usersSignup" class="userFields responsive">
-
+                    <label id="errorLabel" class="errorLabel" ></label>
 										<input class="usernameInput responsive" type='text' name='username' ng-model="$signupController.username"
 										    placeholder="Choose username" style="width:60%;">
 									 </div>
@@ -32,8 +31,9 @@
 									`,
 		  controller: function($scope, $http, $log){
 				var $signupController = this;
-        $scope.disableSignupBtn = true;
 
+        $scope.disableSignupBtn = true;
+        $signupController.statusMsg = "sdfdsfds";
         $signupController.username = '';
 				$signupController.password = '';
 
@@ -43,7 +43,6 @@
 				$scope.$watch('$signupController.username', function(newVal, oldVal, scope) {
 
 								 if(undefined != newVal){
-											$log.info('hefhdskfhdkdsfhds,lfh');
 									 		$signupController.username = newVal;
 								 }
 
@@ -60,7 +59,6 @@
 				$scope.$watch('$signupController.password', function(newVal, oldVal, scope) {
 
 						if(undefined != newVal){
-						 		$log.info('2222 hefhdskfhdkdsfhds,lfh');
 								$signupController.password = newVal;
 						}
               	$log.info(' 222 user : '+$signupController.username+' pass : '+$signupController.password);
@@ -74,7 +72,22 @@
 
 
 		  $scope.submitUserDetails = function(){
-              $log.info('we here 222222?!?!?');
+
+						$log.info('we here 222222?!?!?');
+
+						var dlg = $("<div></div>").dialog({
+							hide: 'fade',
+							maxWidth: 600,
+							modal: true,
+							show: 'fade',
+							title: 'Sign up',
+							width: ( ('__proto__' in {}) ? '600' : 600 )
+						});
+
+						$(dlg).parent().find('button').remove();
+						$(dlg).html("<div class='ajax-loader-2 help-inline pull-right'></div><div><p>Checking chosen credentials </p></div>");
+						$(dlg).dialog("open");
+
 		        $http({
 		            url : 'signup',
 		            method : 'GET',
@@ -86,15 +99,30 @@
 		            }
 		        }).success(function(successErrorCode){
 
+                $(dlg).dialog("close");
+		          $log.info("we are here : "+successErrorCode[0]);
+              //the get can return successfully even though the signup failed due to username already existing
+							var statusCode = successErrorCode[0];
 
-		          $log.info("we are here : "+successErrorCode);
+							if(statusCode == 'FAILURE'){
+								  $log.info('failure hsdfdsh : '+$signupController.statusMsg);
+								  $('.errorLabel').css('display', 'block');
+									$('.errorLabel').css('color', 'red');
+							}else{
 
-		          $log.info("index of ::: "+bookReviewsModelArray.indexOf("html"));
+									$('.errorLabel').css('display', 'block');
+									$('.errorLabel').css('color', 'black');
+									$('input.usernameInput.responsive').val($signupController.username);
+							}
+
+              $('.errorLabel').html(successErrorCode[1]);
+
+		          $log.info("index of ::: "+successErrorCode.indexOf("html"));
 		          $(dlg).dialog("close");
 
 
 		        }).error(function(data, status){
-		          $log.error("we errored here");
+		          $log.error("we errored here : "+data[0]);
 
 		          $(dlg).dialog("close");
 
@@ -139,8 +167,10 @@
 		  }
 		})
 
-
 })(angular);
+
+
+
 
 function openTab(evt, tabName) {
     // Declare all variables

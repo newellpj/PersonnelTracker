@@ -30,10 +30,42 @@ div{
     font-family: 'Roboto Condensed',sans-serif !important;
 }
 
+
+
+.ui-dialog{
+ background-color:#ebebeb !important;
+ box-shadow: 10px 10px 5px #888888 !important;
+ border: 1px solid #c3c3c3;
+ font-weight: normal;
+ max-width:20%;
+ border-radius: 3px;
+
+}
+
+.ui-dialog-title{
+    margin-left: 24px !important;
+}
+
+.ui-widget-header,.ui-state-default, ui-button{
+  		background: #c3c3c3;
+  		border: 1px solid #c3c3c3;
+  		color: black;
+  		font-weight: normal;
+  		text-shadow: 1px 1px 1px #a8a8a8 !important;
+      border-radius: 3px;
+	 }
+
+.ajax-loader-2{
+	width: 3em;
+	height: 3em;
+  margin-right:2rem;
+  margin-top:1rem;
+	background-image:url(../images/ajax-loader-2.gif)
+}
+
 .selected {
   background-color: #CFD8DC !important;
   color: white;
-
 }
 
 .addEmpName{
@@ -202,7 +234,7 @@ button:hover {
   background-color: #929fad;
 }
 
-button:disabled { 
+button:disabled {
   background-color: #d3d8de;
   color: #ccc;
   cursor: auto;

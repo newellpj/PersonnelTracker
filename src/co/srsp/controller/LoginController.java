@@ -63,21 +63,26 @@ public class LoginController implements AuthenticationSuccessHandler, Authentica
 	
 	
 	@RequestMapping(value = { "/signup"}, method = RequestMethod.GET)
-	public @ResponseBody String signupUser(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody String[] signupUser(HttpServletRequest request, HttpServletResponse response){
 		String pass = request.getParameter(SessionConstants.PASS_PARAM);
 		String user = request.getParameter(SessionConstants.USER_PARAM);
 		
+		log.info("password found ::: "+pass);
+		log.info("user found ::: "+user);
+		
 		UsersRolesAuthoritiesService userService = new UsersRolesAuthoritiesService();		
-		ModelAndView modelAndView = new ModelAndView();
+	
 		boolean userAvailable = userService.isUsernameAvailable(user);
 		
-		String responseMessage = "";
+		String[] responseMessage = new String[2];
 		
 		if(!userAvailable){
-			responseMessage = "User name "+user+" is not available please try another";
+			responseMessage[0] = SessionConstants.FAIL;
+			responseMessage[1] = "User name "+user+" is not available please try another";
 		}else{
 			userService.addUser(user, pass);
-			responseMessage = "Congratulations now please sign in";
+			responseMessage[0] = SessionConstants.SUCCESS;
+			responseMessage[1] = "Congratulations now please sign in";
 		}
 		
 		return responseMessage;

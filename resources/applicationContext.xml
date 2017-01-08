@@ -21,18 +21,19 @@
 
   
 	   
-	   <bean id="bookReviewsHibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	   <bean id="employeeHibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 	   		<property name="dataSource" ref="dataSource" />
 	   		<property name="packagesToScan" value="co.srsp.hibernate"/>
 	   		<property name="mappingResources">
 	   			<list>
 	   				<value>hibernate/Users.hbm.xml</value>
 	   				<value>hibernate/Authorities.hbm.xml</value>
-	   				<value>hibernate/Books.hbm.xml</value>
-	   				<value>hibernate/BookReviews.hbm.xml</value>
-	   				<value>hibernate/BookTags.hbm.xml</value>
-	   				<value>hibernate/NotificationSubscription.hbm.xml</value>
-	   				<value>hibernate/TagTypes.hbm.xml</value>
+					<value>hibernate/Employee.hbm.xml</value>
+					<value>hibernate/EmployeeSkillset.hbm.xml</value>
+					<value>hibernate/EmployeeToSkillsetRatings.hbm.xml</value>
+					<value>hibernate/CompanyPositions.hbm.xml</value>
+					<value>hibernate/OrgDepartment.hbm.xml</value>
+					
 	   			</list>
 	   		</property>
 	   		<property name="hibernateProperties">
@@ -56,7 +57,7 @@
    
   
 		<bean id="loginController" class="co.srsp.controller.LoginController">  
-		    <property name="defaultTargetUrl" value="/reviews" />
+		    <property name="defaultTargetUrl" value="/trackerHome" />
 	    </bean>
    
    		<bean id="myAuthenticationSuccessHandler"  class="co.srsp.config.SimpleUrlAuthenticationSuccessHandler" />

@@ -74,7 +74,7 @@
 
 
 <ul class="tab">
-  <li><a href="javascript:void(0)" class="tablinks detaultTab" onclick="openTab(event, 'loginTab')" id="openByDefault"  >Login</a></li>
+  <li><a href="javascript:void(0)" class="tablinks defaultTab" onclick="openTab(event, 'loginTab')" id="openByDefault"  >Login</a></li>
   <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'signupTab')">Signup</a></li>
 
 </ul>

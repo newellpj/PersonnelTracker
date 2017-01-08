@@ -15,9 +15,18 @@
 
 .loginFields{
 	width: 100%;
+	margin-top:2%;
 	min-width:100%;
 	margin-left:4em;
 
+}
+
+.errorLabel{
+   color:red;
+	 display: none;
+	 padding: 5px;
+   min-width:80%;
+   margin-left:0 !important;
 }
 
 .signupBtnsDiv{
@@ -50,6 +59,31 @@ element{
 	min-width:100%;
 	float:right;
 	margin-left:4em;
+}
+
+ul.usernamesSearchPossibles li span:hover{
+	z-index: 10;
+	margin-left:-1em !important;
+	padding-left:1em;
+	cursor:pointer;
+	border-radius:10px;
+	padding-right:3em;
+	background: linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
+	background: -moz-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
+	background: -webkit-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
+}
+
+ul.usernamesSearchPossibles{
+	z-index: 10;
+	position:absolute;
+	min-width:10%;
+	background-color:white;
+	list-style-type:none;
+	text-shadow: none;
+	padding-right:1em;
+	border: solid 1.5px #dcdcdc;
+	box-shadow: 10px 10px 5px #888888;
+    -webkit-padding-start: 10px;
 }
 
  .iconspanLogin {
