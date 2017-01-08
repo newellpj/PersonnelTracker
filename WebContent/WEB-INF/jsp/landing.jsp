@@ -41,12 +41,12 @@
 				 acc[0].onclick = function(){
             var cssString = $('.login-box').css('transform');
             console.log('css string : '+cssString);
-					  if(cssString.includes('0.4')){
+					  if(cssString.includes('0.7')){
 							  $('.login-box').css("transform", "scale(1.0)");
 								$('.login-box').css("margin-top", "1%");
 						}else{
-							  $('.login-box').css("transform", "scale(0.4)");
-								$('.login-box').css("margin-top", "-5%");
+							  $('.login-box').css("transform", "scale(0.7)");
+								$('.login-box').css("margin-top", "-2%");
 						}
 
          }
