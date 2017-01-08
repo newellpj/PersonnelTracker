@@ -2,12 +2,12 @@
 <%@page session="true"%>
 <html  ng-app="loginSignupApp" >
 <head>
-<link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
+
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap-custom.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/font-awesome.css">
-
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
@@ -35,6 +35,28 @@
 
 	 $(document).ready(function(){
 				 document.getElementById("openByDefault").click();
+				 var acc = document.getElementsByClassName("accordion");
+
+				 var i;
+				 acc[0].onclick = function(){
+            var cssString = $('.login-box').css('transform');
+            console.log('css string : '+cssString);
+					  if(cssString.includes('0.4')){
+							  $('.login-box').css("transform", "scale(1.0)");
+								$('.login-box').css("margin-top", "1%");
+						}else{
+							  $('.login-box').css("transform", "scale(0.4)");
+								$('.login-box').css("margin-top", "-5%");
+						}
+
+         }
+					// 	for (i = 0; i < acc.length; i++) {
+					// 		acc[i].onclick = function(){
+					// 			this.classList.toggle("active");
+					// 			this.nextElementSibling.classList.toggle("hide");
+					// 			//this.nextElementSibling.nextElementSibling.classList.toggle("hide");
+					// 		}
+					// 	}
     });
 
 
@@ -53,7 +75,7 @@
 <body background="./presentationResources/images/bgimg.jpg">
 
 
-
+<button id="accordp" class="accordion responsive">  &nbsp;&nbsp;&nbsp; Click here to signup or login </button>
 	<div id="login-box" class="login-box responsive">
 
 

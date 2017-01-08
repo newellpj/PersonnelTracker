@@ -30,7 +30,38 @@ div{
     font-family: 'Roboto Condensed',sans-serif !important;
 }
 
+.accordion {
+    background: rgba(0,0,0, 0.0) !important;
+    color: #444;
+    cursor: pointer;
+    padding: 1em;
+    font-size:2rem;
+    width: 40%;
+    text-align: left;
+    border: none;
+	  margin-left: 30% !important;
+    outline: none;
+    transition: 0.7s;
+}
+.accordion:before {
+  content: "\2630";
 
+}
+
+.accordion.active:before {
+  content: "\2630";
+
+}
+
+.accordion:after {
+    content: "\2796"; /* Unicode character for "plus" sign (+) */
+    float: right;
+    margin-left: 5px;
+}
+
+.accordion.active:after {
+    content: '\02795'; /* Unicode character for "minus" sign (-) */
+}
 
 .ui-dialog{
  background-color:#ebebeb !important;
