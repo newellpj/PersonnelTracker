@@ -9,13 +9,18 @@
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
+
+<link rel="shortcut icon" href="./presentationResources/images/favicon.ico" type="image/x-icon"> 
+
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="./presentationResources/js/angular.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landing.js"></script>
+<script type="text/javascript" src="./presentationResources/js/landingWelcome.js"></script>
+<script type="text/javascript" src="./presentationResources/js/landingApp.js"></script>
+<script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script>
 
-
-<title>Login Page</title>
+<title>360 Personnel Tracker</title>
 <style>
 
 
@@ -28,112 +33,41 @@
 
 		var href = self.location.href;
 
-		//alert("href is : "+href);
-
 	    top.location = self.location.href;
 	 }
 
 	 $(document).ready(function(){
-				 document.getElementById("openByDefault").click();
-				 var acc = document.getElementsByClassName("accordion");
 
-				 var i;
-				 acc[0].onclick = function(){
-            var cssString = $('.login-box').css('transform');
-            console.log('css string : '+cssString);
-					  if(cssString.includes('0.7')){
-							  $('.login-box').css("transform", "scale(1.0)");
-								$('.login-box').css("margin-top", "1%");
-						}else{
-							  $('.login-box').css("transform", "scale(0.7)");
-								$('.login-box').css("margin-top", "-2%");
-						}
-
-         }
-					// 	for (i = 0; i < acc.length; i++) {
-					// 		acc[i].onclick = function(){
-					// 			this.classList.toggle("active");
-					// 			this.nextElementSibling.classList.toggle("hide");
-					// 			//this.nextElementSibling.nextElementSibling.classList.toggle("hide");
-					// 		}
-					// 	}
     });
-
-
-
-	// window.addEventListener('beforeinstallprompt', function(e) {
-	//	  console.log('beforeinstallprompt Event fired');
-	//	  e.preventDefault();
-	//	  return false;
-	//	});
-
 
 
 </script>
 
 </head>
-<body background="./presentationResources/images/bgimg.jpg">
+<body>
 
 
-<button id="accordp" class="accordion responsive">  &nbsp;&nbsp;&nbsp; Click here to signup or login </button>
-	<div id="login-box" class="login-box responsive">
-
-
-		<div  style= "display:none;" class="logoimg responsive"><img  width='560' height='430' src='./presentationResources/images/paperandglassFoldedCoffeeStain2.png'/></div>
-
-
-
-		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty message}">
-			<div class="message">${message}</div>
-		</c:if>
-			<br/><br/>
-
-
-						<p>Not Registered? Click Sign up tab otherwise login below</p>
+	<div id="main-box" class="main-box responsive">
 
 
 <ul class="tab">
-  <li><a href="javascript:void(0)" class="tablinks defaultTab" onclick="openTab(event, 'loginTab')" id="openByDefault"  >Login</a></li>
-  <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'signupTab')">Signup</a></li>
-
+  <li><a href="javascript:void(0)" class="tablinks defaultTab" onclick="openTab(event, 'welcomeTab')" id="openByDefault"  >Welcome</a></li>
+  <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'appTab')">The App</a></li>
+  <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'aboutTab')">About Us</a></li>
 </ul>
 
 
 
 
-<div id="loginTab" class="tabcontent">
-		<form
-			action="<c:url value='/j_spring_security_check' />" method='POST'>
-
-			<div id="loginFields" class="loginFields responsive">
-
-
-				<div id="users" class="userFields responsive">
-
-					<input class="usernameInput responsive" type='text' name='username'
-					    placeholder="Username" style="width:60%;">
-				 </div>
-				<div id="pass"  class="passFields responsive">
-					<input class="usernameInput responsive"
-					placeholder="Password" type='password' name='password'
-					           style="width:60%; margin-left:0.3em;"/>
-				</div>
-
-
-			</div>
-			<div >
-		<button name="submit" type="submit" class="loginButton responsive" value="Login" >
-			<span class="glyphicon glyphicon-log-in"></span> &nbsp; Login </button>
-			</div>
-		</form>
+<div id="welcomeTab" class="tabcontent">
+    <welcome-page></welcome-page>
 </div>
-<div id="signupTab" class="tabcontent">
-    <signup-form></signup-form>
+<div id="appTab" class="tabcontent">
+    <app-form></app-form>
 </div>
-
+<div id="aboutTab" class="tabcontent">
+    <about-form></about-form>
+</div>
 
 
 		<!--

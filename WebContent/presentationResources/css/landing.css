@@ -1,29 +1,45 @@
-.login-box {
-	width: 30%;
+.main-box {
+	width: 70%;
 	padding: 10px;
-	margin-left: 26%;
+	margin-left: 16%;
 	/*margin-top: 1%;*/
-	margin-top:-2%;
+	 margin-top:2%;
 	margin-bottom:2%;
-	background: #fff;
-	background-color: white;
+	/*background: #fff; 	background-color: white; */
+	  background-color: rgba(255, 255, 255, 0.5);
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border: 1px solid #000;
 	border-radius: 10px 10px 10px 10px;
-	box-shadow: 10px 10px 5px #888888;
-	transform: scale(0.7);
+	/*box-shadow: 10px 10px 5px #888888; */
+	transform: scale(1.0);
 	-webkit-transition: all 300ms 0ms ease-in-out;
 	 transition: all 300ms 0ms ease-in-out;
 }
 
-.loginFields{
+
+
+.welcomeTab{
 	width: 100%;
-	margin-top:2%;
+
 	min-width:100%;
 	margin-left:4em;
 
 }
+
+hiddenH1{
+
+}
+
+
+body {
+    background: url("../images/hr2b.jpg") no-repeat !important;
+    background-position: center top;
+		background-size: auto;
+		background-repeat: no-repeat;
+		background-attachment: scroll;
+}
+
 
 .errorLabel{
    color:red;
@@ -37,38 +53,7 @@
 	margin-bottom: 2.6%;
 }
 
-.accordion {
-    background: rgba(0,0,0, 0.0) !important;
-    color: #444;
-    cursor: pointer;
-    padding: 1em;
-    font-size:1em;
-    width: 20%;
-    text-align: left;
-    border: none;
-	  margin-left: 30% !important;
-    outline: none;
-    transition: 0.7s;
-}
-.accordion:before {
-  content: "\2630";
 
-}
-
-.accordion.active:before {
-  content: "\2630";
-
-}
-
-.accordion:after {
-    content: "\2796"; /* Unicode character for "plus" sign (+) */
-    float: right;
-    margin-left: 5px;
-}
-
-.accordion.active:after {
-    content: '\02795'; /* Unicode character for "minus" sign (-) */
-}
 
 
 element{
@@ -139,8 +124,8 @@ ul.tab {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+     background-color: rgba(241, 241, 241, 0.5) !important;
+    /*background-color: #f1f1f1;*/
 }
 
 /* Float the list items side by side */
@@ -167,7 +152,8 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+
+  /*  border: 1px solid #ccc;*/
     border-top: none;
 }
 
