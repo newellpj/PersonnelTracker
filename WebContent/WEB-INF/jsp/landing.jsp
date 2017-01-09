@@ -9,18 +9,23 @@
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/jquery.bxslider.css">
 
-<link rel="shortcut icon" href="./presentationResources/images/favicon.ico" type="image/x-icon"> 
+<link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
+<!-- <link rel="shortcut icon" href="./presentationResources/images/favicon.ico" type="image/x-icon"> -->
 
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="./presentationResources/js/angular.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landing.js"></script>
-<script type="text/javascript" src="./presentationResources/js/landingWelcome.js"></script>
+<script type="text/javascript" src="./presentationResources/js/jquery.bxslider.min.js"></script>
+<!--<script type="text/javascript" src="./presentationResources/js/landingWelcome.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landingApp.js"></script>
-<script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script>
+<script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script> -->
 
-<title>360 Personnel Tracker</title>
+<title>Personnel Tracker 360</title>
 <style>
 
 
@@ -38,6 +43,10 @@
 
 	 $(document).ready(function(){
 
+					 document.getElementById("openByDefault").click();
+					 $('.bxslider').bxSlider({
+							captions: true
+					 });
     });
 
 
@@ -49,7 +58,7 @@
 
 	<div id="main-box" class="main-box responsive">
 
-
+<h1 class="pageHeaderLogo"> Personnel Tracker <span>360</span> </h1>
 <ul class="tab">
   <li><a href="javascript:void(0)" class="tablinks defaultTab" onclick="openTab(event, 'welcomeTab')" id="openByDefault"  >Welcome</a></li>
   <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'appTab')">The App</a></li>

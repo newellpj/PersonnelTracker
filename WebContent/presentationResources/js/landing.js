@@ -7,23 +7,38 @@
 		.component('welcomePage', {
 				  template: `
 							<div id="welcomeTab" class="welcomeTab responsive">
-									<div id="usersSignup" class="userFields responsive">
-                    <label id="errorLabel" class="errorLabel" ></label>
-										<input class="usernameInput responsive" type='text' name='username' ng-model="$signupController.username"
-										    placeholder="Choose username" style="width:60%;">
-									 </div>
-									<div id="passSignup"  class="passFields responsive">
-										<input class="usernameInput responsive"
-										placeholder="Choose password" type='password' name='password' ng-model="$signupController.password"
-										           style="width:60%; margin-left:0.3em;"/>
-									</div>
-
-
+							  <div class="mainSpiel responsive">
+								    <h2>Personnel Tracker 360 empowers organisations to accurately track all aspects of employee
+										management - from personal details through to skillset to current role matching and performance reporting.</h2>
 								</div>
-								<div class="signupBtnsDiv">
-							<button class="loginButton responsive" value="Signup" ng-click="submitUserDetails()" ng-disabled="disableSignupBtn">
-								<span class="glyphicon glyphicon-log-in"></span> &nbsp; Signup </button>
-								</div>
+
+									<section class="performanceTracking responsive">
+									   <div class="sectionContent responsive">Track your employee performance with weighted skillset to current role matching. Indicates which skill
+										 set deficiences need to be addressed most in order of priority in context of the employees current role within the organisation.
+										  </div>
+									</section>
+	                <section class="personalDetails responsive">
+											<div class="sectionContent responsive">Store and easily access your employees personal details as well as maintaining the option to
+											grant them access to change their personal and payroll and other administrative details
+											 </div>
+									</section>
+									<section class="orgGoalsMatching responsive">
+											<div class="sectionContent responsive">Enter and prioritise organisation goals. Then match employees with organisational goals. Additionally
+											   rank employees in terms of which employee best achieves organisation goals based on current performance rankings.
+											 </div>
+									</section>
+
+									<ul id="suggestedSlider" class="bxslider">
+										<li><img src="./presentationResources/images/pic1.jpg" width="500" title="Test picture caption 1" /></li>
+										<li><img src="./presentationResources/images/pic2.jpg" width="500" title="Test picture caption 2" /></li>
+										<li><img src="./presentationResources/images/pic3.jpg" width="500" title="Test picture caption 3" /></li>
+										<li><img src="./presentationResources/images/pic4.jpg" width="500" title="Test picture caption 4" /></li>
+										<li><img src="./presentationResources/images/pic5.jpg" width="500" title="Test picture caption 5" /></li>
+										<li><img src="./presentationResources/images/pic6.jpg" width="500" title="Test picture caption 6" /></li>
+										<li><img src="./presentationResources/images/pic7.jpg" width="500" title="Test picture caption 7" /></li>
+										<li><img src="./presentationResources/images/pic8.jpg" width="500" title="Test picture caption 8" /></li>
+									</ul>
+
 
 						</div>
 									`,
