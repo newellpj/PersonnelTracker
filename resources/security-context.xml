@@ -12,7 +12,7 @@
    <security:http auto-config="true" use-expressions="true" create-session="always">
     <security:intercept-url pattern="/landing" access="permitAll" />
     <security:intercept-url pattern="/compTest" access="permitAll" />
-    <security:intercept-url pattern="/signup" access="permitAll" /> 
+    <security:intercept-url pattern="/loginSignup" access="permitAll" /> 
 	 <security:intercept-url pattern="/addAdmin" access="hasRole('ROLE_ADMIN')" />
 	 <security:intercept-url pattern="/trackerHome" access="hasRole('ROLE_USER')" />
 	 <security:intercept-url pattern="/reviewsSearchBook" access="hasRole('ROLE_USER')" />

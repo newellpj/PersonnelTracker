@@ -39,6 +39,16 @@ public class LoginController implements AuthenticationSuccessHandler, Authentica
 		return model;
 
 	}
+	
+	@RequestMapping(value = { "/loginSignup"}, method = RequestMethod.GET)
+	public ModelAndView loginSignup() {
+		log.info("login code");
+		
+		ModelAndView model = new ModelAndView();		
+		model.setViewName("loginSignup");
+		return model;
+
+	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
