@@ -20,9 +20,34 @@
 	 transition: all 300ms 0ms ease-in-out;
 }
 
-.bx-viewport{
-	  max-width: 70% ;
+/*
+.bx-wrapper{
+		margin-left:55% !important;
 }
+
+.bx-wrapper .bx-next{
+	position:fixed !important;
+	  right:10% !important;
+		top: 40% !important;
+}
+
+.bx-wrapper .bx-prev{
+		position:fixed !important;
+	  left:40% !important;
+		top: 40% !important;
+}
+*/
+
+.carouselSection{
+   max-width:50%;
+	 margin-left: 40%;
+	 margin-top: -30%;
+}
+
+/*.bx-viewport{
+	max-width: 50% ;
+	margin-left:55%
+}*/
 
 .bxslider li{
 	max-height: auto !important;
@@ -70,11 +95,12 @@ section.orgGoalsMatching{
 }
 
 .pageHeaderLogo{
-	  font-family: 'Lobster', cursive;
-		/* font-family: 'Open Sans Condensed', sans-serif; */
-		/* font-family: 'Playfair Display', serif;*/
+	/*font-family: 'Lobster', cursive; */
+	/*	 font-family: 'Open Sans Condensed', sans-serif; */
+		font-family: 'Playfair Display', serif;
 		font-weight: bold;
-		width:23%;
+		font-style: normal;
+		width:33%;
 		font-size:3rem;
 		color: #514c4c;
 		margin-bottom: 1%;
@@ -106,7 +132,7 @@ section.orgGoalsMatching{
 }
 
 .spacerForWelcomeTab{
-	margin-bottom: 6%;
+		margin-bottom: 6%;
 }
 
 hiddenH1{

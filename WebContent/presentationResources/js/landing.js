@@ -27,17 +27,18 @@
 											   rank employees in terms of which employee best achieves organisation goals based on current performance rankings.
 											 </div>
 									</section>
-
-									<ul id="suggestedSlider" class="bxslider">
-										<li><img src="./presentationResources/images/pic1.jpg" width="500" title="Test picture caption 1" /></li>
-										<li><img src="./presentationResources/images/pic2.jpg" width="500" title="Test picture caption 2" /></li>
-										<li><img src="./presentationResources/images/pic3.jpg" width="500" title="Test picture caption 3" /></li>
-										<li><img src="./presentationResources/images/pic4.jpg" width="500" title="Test picture caption 4" /></li>
-										<li><img src="./presentationResources/images/pic5.jpg" width="500" title="Test picture caption 5" /></li>
-										<li><img src="./presentationResources/images/pic6.jpg" width="500" title="Test picture caption 6" /></li>
-										<li><img src="./presentationResources/images/pic7.jpg" width="500" title="Test picture caption 7" /></li>
-										<li><img src="./presentationResources/images/pic8.jpg" width="500" title="Test picture caption 8" /></li>
-									</ul>
+                  <div class="carouselSection">
+										<ul id="suggestedSlider" class="bxslider responsive">
+											<li><img src="./presentationResources/images/pic1.jpg" width="500" title="Test picture caption 1" /></li>
+											<li><img src="./presentationResources/images/pic2.jpg" width="500" title="Test picture caption 2" /></li>
+											<li><img src="./presentationResources/images/pic3.jpg" width="500" title="Test picture caption 3" /></li>
+											<li><img src="./presentationResources/images/pic4.jpg" width="500" title="Test picture caption 4" /></li>
+											<li><img src="./presentationResources/images/pic5.jpg" width="500" title="Test picture caption 5" /></li>
+											<li><img src="./presentationResources/images/pic6.jpg" width="500" title="Test picture caption 6" /></li>
+											<li><img src="./presentationResources/images/pic7.jpg" width="500" title="Test picture caption 7" /></li>
+											<li><img src="./presentationResources/images/pic8.jpg" width="500" title="Test picture caption 8" /></li>
+										</ul>
+									</div>
 
 
 						</div>

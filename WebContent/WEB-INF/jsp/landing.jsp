@@ -9,12 +9,13 @@
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/font-awesome.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
+	<link rel="stylesheet" type="text/css" href="./presentationResources/css/animation.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/jquery.bxslider.css">
 
 <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 
-<!-- <link rel="shortcut icon" href="./presentationResources/images/favicon.ico" type="image/x-icon"> -->
+ <link rel="shortcut icon" href="./presentationResources/images/favicon.png" type="image/x-icon">
 
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
@@ -25,7 +26,7 @@
 <script type="text/javascript" src="./presentationResources/js/landingApp.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script> -->
 
-<title>Personnel Tracker 360</title>
+<title>Personnel Tracker</title>
 <style>
 
 
@@ -63,6 +64,7 @@
   <li><a href="javascript:void(0)" class="tablinks defaultTab" onclick="openTab(event, 'welcomeTab')" id="openByDefault"  >Welcome</a></li>
   <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'appTab')">The App</a></li>
   <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'aboutTab')">About Us</a></li>
+	<div class="stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure.png' /></div>
 </ul>
 
 

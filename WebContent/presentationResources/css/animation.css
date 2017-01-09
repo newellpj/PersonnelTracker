@@ -1,43 +1,32 @@
 
 .stickFigureElement {
-  height: 100px;
-  width: 50px;
-  background-color: white;
-  -webkit-animation: pulse 3s ease infinite alternate,  nudge 5s linear infinite alternate;
-  animation: pulse 3s ease infinite alternate,  nudge 5s linear infinite alternate;
-		
+  margin-left:21%;
+  /*margin-bottom:2%;
+  height: 136px;
+  width: 55px;
+  background: url('../images/profilePics/stickfigure.png') no-repeat 0 0;*/
+  /*background-size: 40px 100px;*/
+  -webkit-animation: nudge 5s linear 2 alternate;
+  animation:   nudge 5s linear 2 alternate;
+
 }
 
-@-webkit-keyframes pulse {
-  0%, 100% {
-    background-color: red;
-  }
-  50% {
-    background-color: orange;
-  }
-}
+img.imgAnime{width: 20px; height: 50px;}
 
-@keyframes pulse {
-  0%, 100% {
-    background-color: red;
-  }
-  
-  50% {
-    background-color: orange;
-  }
-}
 @-webkit-keyframes nudge {
   0%, 100% {
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
   }
   50% {
-    -webkit-transform: translate(150px, 0); /*  first value horizontal axis second value vertical axist*/
-            transform: translate(150px, 0);
+    -webkit-transform: translate(450px, 0); /*  first value horizontal axis second value vertical axist*/
+            transform: translate(450px, 0);
   }
+
+
   80% {
-    -webkit-transform: translate(-150px, 0);
-            transform: translate(-150px, 0);
+    -webkit-transform: translate(150px, 0);
+            transform: translate(150px, 0);
   }
 }
 @keyframes nudge {
@@ -45,16 +34,27 @@
     -webkit-transform: translate(0, 0);
             transform: translate(0, 0);
   }
+
+
+
+25% {
+  -webkit-transform: rotate(347deg);
+          transform: rotate(347deg);
+}
+
   50% {
-    -webkit-transform: translate(150px, 0);  
+    -webkit-transform: translate(450px, 0);
+            transform: translate(450px, 0);
+  }
+
+
+
+  80% {
+    -webkit-transform: translate(150px, 0);
             transform: translate(150px, 0);
   }
-  80% {
-    -webkit-transform: translate(-150px, 0);
-            transform: translate(-150px, 0);
-  }
 }
-html, body {
+/*html, body {
   height: 100%;
 }
 
@@ -68,4 +68,4 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
+}*/
