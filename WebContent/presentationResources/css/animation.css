@@ -1,7 +1,7 @@
 
 .stickFigureElement {
-  margin-left:21%;
-  /*margin-bottom:2%;
+  /*margin-left:30%;
+  margin-bottom:2%;
   height: 136px;
   width: 55px;
   background: url('../images/profilePics/stickfigure.png') no-repeat 0 0;*/
@@ -11,7 +11,7 @@
 
 }
 
-img.imgAnime{width: 20px; height: 50px;}
+img.imgAnime{width: 18px; height: 45px;  margin-left:1%;}
 
 @-webkit-keyframes nudge {
   0%, 100% {
@@ -38,8 +38,8 @@ img.imgAnime{width: 20px; height: 50px;}
 
 
 25% {
-  -webkit-transform: rotate(347deg);
-          transform: rotate(347deg);
+  -webkit-transform: rotate(317deg);
+          transform: rotate(317deg);
 }
 
   50% {

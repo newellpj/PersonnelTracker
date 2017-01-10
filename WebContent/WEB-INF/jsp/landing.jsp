@@ -61,9 +61,15 @@
 
 <h1 class="pageHeaderLogo"> Personnel Tracker <span>360</span> </h1>
 <ul class="tab">
-  <li><a href="javascript:void(0)" class="tablinks defaultTab" onclick="openTab(event, 'welcomeTab')" id="openByDefault"  >Welcome</a></li>
-  <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'appTab')">The App</a></li>
-  <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'aboutTab')">About Us</a></li>
+  <li><a href="javascript:void(0)" class="tablinks defaultTab glyphicon glyphicon-blackboard"
+				onclick="openTab(event, 'welcomeTab')" id="openByDefault" >
+				     <span style="font-family: 'Roboto Condensed',sans-serif !important;">Welcome </span></a></li>
+
+  <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-home" onclick="openTab(event, 'appTab')">
+		  <span style="font-family: 'Roboto Condensed',sans-serif !important;"> The App</span></a></li>
+
+  <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-info-sign" onclick="openTab(event, 'aboutTab')">
+		 <span style="font-family: 'Roboto Condensed',sans-serif !important;">About Us</span></a></li>
 	<div class="stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure.png' /></div>
 </ul>
 
