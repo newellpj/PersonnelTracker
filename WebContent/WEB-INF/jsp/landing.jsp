@@ -86,7 +86,6 @@
     <about-form></about-form>
 </div>
 
-
 		<!--
 			<button class="js-push-button" onclick="subscribe();">
 		  		Enable Push Messages

@@ -3,7 +3,12 @@
 
 (function(angular) {
 
-		angular.module('loginSignupApp', [])
+		angular.module('loginSignupApp', []).component('employmeeProfile', {
+			template: ``,
+
+			controller: function($scope, $http, $log){}
+
+		})
 		.component('welcomePage', {
 				  template: `
 							<div id="welcomeTab" class="welcomeTab responsive">
@@ -29,14 +34,19 @@
 									</section>
                   <div class="carouselSection">
 										<ul id="suggestedSlider" class="bxslider responsive">
-											<li><img src="./presentationResources/images/pic1.jpg" width="500" title="Test picture caption 1" /></li>
-											<li><img src="./presentationResources/images/pic2.jpg" width="500" title="Test picture caption 2" /></li>
-											<li><img src="./presentationResources/images/pic3.jpg" width="500" title="Test picture caption 3" /></li>
-											<li><img src="./presentationResources/images/pic4.jpg" width="500" title="Test picture caption 4" /></li>
-											<li><img src="./presentationResources/images/pic5.jpg" width="500" title="Test picture caption 5" /></li>
-											<li><img src="./presentationResources/images/pic6.jpg" width="500" title="Test picture caption 6" /></li>
-											<li><img src="./presentationResources/images/pic7.jpg" width="500" title="Test picture caption 7" /></li>
-											<li><img src="./presentationResources/images/pic8.jpg" width="500" title="Test picture caption 8" /></li>
+											<li><img src="./presentationResources/images/profilePics/charles.jpeg"   /><p style="margin-top:3%;"><b>Name:</b> Charles Jones </p><p><b>Title:</b>  Senior Software Engineer </p>
+											<p><b>Position:</b> Senior Software Engineer Billing Division</p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
+											<li><img src="./presentationResources/images/profilePics/bill.jpeg" /></li>
+											<li><img src="./presentationResources/images/profilePics/alicia.jpeg" /></li>
+											<li><img src="./presentationResources/images/profilePics/chloe.jpeg" /></li>
+											<li><img src="./presentationResources/images/profilePics/Kapil.jpeg"  /></li>
+											<li><img src="./presentationResources/images/profilePics/Alexis.jpeg"  /></li>
+											<li><img src="./presentationResources/images/profilePics/russell.jpeg" /></li>
+											<li><img src="./presentationResources/images/profilePics/sally.jpeg"  /></li>
+											<li><img src="./presentationResources/images/profilePics/simon.jpeg"  /></li>
+											<li><img src="./presentationResources/images/profilePics/Amanda.jpeg"  /></li>
+											<li><img src="./presentationResources/images/profilePics/robert.jpeg" /></li>
+											<li><img src="./presentationResources/images/profilePics/jessica.jpeg" /></li>
 										</ul>
 									</div>
 
