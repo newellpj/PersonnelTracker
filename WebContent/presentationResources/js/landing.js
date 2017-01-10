@@ -3,7 +3,20 @@
 
 (function(angular) {
 
-		angular.module('loginSignupApp', []).component('employmeeProfile', {
+		angular.module('loginSignupApp', []).component('aboutUsPage', {
+			template: `<div class="aboutUsSpiel"><p>Personnel Tracker is an evolving
+			organisational performance tracking
+			system built using AngularJS, Java 8, Spring, Hibernate,
+			MySQL and Solr. It aims to streamline the process of improving your
+			employees performance and enabling better managerial decision making
+			backed by structured data. It also aims to give users the ability to publish
+			this information to third parties if it so chooses or the public in general with
+			 application administration built-in function. If you wish to know more
+			 please contact us using the contact form provided here. </p> </div>`,
+
+			controller: function($scope, $http, $log){}
+
+		}).component('employmeeProfile', {
 			template: ``,
 
 			controller: function($scope, $http, $log){}
@@ -32,12 +45,20 @@
 											   rank employees in terms of which employee best achieves organisation goals based on current performance rankings.
 											 </div>
 									</section>
+
                   <div class="carouselSection">
+									<div class="profileHeading responsive"><h3>See detailed paginated profile and performance summaries
+									   of your employees based on general or faceted search results</h3></div>
 										<ul id="suggestedSlider" class="bxslider responsive">
 											<li><img src="./presentationResources/images/profilePics/charles.jpeg"   /><p style="margin-top:3%;"><b>Name:</b> Charles Jones </p><p><b>Title:</b>  Senior Software Engineer </p>
 											<p><b>Position:</b> Senior Software Engineer Billing Division</p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
-											<li><img src="./presentationResources/images/profilePics/bill.jpeg" /></li>
-											<li><img src="./presentationResources/images/profilePics/alicia.jpeg" /></li>
+											<li><img src="./presentationResources/images/profilePics/bill.jpeg" /><p style="margin-top:3%;"><b>Name:</b> Bill Staniforth </p><p><b>Title:</b>
+											 Chief Information Officer </p>
+											<p><b>Position:</b> Chief Information Officer </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
+											<li><img src="./presentationResources/images/profilePics/alicia.jpeg" />
+											<p style="margin-top:3%;"><b>Name:</b> Alicia Dunstan </p><p><b>Title:</b>
+											 Deputy Chief Financial Officer </p>
+											<p><b>Position:</b> Deputy Chief Financial Officer (too young to be chief) </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li></li>
 											<li><img src="./presentationResources/images/profilePics/chloe.jpeg" /></li>
 											<li><img src="./presentationResources/images/profilePics/Kapil.jpeg"  /></li>
 											<li><img src="./presentationResources/images/profilePics/Alexis.jpeg"  /></li>

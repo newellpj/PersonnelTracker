@@ -22,9 +22,7 @@
 <script type="text/javascript" src="./presentationResources/js/angular.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landing.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.bxslider.min.js"></script>
-<!--<script type="text/javascript" src="./presentationResources/js/landingWelcome.js"></script>
-<script type="text/javascript" src="./presentationResources/js/landingApp.js"></script>
-<script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script> -->
+
 
 <title>Personnel Tracker</title>
 <style>
@@ -83,7 +81,7 @@
     <app-form></app-form>
 </div>
 <div id="aboutTab" class="tabcontent">
-    <about-form></about-form>
+    <about-us-page></about-us-page>
 </div>
 
 		<!--

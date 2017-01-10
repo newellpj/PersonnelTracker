@@ -132,6 +132,23 @@ section.orgGoalsMatching{
 	 font-size: 2rem;
 }
 
+.aboutUsSpiel {
+	max-width:50%;
+}
+
+.profileHeading{
+	 max-width: 80%;
+	 margin-top:2%;
+	 margin-bottom:5%;
+	 color: #726f6f;
+	 font-weight:normal;
+	 /* text-shadow: 1px 1px 1px #a8a8a8 ;*/
+}
+
+.profileHeading h3{
+	 font-size: 1.2em;
+}
+
 .pageHeaderLogo span{
 
 	color:#b20000;
@@ -276,3 +293,4 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 @media screen and (max-width:420px){
 	 button.loginButton.responsive{margin-left:1em; width:93%;}
 }
+ 
