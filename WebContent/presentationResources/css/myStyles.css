@@ -240,9 +240,71 @@ button:disabled {
   cursor: auto;
 }
 
+
 input[type="text"]{
-    padding: 5px !important;
+  border-right: none;
+  border: solid 1.5px #dcdcdc;
+  padding:2px;
+  transition: box-shadow 0.3s, border 0.3s;
+  border-radius: 3px;
 }
+
+input[type="email"]{
+  border-right: none;
+  border: solid 1.5px #dcdcdc;
+  padding:2px;
+  transition: box-shadow 0.3s, border 0.3s;
+  border-radius: 3px;
+}
+
+
+input[type="submit"]:disabled {
+ background-color: #fafafa;
+ color:#696969;
+}
+
+input[type="button"]:disabled {
+ background-color: #fafafa;
+ color:#696969;
+ box-shadow: -2px -2px 2px 2px #888888 inset;
+}
+
+input[type="button"]:disabled:hover {
+ background-color: #fafafa;
+ color:#696969;
+}
+
+
+input[type="button"]:hover {
+ background-color: #17acdb;
+}
+
+input[type="submit"]:disabled:hover {
+ background-color: #fafafa;
+ color:#696969;
+}
+
+
+input[type="submit"]:hover {
+ background-color: #17acdb;
+
+}
+
+input[type="submit"]{
+ padding: 10px 15px 11px !important;
+ font-size: 14px !important;
+ background-color: #3bbde5 ;
+ font-weight: normal;
+ color: #f1f1ff;
+ border-radius: 5px;
+ -moz-border-radius: 5px;
+ -webkit-border-radius: 5px;
+ border: 0px solid #3232ff;
+ cursor: pointer;
+ box-shadow: -5px -5px- 5px -5px #3838cc inset;
+ /*text-shadow: 1px 1px #a8a8a8;*/
+}
+
 
 @media (max-width: 600px) {
   .module {

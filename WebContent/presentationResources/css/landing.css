@@ -40,10 +40,45 @@
 }
 */
 
-.carouselSection{
+.scalable{
+		font-size:4rem;
+		font-weight: normal;
+		font-style: normal;
+}
+
+.customizable{
+	  position:relative;
+		top: -10px;
+		left: 100px;
+		font-size:3rem;
+		font-weight: normal;
+		font-style: normal;
+}
+
+.enterpriseWideSolution{
+	  position:relative;
+		top: -40px;
+		left: 150px;
+		font-size:3rem;
+		font-weight: normal;
+		font-style: italic;
+}
+
+.lightweight{
+		position:relative;
+		top: -80px;
+		left: 205px;
+		font-size:2rem;
+		font-weight: normal;
+		font-style: normal;
+}
+
+
+
+.carouselAndBuzzSection{
    max-width:50%;
 	 margin-left: 40%;
-	 margin-top: -30%;
+	 margin-top: -45%;
 }
 
 .bx-viewport{
@@ -52,6 +87,7 @@
 
 .bxslider li img{
 	  width: 190px !important;
+		height: 190px !important;
 }
 
 .bxslider li{
@@ -100,6 +136,12 @@ section.orgGoalsMatching{
 		background-repeat: no-repeat;
 }
 
+section.performReviewOnline{
+		background: url(../images/performReview.jpg);
+		background-size: 100px 100px !important;
+		background-repeat: no-repeat;
+}
+
 
 .sectionContent{
 	  margin-left: 11%;
@@ -133,7 +175,8 @@ section.orgGoalsMatching{
 }
 
 .aboutUsSpiel {
-	max-width:50%;
+	  margin-top: 2%;
+		max-width:50%;
 }
 
 .profileHeading{
@@ -293,4 +336,3 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 @media screen and (max-width:420px){
 	 button.loginButton.responsive{margin-left:1em; width:93%;}
 }
- 

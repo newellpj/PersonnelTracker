@@ -12,17 +12,63 @@
 			backed by structured data. It also aims to give users the ability to publish
 			this information to third parties if it so chooses or the public in general with
 			 application administration built-in function. If you wish to know more
-			 please contact us using the contact form provided here. </p> </div>`,
+			 please contact us using the contact form provided here. </p> </div>
 
-			controller: function($scope, $http, $log){}
+			 <div>
+      <form name="contactForm" validate>
+        <!-- NAME -->
+
+				  <input type="text" name="userFirstName" ng-model="firstName" placeholder="First name [Required]" required />
+				  <input type="text" name="userLastName" ng-model="lastName" placebolder="Last name [Required]" required />
+				  <input type="email" name="userEmail" ng-model="email" required placeholder="Email [Required]" required />
+				  <input type="email" name="userPhoneNumber" ng-model="phoneNumber" placeholder="Contact number" />
+				  <textarea type="text" name="userMessage" ng-model="message" placeholder="Enquiry [Required]" required></textarea>
+
+        <!-- SUBMIT BUTTON --> 
+        <input type="submit" ng-click="processForm()" ng-disabled="contactForm.$invalid" value="Submit" />
+      </form>
+    </div>`,
+
+			controller: function($scope, $http, $log){
+					var $contactFormCtrl = this;
+
+				// 	var dlg = $("<div></div>").dialog({
+				 // 	 hide: 'fade',
+				 // 	 maxWidth: 600,
+				 // 	 modal: true,
+				 // 	 show: 'fade',
+				 // 	 title: 'Submitting Correspondance',
+				 // 	 width: ( ('__proto__' in {}) ? '600' : 600 )
+				 //  });
+				 //
+				 //  $(dlg).parent().find('button').remove();
+				 //  $(dlg).html("<div class='ajax-loader-2 help-inline pull-right'></div><div><p>Submitting details </p></div>");
+				 //  $(dlg).dialog("open");
+
+					$scope.formData = {};
+				  //  $scope.processForm = function() {
+				  //    alert('valid form!')
+				  //    $http({
+				  //      method  : 'GET',
+				  //      url     : 'sendContactDetails',
+				  //      data    : '',
+				  //      headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+				  //    }).success(function(successErrorCode){
+					// 		 		 $(dlg).close();
+					// 	 }).error(function(data, status){
+		      //           $(dlg).close();
+					// 	 });
+				  //  };
+        }
 
 		}).component('employmeeProfile', {
 			template: ``,
 
-			controller: function($scope, $http, $log){}
+			controller: function($scope, $http, $log){
 
-		})
-		.component('welcomePage', {
+			}
+
+		}).component('welcomePage', {
 				  template: `
 							<div id="welcomeTab" class="welcomeTab responsive">
 							  <div class="mainSpiel responsive">
@@ -45,8 +91,18 @@
 											   rank employees in terms of which employee best achieves organisation goals based on current performance rankings.
 											 </div>
 									</section>
+									<section class="performReviewOnline responsive">
+											<div class="sectionContent responsive">Entirely online peformance reviews streamlinging the review process. This reduces typical organisational
+											 frustration with the reviews process through cutting	time spent on a task that can be quite a stressful and time consuming.
+											 </div>
+									</section>
 
-                  <div class="carouselSection">
+              <div class="carouselAndBuzzSection">
+									<div class="scalable">Scalable</div>
+									<div class="customizable">Customizable</div>
+									<div class="lightweight">Lightweight</div>
+									<div class="enterpriseWideSolution">Enterprise wide solution</div>
+
 									<div class="profileHeading responsive"><h3>See detailed paginated profile and performance summaries
 									   of your employees based on general or faceted search results</h3></div>
 										<ul id="suggestedSlider" class="bxslider responsive">
