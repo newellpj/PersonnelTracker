@@ -80,17 +80,17 @@
 											number: $scope.contactDetPhone,
 											message: $scope.contactDetMessage
 										}
-								}).success(function(successErrorCode){
+							   }).then(function successCallback(successErrorCode) {
 											$log.info('successErrorCode : '+successErrorCode[0]);
 											$(dlg).dialog("close");
 
 
-								}).error(function(data, status){
+								}, function errorCallback(response) {
 											$log.error("we errored here : "+data[0]);
 
 											$(dlg).dialog("close");
 					  	  });
-           }
+                  }
 			 }
 
 		})

@@ -97,7 +97,7 @@
 		              username: $signupController.username,
 		              password: $signupController.password
 		            }
-		        }).success(function(successErrorCode){
+		        }).then(function successCallback(successErrorCode) {
 
                 $(dlg).dialog("close");
 		          $log.info("we are here : "+successErrorCode[0]);
@@ -121,7 +121,7 @@
 		          $(dlg).dialog("close");
 
 
-		        }).error(function(data, status){
+		        }, function errorCallback(response) {
 		          $log.error("we errored here : "+data[0]);
 
 		          $(dlg).dialog("close");
@@ -159,7 +159,7 @@
 
 		             $(errorDialog).dialog("open");
 		              window.parent.location.href = 'logout';
-		            })
+		            });
 
 
 
