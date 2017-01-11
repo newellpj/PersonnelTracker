@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
-<html  ng-app="loginSignupApp" >
+<html  ng-app="landingApp" >
 <head>
 
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.css">
@@ -68,7 +68,7 @@
 
   <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-info-sign" onclick="openTab(event, 'aboutTab')">
 		 <span style="font-family: 'Roboto Condensed',sans-serif !important;">About Us</span></a></li>
-	<div class="stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure.png' /></div>
+	<div class="stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure2.png' /></div>
 </ul>
 
 

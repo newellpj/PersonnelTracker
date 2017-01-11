@@ -219,26 +219,25 @@ button {
   font-family: Arial;
   border: none;
   font-family: 'Roboto Condensed',sans-serif !important;
+  padding: 14px 16px;
   border-radius: 4px;
-    padding: 14px 16px;
-   background-color: #bbc3cc;
   cursor: pointer; cursor: hand;
 }
 
+button:hover {
+  background-color: #cfd8dc;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
 
 .viewDetails{
   padding: 14px 16px;
 }
 
-button:hover {
-  background-color: #929fad;
-}
-
-button:disabled {
-  background-color: #d3d8de;
-  color: #ccc;
-  cursor: auto;
-}
 
 
 input[type="text"]{
@@ -249,60 +248,22 @@ input[type="text"]{
   border-radius: 3px;
 }
 
+textarea{
+  border-right: none;
+  border: solid 1.5px #dcdcdc;
+  padding:2px;
+  height: 20%;
+  transition: box-shadow 0.3s, border 0.3s;
+  border-radius: 3px !important;
+}
+
+
 input[type="email"]{
   border-right: none;
   border: solid 1.5px #dcdcdc;
   padding:2px;
   transition: box-shadow 0.3s, border 0.3s;
   border-radius: 3px;
-}
-
-
-input[type="submit"]:disabled {
- background-color: #fafafa;
- color:#696969;
-}
-
-input[type="button"]:disabled {
- background-color: #fafafa;
- color:#696969;
- box-shadow: -2px -2px 2px 2px #888888 inset;
-}
-
-input[type="button"]:disabled:hover {
- background-color: #fafafa;
- color:#696969;
-}
-
-
-input[type="button"]:hover {
- background-color: #17acdb;
-}
-
-input[type="submit"]:disabled:hover {
- background-color: #fafafa;
- color:#696969;
-}
-
-
-input[type="submit"]:hover {
- background-color: #17acdb;
-
-}
-
-input[type="submit"]{
- padding: 10px 15px 11px !important;
- font-size: 14px !important;
- background-color: #3bbde5 ;
- font-weight: normal;
- color: #f1f1ff;
- border-radius: 5px;
- -moz-border-radius: 5px;
- -webkit-border-radius: 5px;
- border: 0px solid #3232ff;
- cursor: pointer;
- box-shadow: -5px -5px- 5px -5px #3838cc inset;
- /*text-shadow: 1px 1px #a8a8a8;*/
 }
 
 

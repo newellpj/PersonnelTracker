@@ -23,6 +23,11 @@ public interface SessionConstants {
 	public static String PASS_PARAM = "password";
 	public static String FAIL = "FAILURE";
 	public static String SUCCESS = "SUCCESS";
+	public static String NAME = "name";
+	public static String EMAIL = "email";
+	public static String PHONE = "number";
+	public static String MESSAGE = "message";
+	
 	
 	public static String EMPLOYEE_SEARCH_STRING = "empSearchString";
 	

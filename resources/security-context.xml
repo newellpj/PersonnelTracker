@@ -25,7 +25,7 @@
      <security:intercept-url pattern="/addNewBook" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/searchForDocs" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getFeeds" access="hasRole('ROLE_USER')" />
-     <security:intercept-url pattern="/searchNASA" access="hasRole('ROLE_USER')" />    
+     <security:intercept-url pattern="/sendEnquiry" access="hasRole('ROLE_USER')" />    
      <security:intercept-url pattern="/partialSearchForBook" access="hasRole('ROLE_USER')" />   
      
      <security:intercept-url pattern="/retrieveNextSearchDocsSegment" access="hasRole('ROLE_USER')" />

@@ -5,7 +5,14 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.ImageIcon;
@@ -21,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.srsp.config.ConfigHandler;
 import co.srsp.constants.SessionConstants;
-import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.service.EmployeeDataService;
 import co.srsp.solr.SolrSearchData;
@@ -91,6 +97,71 @@ public class SolrAndDbSearchingPageController {
 	@RequestMapping(value = { "/reviewsReviewBook"}, method = RequestMethod.GET)
 	public ModelAndView addReviewsPage(HttpServletRequest request, HttpServletResponse response) {
 		return null;
+	}
+	
+	@RequestMapping(value = { "/sendEnquiry"}, method = RequestMethod.GET)
+	public @ResponseBody String[] sendEnquiry(HttpServletRequest request, HttpServletResponse response){
+		
+		String name = request.getParameter(SessionConstants.NAME);
+		String email = request.getParameter(SessionConstants.EMAIL);
+		String phone = request.getParameter(SessionConstants.PHONE);
+		String message = request.getParameter(SessionConstants.MESSAGE);
+		
+		
+		
+		return null;
+
+	}
+	
+	private void sendMail(HttpServletRequest request){
+		  
+		String name = request.getParameter(SessionConstants.NAME);
+		String sendersEmail = request.getParameter(SessionConstants.EMAIL);
+		String phone = request.getParameter(SessionConstants.PHONE);
+		String senderMessage = request.getParameter(SessionConstants.MESSAGE);
+
+
+	      // Sender's email ID needs to be mentioned
+	      String from =  sendersEmail;
+
+	      // Assuming you are sending email from localhost
+	      String host =  ConfigHandler.getInstance().readApplicationProperty("mailHost");
+
+	      // Get system properties
+	      Properties properties = System.getProperties();
+
+	      // Setup mail server
+	      properties.setProperty("mail.smtp.host", host);
+
+	      // Get the default Session object.
+	      Session session = Session.getDefaultInstance(properties);
+
+	      try {
+	         // Create a default MimeMessage object.
+	         MimeMessage message = new MimeMessage(session);
+
+	         // Set From: header field of the header.
+	         message.setFrom(new InternetAddress(from));
+
+	         // Set To: header field of the header.
+	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(ConfigHandler.getInstance().readApplicationProperty("ourEmail")));
+
+	         // Set Subject: header field
+	         message.setSubject("Enquiry for services from "+name);
+
+	         // Now set the actual message
+	         message.setText(senderMessage);
+
+	         // Send message
+	         Transport.send(message);
+	         System.out.println("Sent message successfully....");
+	         
+	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
+	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation"));
+	         
+	      }catch (MessagingException mex) {
+	         mex.printStackTrace();
+	      }
 	}
 	
 	
