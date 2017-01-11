@@ -37,7 +37,7 @@
 										<div ng-messages="contactForm.contactDetMessage.$error">
 											<div ng-hide="!showMessageReq" style="color:red;">This field is required</div>
 										</div>
-								<button name="submit" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="processForm()"
+								<button name="submit" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="submitEnquiry()"
 									class="contactUs responsive" value="Contact us" >
 									<span class="glyphicon glyphicon-envelope"></span> &nbsp; Contact us </button>
 									<button name="reset" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="contactDetEmail = '';  contactDetPhone='';
@@ -81,7 +81,7 @@
 											message: $scope.contactDetMessage
 										}
 								}).success(function(successErrorCode){
-
+											$log.info('successErrorCode : '+successErrorCode[0]);
 											$(dlg).dialog("close");
 
 

@@ -102,14 +102,17 @@ public class SolrAndDbSearchingPageController {
 	@RequestMapping(value = { "/sendEnquiry"}, method = RequestMethod.GET)
 	public @ResponseBody String[] sendEnquiry(HttpServletRequest request, HttpServletResponse response){
 		
-		String name = request.getParameter(SessionConstants.NAME);
-		String email = request.getParameter(SessionConstants.EMAIL);
-		String phone = request.getParameter(SessionConstants.PHONE);
-		String message = request.getParameter(SessionConstants.MESSAGE);
+//		String name = request.getParameter(SessionConstants.NAME);
+//		String email = request.getParameter(SessionConstants.EMAIL);
+//		String phone = request.getParameter(SessionConstants.PHONE);
+//		String message = request.getParameter(SessionConstants.MESSAGE);
+//		
+		sendMail(request);
 		
+		String[] status = new String[1];
+		status[0] = "success";
 		
-		
-		return null;
+		return status;
 
 	}
 	
@@ -144,7 +147,10 @@ public class SolrAndDbSearchingPageController {
 	         message.setFrom(new InternetAddress(from));
 
 	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(ConfigHandler.getInstance().readApplicationProperty("ourEmail")));
+	         
+	         String ourEmail = ConfigHandler.getInstance().readApplicationProperty("ourEmail");
+	         
+	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(ourEmail));
 
 	         // Set Subject: header field
 	         message.setSubject("Enquiry for services from "+name);
@@ -158,6 +164,12 @@ public class SolrAndDbSearchingPageController {
 	         
 	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
 	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation"));
+	         message.setFrom(new InternetAddress(ourEmail));
+	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendersEmail));
+	         message.setSubject("Thank you for your enquiry");
+	         
+	         message.setText(thankYouMsg);
+	         Transport.send(message);
 	         
 	      }catch (MessagingException mex) {
 	         mex.printStackTrace();
