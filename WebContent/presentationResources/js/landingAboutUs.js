@@ -15,13 +15,13 @@
 					</div>
 					<div class="quote1 responsive">
 					         &quot;This system signficantly cuts down on the time wasted with paper based system and empowers
-									 employees to take a leading role in their performance improvement process - <b>John Taylor HCC</b> &quot;
+									 employees to take a leading role in their performance improvement process - <b>John Taylor HZX</b> &quot;
 					</div>
 					<div class="culture2 responsive">
 						  <img src="./presentationResources/images/culture2.jpg">
 					</div>
 					<div class="quote2 responsive">
-					         &quot;Removes a fair degree of subjectivity from the performance review process and increases employee satisfaction - <b>Mike Williams BCD</b> &quot;
+					         &quot;Removes a fair degree of subjectivity from the performance review process and increases employee satisfaction - <b>Mike Williams YZA</b> &quot;
 					</div>
 
 			 <div>
@@ -50,7 +50,7 @@
 																																							 !contactForm.contactDetMessage.$valid ">
 									<span class="glyphicon glyphicon-envelope"></span> &nbsp; Contact us </button>
 									<button name="reset" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="contactDetEmail = '';  contactDetPhone='';
-									   contactDetName =''; contactDetMessage='';"
+									   contactDetName =''; contactDetMessage=''; contactForm.$setPristine();"
 										class="contactUs resetBtn responsive" value="Reset form" >
 										<span class="glyphicon glyphicon-refresh"></span> &nbsp; Reset form </button>
       </form>
