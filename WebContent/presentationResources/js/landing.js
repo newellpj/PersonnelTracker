@@ -81,9 +81,9 @@
 })(angular);
 
 function openTabAboutUs(evt, tabName) {
-      openTab(evt, tabName);
-			$('._stickFigureElement').toggleClass('.stickFigureElement-active');
 
+			$('._stickFigureElement').toggleClass('stickFigureElement-active');
+     openTab(evt, tabName);
 }
 
 
