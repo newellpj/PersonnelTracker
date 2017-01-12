@@ -42,7 +42,7 @@
 									<span class="glyphicon glyphicon-envelope"></span> &nbsp; Contact us </button>
 									<button name="reset" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="contactDetEmail = '';  contactDetPhone='';
 									   contactDetName =''; contactDetMessage='';"
-										class="contactUs responsive" value="Reset form" >
+										class="contactUs resetBtn responsive" value="Reset form" >
 										<span class="glyphicon glyphicon-refresh"></span> &nbsp; Reset form </button>
 
 
@@ -53,8 +53,6 @@
 					var $contactFormCtrl = this;
 
 					$scope.submitEnquiry = function(){
-
-								$log.info('we here 222222?!?!?');
 
 								var dlg = $("<div></div>").dialog({
 									hide: 'fade',
@@ -83,6 +81,31 @@
 							   }).then(function successCallback(successErrorCode) {
 											$log.info('successErrorCode : '+successErrorCode[0]);
 											$(dlg).dialog("close");
+
+											var confirmDialog = $("<div></div>").dialog({
+													hide: 'fade',
+													maxWidth: 300,
+													modal: true,
+													show: 'fade',
+													open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+														buttons: [
+															{
+																'class': 'btn btn-primary',
+																click: function(e) {
+																	$(".resetBtn").click();
+																	$(this).dialog("close");
+																},
+																text: 'OK'
+															}
+
+														],
+
+													title: 'Could NOT find book!',
+													width: ( 300 )
+												});
+
+												$(confirmDialog).dialog("open");
+												$(confirmDialog).html("<div style='align:center'><p>Thank you for your enquiry. We will be in touch shortly </p></div>");
 
 
 								}, function errorCallback(response) {

@@ -67,9 +67,9 @@
   <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-home" onclick="openTab(event, 'appTab')">
 		  <span style="font-family: 'Roboto Condensed',sans-serif !important;"> The App</span></a></li>
 
-  <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-info-sign" onclick="openTab(event, 'aboutTab')">
+  <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-info-sign" onclick="openTabAboutUs(event, 'aboutTab')">
 		 <span style="font-family: 'Roboto Condensed',sans-serif !important;">About Us</span></a></li>
-	<div class="stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure2.png' /></div>
+	<div class="_stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure2.png' /></div>
 </ul>
 
 

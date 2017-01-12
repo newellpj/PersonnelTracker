@@ -123,7 +123,7 @@ public class SolrAndDbSearchingPageController {
 		String phone = request.getParameter(SessionConstants.PHONE);
 		String senderMessage = request.getParameter(SessionConstants.MESSAGE);
 
-
+		log.info("senders email : "+sendersEmail);
 	      // Sender's email ID needs to be mentioned
 	      String from =  sendersEmail;
 
@@ -138,10 +138,11 @@ public class SolrAndDbSearchingPageController {
 
 	      // Get the default Session object.
 	      Session session = Session.getDefaultInstance(properties);
-
+	      Transport transport = null;
+	      MimeMessage message = null;
 	      try {
 	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
+	         message = new MimeMessage(session);
 
 	         // Set From: header field of the header.
 	         message.setFrom(new InternetAddress(from));
@@ -149,6 +150,8 @@ public class SolrAndDbSearchingPageController {
 	         // Set To: header field of the header.
 	         
 	         String ourEmail = ConfigHandler.getInstance().readApplicationProperty("ourEmail");
+	         
+	         log.info("ourEmail : "+ourEmail);
 	         
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(ourEmail));
 
@@ -159,20 +162,39 @@ public class SolrAndDbSearchingPageController {
 	         message.setText(senderMessage);
 
 	         // Send message
-	         Transport.send(message);
+	         
+	          transport = session.getTransport("smtps");   
+	         transport.connect(host, "pauljamesnewell@gmail.com", "5803871x");
+	         transport.sendMessage(message, message.getAllRecipients());
+	         transport.close();
+	       
 	         System.out.println("Sent message successfully....");
 	         
 	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
 	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation"));
-	         message.setFrom(new InternetAddress(ourEmail));
+	         message = new MimeMessage(session);
+	         message.setFrom(new InternetAddress("info@scionsolutionsgroup.com"));
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendersEmail));
 	         message.setSubject("Thank you for your enquiry");
+//	         
+//	         message.setText(thankYouMsg);
+//	         Transport.send(message);
 	         
-	         message.setText(thankYouMsg);
-	         Transport.send(message);
+	         transport.connect(host, "pauljamesnewell@gmail.com", "5803871x");
+	         transport.sendMessage(message, message.getAllRecipients());
+	         transport.close();
 	         
-	      }catch (MessagingException mex) {
+	      }catch (Exception mex) {
+	    	  log.error(" messed it up : "+mex.getMessage());
 	         mex.printStackTrace();
+	         try{
+	           transport.connect(host, "pauljamesnewell", "5803871x");
+	           transport.sendMessage(message, message.getAllRecipients());
+	         }catch(Exception e){
+	        	 log.error(" messed it up 2 : "+e.getMessage());
+		         e.printStackTrace();
+	        	 
+	         }
 	      }
 	}
 	
