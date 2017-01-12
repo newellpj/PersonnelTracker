@@ -13,9 +13,17 @@
           <div class="culture responsive">
 					   <img src="./presentationResources/images/culture.jpg">
 					</div>
+					<div class="quote1 responsive">
+					         &quot;This system signficantly cuts down on the time wasted with paper based system and empowers
+									 employees to take a leading role in their performance improvement process - <b>John Taylor HCC</b> &quot;
+					</div>
 					<div class="culture2 responsive">
 						  <img src="./presentationResources/images/culture2.jpg">
 					</div>
+					<div class="quote2 responsive">
+					         &quot;Removes a fair degree of subjectivity from the performance review process and increases employee satisfaction - <b>Mike Williams BCD</b> &quot;
+					</div>
+
 			 <div>
       <form name="contactForm" validate class="contactForm responsive" required ng-init="contactDetEmail = '';  contactDetPhone='';
 				 contactDetName =''; contactDetMessage='';">

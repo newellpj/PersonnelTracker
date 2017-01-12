@@ -22,6 +22,24 @@
 	 transition: all 300ms 0ms ease-in-out;
 }
 
+.quote1{
+	  font-size: 2rem;
+		font-style: italic;
+		margin-top: -15%;
+		margin-bottom:10%;
+		margin-left: 25%;
+		width: 30%;
+}
+
+.quote2{
+	  font-size: 2rem;
+		font-style: italic;
+		margin-top: -10%;
+		margin-bottom:5%;
+		margin-left: 3%;
+		width: 20%;
+}
+
 /*
 .bx-wrapper{
 		margin-left:55% !important;
