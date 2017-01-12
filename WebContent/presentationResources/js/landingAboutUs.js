@@ -32,28 +32,27 @@
 							  <h3>Make an Enquiry</h3>
 							 	<div class="contactImg responsive"><img src="./presentationResources/images/contactUsImg.jpg" /></div>
 							  <input type="text" name="contactDetName" id="contactDetName" ng-model="contactDetName" placeholder="First name [Required]" required />
-										<div ng-messages="contactForm.contactDetName.$error">
-										  <div ng-hide="!showNameReq" style="color:red;">This field is required</div>
+										<div class="errorName responsive" ng-messages="contactForm.contactDetName.$error">
+										  <div ng-hide="contactForm.contactDetName.$valid || !contactForm.$dirty" >This field is required</div>
 										</div>
-							  <input type="text" name="contactDetEmail" id="contactDetEmail" ng-model="contactDetEmail"  placeholder="Email [Required]" required
-								       />
-										<div ng-messages="contactForm.contactDetEmail.$error">
-											<div ng-hide="!showEmailReq" style="color:red;">A valid email is required</div>
+							  <input type="email" name="contactDetEmail" id="contactDetEmail" ng-model="contactDetEmail"  placeholder="Email [Required]" required />
+										<div class="errorEmail responsive" ng-messages="contactForm.contactDetEmail.$error">
+											<div ng-hide="contactForm.contactDetEmail.$valid || !contactForm.$dirty" >A valid email is required</div>
 										</div>
 							  <input type="email" name="contactDetPhone" id="contactDetPhone" ng-model="contactDetPhone" placeholder="Contact number" />
 							  <textarea type="text" name="contactDetMessage" id="contactDetMessage" ng-model="contactDetMessage" placeholder="Enquiry [Required]" required></textarea>
-										<div ng-messages="contactForm.contactDetMessage.$error">
-											<div ng-hide="!showMessageReq" style="color:red;">This field is required</div>
+										<div class="errorEnq resposive" ng-messages="contactForm.contactDetMessage.$error">
+											<div ng-hide="contactForm.contactDetMessage.$valid  || !contactForm.$dirty">This field is required</div>
 										</div>
 								<button name="submit" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="submitEnquiry()"
-									class="contactUs responsive" value="Contact us" >
+									class="contactUs responsive" value="Contact us" ng-disabled="!contactForm.contactDetName.$valid  ||
+									                                                             !contactForm.contactDetEmail.$valid ||
+																																							 !contactForm.contactDetMessage.$valid ">
 									<span class="glyphicon glyphicon-envelope"></span> &nbsp; Contact us </button>
 									<button name="reset" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="contactDetEmail = '';  contactDetPhone='';
 									   contactDetName =''; contactDetMessage='';"
 										class="contactUs resetBtn responsive" value="Reset form" >
 										<span class="glyphicon glyphicon-refresh"></span> &nbsp; Reset form </button>
-
-
       </form>
     </div>`,
 

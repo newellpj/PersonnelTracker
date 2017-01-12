@@ -172,9 +172,27 @@ section.performReviewOnline{
 		box-shadow: 5px 5px 10px #252728 ;
 }
 
+.errorEmail{
+	margin-left: 15%;
+	margin-bottom:2%;
+	color:red;
+}
+
+.errorName{
+	margin-left: 15%;
+	margin-bottom:2%;
+	color:red;
+}
+
+.errorEnq{
+	margin-left: 15%;
+	margin-bottom:2%;
+	color:red;
+}
+
 form.contactForm{
     margin-left: 55%;
-		margin-top: -41%;
+		margin-top: -51%;
 }
 
 .contactForm h3{
@@ -221,12 +239,12 @@ form.contactForm{
    /*padding: 14px 16px; */
 	  width: 70%;
     margin-left: 15%;
-	 	margin-bottom: 2%;
+	 	margin-bottom: 1%;
 }
 
 #contactDetEmail{
     width: 70%;
-	 	margin-bottom: 2%;
+	 	margin-bottom: 1%;
 		margin-left: 15%;
 }
 
@@ -238,7 +256,7 @@ form.contactForm{
 
 #contactDetMessage{
     width: 70%;
-		margin-bottom: 2%;
+		margin-bottom: 1%;
 		margin-left: 15%;
 		border_radius:
 }
