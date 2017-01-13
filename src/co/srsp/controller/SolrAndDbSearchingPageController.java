@@ -163,7 +163,7 @@ public class SolrAndDbSearchingPageController {
 
 	         // Send message
 	         
-	          transport = session.getTransport("smtps");   
+	         transport = session.getTransport("smtps");   
 	         transport.connect(host, "pauljamesnewell@gmail.com", "5803871x");
 	         transport.sendMessage(message, message.getAllRecipients());
 	         transport.close();
@@ -175,11 +175,7 @@ public class SolrAndDbSearchingPageController {
 	         message = new MimeMessage(session);
 	         message.setFrom(new InternetAddress("info@scionsolutionsgroup.com"));
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendersEmail));
-	         message.setSubject("Thank you for your enquiry");
-//	         
-//	         message.setText(thankYouMsg);
-//	         Transport.send(message);
-	         
+	         message.setSubject("Thank you for your enquiry");      
 	         transport.connect(host, "pauljamesnewell@gmail.com", "5803871x");
 	         transport.sendMessage(message, message.getAllRecipients());
 	         transport.close();

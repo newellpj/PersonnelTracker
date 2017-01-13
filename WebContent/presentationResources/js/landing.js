@@ -56,16 +56,37 @@
 											<li><img src="./presentationResources/images/profilePics/alicia.jpeg" />
 											<p style="margin-top:3%;"><b>Name:</b> Alicia Dunstan </p><p><b>Title:</b>
 											 Deputy Chief Financial Officer </p>
-											<p><b>Position:</b> Deputy Chief Financial Officer (too young to be chief) </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li></li>
-											<li><img src="./presentationResources/images/profilePics/chloe.jpeg" /></li>
-											<li><img src="./presentationResources/images/profilePics/Kapil.jpeg"  /></li>
-											<li><img src="./presentationResources/images/profilePics/Alexis.jpeg"  /></li>
-											<li><img src="./presentationResources/images/profilePics/russell.jpeg" /></li>
-											<li><img src="./presentationResources/images/profilePics/sally.jpeg"  /></li>
-											<li><img src="./presentationResources/images/profilePics/simon.jpeg"  /></li>
-											<li><img src="./presentationResources/images/profilePics/Amanda.jpeg"  /></li>
-											<li><img src="./presentationResources/images/profilePics/robert.jpeg" /></li>
-											<li><img src="./presentationResources/images/profilePics/jessica.jpeg" /></li>
+											<p><b>Position:</b> Deputy Chief Financial Officer </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li></li>
+											<li><img src="./presentationResources/images/profilePics/chloe.jpeg" />
+											<p style="margin-top:3%;"><b>Name:</b> Chloe Williams </p><p><b>Title:</b>
+											    Senior Financial Officer </p> 	<p><b>Position:</b> 	Finance & Billing </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
+													<li><img src="./presentationResources/images/profilePics/Kapil.jpeg"  />
+												<p style="margin-top:3%;"><b>Name:</b> Kapil Singh </p><p><b>Title:</b>
+													Logistical Officer </p>	<p><b>Position:</b> Logistics </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+												<li><img src="./presentationResources/images/profilePics/Alexis.jpeg"  />
+												<p style="margin-top:3%;"><b>Name:</b> Alexis Jonas </p><p><b>Title:</b>
+													Senior Financial Officer </p>	<p><b>Position:</b> 	Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+													<li><img src="./presentationResources/images/profilePics/russell.jpeg" />
+													<p style="margin-top:3%;"><b>Name:</b> Russell Palmer </p><p><b>Title:</b>
+														Software Engineer </p> 	<p><b>Position:</b> 	Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+
+															<li><img src="./presentationResources/images/profilePics/sally.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Sally Robertson </p><p><b>Title:</b>
+																	Software Team Leader </p>	<p><b>Position:</b> Software Development </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+															<li><img src="./presentationResources/images/profilePics/simon.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Simon Hetherington </p><p><b>Title:</b>
+																	Chief Financial Officer </p>	<p><b>Position:</b> Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+																	<li><img src="./presentationResources/images/profilePics/Amanda.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Amanda Campbell</p><p><b>Title:</b>
+																								Payroll Officer </p>	<p><b>Position:</b>Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+												<li><img src="./presentationResources/images/profilePics/robert.jpeg" /><b>Name:</b> Robert Carter</p><p><b>Title:</b>
+														Senior Software Engineer </p>	<p><b>Position:</b>Software Development </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
+
+														<li><img src="./presentationResources/images/profilePics/jessica.jpeg" /><b>Name:</b> Jessica Collins</p><p><b>Title:</b>
+							Senior Financial Officer </p>	<p><b>Position:</b>Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 										</ul>
 									</div>
 

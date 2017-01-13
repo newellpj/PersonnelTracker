@@ -4,10 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 import co.srsp.hibernate.orm.CompanyPositions;
+import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.hibernate.orm.OrgDepartment;
 
 public class EmployeeModel {
@@ -15,6 +13,7 @@ public class EmployeeModel {
 	private Integer idemployee;
 	private CompanyPositions companyPositions;
 	private OrgDepartment orgDepartment;
+	private List<EmployeeSkillset> skillsets;
 	private String employeeSurname;
 	private String employeeFirstName;
 	private String employeeGivenNames;
@@ -24,6 +23,10 @@ public class EmployeeModel {
 	private String employeeMaritalStatus;
 	private String employeecol;
 	private Set employeeToSkillsetRatingses = new HashSet(0);
+	private List<EmployeeSkillsetDataModel> empSkillsetsDataModel;
+
+	
+
 	
 	private String imageHeight;
 	
@@ -34,6 +37,32 @@ public class EmployeeModel {
 	public EmployeeModel(){
 		
 	}
+	
+	
+
+	
+	public List<EmployeeSkillsetDataModel> getEmpSkillsetsDateModel() {
+		return empSkillsetsDataModel;
+	}
+
+
+
+
+	public void setEmpSkillsetsDateModel(List<EmployeeSkillsetDataModel> empSkillsetsDateModel) {
+		this.empSkillsetsDataModel = empSkillsetsDateModel;
+	}
+
+
+
+
+	public List<EmployeeSkillset> getSkillsets() {
+		return skillsets;
+	}
+
+	public void setSkillsets(List<EmployeeSkillset> skillsets) {
+		this.skillsets = skillsets;
+	}
+
 
 	public String getImageHeight() {
 		return imageHeight;

@@ -1,11 +1,9 @@
 package co.srsp.hibernate;
 
-import java.util.HashMap;
 import java.util.List;
 
-import co.srsp.hibernate.orm.BookReviews;
-import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.Employee;
+import co.srsp.viewmodel.EmployeeModel;
 
 public interface EmployeeBusinessObject {
 	public void save(Employee employee);
@@ -23,4 +21,11 @@ public interface EmployeeBusinessObject {
 	public  List<Employee> findEmployeeByFullName(String surname, String firstName, String givenNames, int offset, int numberOfRecords);
 	
 	public  List<Employee> findEmployeePartialSurnameMatch(String surnamePartial,  int offset, int numberOfRecords);
+	
+	public  List<Employee> getAllEmployees(int offset, int numberOfRecords);
+	
+	public  List<EmployeeModel> getAllEmployeesFullProfile(int offset, int numberOfRecords);
+	
+	public  List<EmployeeModel> getEmployeesFullProfile(String searchCriteria, int offset, int numberOfRecords);
 }
+

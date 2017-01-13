@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import co.srsp.hibernate.EmployeeBusinessObject;
 import co.srsp.hibernate.orm.Employee;
+import co.srsp.viewmodel.EmployeeModel;
 
 public class EmployeeDataService {
 	
@@ -17,5 +18,15 @@ public class EmployeeDataService {
 		
 		return employeeBusinessObject.findEmployeePartialSurnameMatch("", startOffset, numberOfRecords);
 	}
+	
+	public List<Employee> getAllEmployeesPaginated(int startOffset, int numberOfRecords){
+		
+		return employeeBusinessObject.getAllEmployees(startOffset, numberOfRecords);
+	}
+	
+	public  List<EmployeeModel> getAllEmployeesFullProfile(int offset, int numberOfRecords){
+		return employeeBusinessObject.getAllEmployeesFullProfile(offset, numberOfRecords);
+	}
+
 
 }
