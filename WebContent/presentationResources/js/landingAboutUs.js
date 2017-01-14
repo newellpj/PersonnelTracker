@@ -107,7 +107,7 @@
 
 														],
 
-													title: 'Could NOT find book!',
+													title: 'Your enquiry has been sent',
 													width: ( 300 )
 												});
 
@@ -119,6 +119,31 @@
 											$log.error("we errored here : "+data[0]);
 
 											$(dlg).dialog("close");
+
+											var confirmDialog = $("<div></div>").dialog({
+													hide: 'fade',
+													maxWidth: 300,
+													modal: true,
+													show: 'fade',
+													open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
+														buttons: [
+															{
+																'class': 'btn btn-primary',
+																click: function(e) {
+																	$(".resetBtn").click();
+																	$(this).dialog("close");
+																},
+																text: 'OK'
+															}
+
+														],
+
+													title: 'Enquiry could not be sent',
+													width: ( 300 )
+												});
+
+												$(confirmDialog).dialog("open");
+												$(confirmDialog).html("<div style='align:center'><p>Your enquiry could not be sent. Please check your email address and send again.</p></div>");
 					  	  });
                   }
 			 }

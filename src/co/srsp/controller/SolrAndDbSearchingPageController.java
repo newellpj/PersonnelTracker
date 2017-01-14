@@ -172,9 +172,11 @@ public class SolrAndDbSearchingPageController {
 	         
 	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
 	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation"));
+	         log.info("thankYouMsg :::: "+thankYouMsg);
 	         message = new MimeMessage(session);
 	         message.setFrom(new InternetAddress("info@scionsolutionsgroup.com"));
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendersEmail));
+	         message.setText(thankYouMsg);
 	         message.setSubject("Thank you for your enquiry");      
 	         transport.connect(host, "pauljamesnewell@gmail.com", "5803871x");
 	         transport.sendMessage(message, message.getAllRecipients());
