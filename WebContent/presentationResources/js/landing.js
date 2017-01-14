@@ -45,7 +45,7 @@
 									<div class="lightweight">Lightweight</div>
 									<div class="enterpriseWideSolution">Enterprise wide solution</div>
 
-									<div class="profileHeading responsive"><h3>See detailed paginated profile and performance summaries
+									<div class="profileHeading responsive"><h3>See profile and performance summaries
 									   of your employees based on general or faceted search results</h3></div>
 										<ul id="suggestedSlider" class="bxslider responsive">
 											<li><img src="./presentationResources/images/profilePics/charles.jpeg"   /><p style="margin-top:3%;"><b>Name:</b> Charles Jones </p><p><b>Title:</b>  Senior Software Engineer </p>
@@ -82,10 +82,10 @@
 																	<li><img src="./presentationResources/images/profilePics/Amanda.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Amanda Campbell</p><p><b>Title:</b>
 																								Payroll Officer </p>	<p><b>Position:</b>Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 
-												<li><img src="./presentationResources/images/profilePics/robert.jpeg" /><b>Name:</b> Robert Carter</p><p><b>Title:</b>
+												<li><img src="./presentationResources/images/profilePics/robert.jpeg" /><p style="margin-top:3%;"><b>Name:</b> Robert Carter</p><p><b>Title:</b>
 														Senior Software Engineer </p>	<p><b>Position:</b>Software Development </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 
-														<li><img src="./presentationResources/images/profilePics/jessica.jpeg" /><b>Name:</b> Jessica Collins</p><p><b>Title:</b>
+														<li><img src="./presentationResources/images/profilePics/jessica.jpeg" /><p style="margin-top:3%;"><b>Name:</b> Jessica Collins</p><p><b>Title:</b>
 							Senior Financial Officer </p>	<p><b>Position:</b>Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 										</ul>
 									</div>
