@@ -15,7 +15,7 @@
 					<input ng-model="employeeName" id="employeeName"  placeholder="Employee surname..."  type='text' name='employeeName' style="width:40%;">
 
 					<input id="deptCheck" type="checkbox"  ng-model="deptCheck" class="checks responsive" name="deptCheck" value="deptCheck" ng-click="deptHide = !deptHide" />Department
-					<select ng-model="deptSelect.selectedOption" class="depSelect responsive" ng-hide="!deptHide" style="width:30%; margin-left:1.7em; " id="departSelect"
+					<select ng-model="deptSelect.selectedOption" class="depSelect responsive" ng-hide="deptHide" style="width:30%; margin-left:1.7em; " id="departSelect"
 							ng-options="option.name for option in deptSelect.availableOptions track by option.value">
 
 					</select>
@@ -34,13 +34,13 @@
 					<input ng-model="empFirstName" id="empFirstName"  placeholder="Employee first name..." style="width:40%;" type='text' name='empFirstName' />
 
 					<input id="positionCheck" type="checkbox" class="checks responsive" ng-model="positionCheck"  name="positionCheck" value="positionCheck" ng-click="positionHide = !positionHide" />Position
-					<select  ng-model="positionSelect.selectedOption" name="posText" ng-hide="!positionHide" class="positionSelect responsive" style="width:30%; margin-left:0.4em;"
+					<select  ng-model="positionSelect.selectedOption" name="posText" ng-hide="positionHide" class="positionSelect responsive" style="width:30%; margin-left:0.4em;"
           id="positionSelect"
 					    ng-options="option.name for option in positionSelect.availableOptions track by option.value" >
 					</select>
 
 					 <ul class="firstNameSearchPossibles" ng-mouseleave="mouseLeave('firstNameSearchPossibles')">
-							<li ng-repeat="d in data | unique: empFirstName" style="width:100%;   padding-left:-2em !important; margin-left:2em;">
+							<li ng-repeat="d in data | unique: empFirstName" style="width:100%; padding-left:-2em !important; margin-left:2em;">
 							 <span ng-mousedown="displayFirstNames(d)">{{d.empFirstName}}</span>
 							</li>
 					  </ul>
@@ -52,7 +52,7 @@
 					<input ng-model="empGivenNames" id="empGivenNames"  placeholder="Employee given names..." style="width:40%;" type='text' name='empGivenNames' />
 
 					<input id="skillsetCheck" ng-model="skillCheck" class="checks responsive" type="checkbox" name="skillsetCheck" value="skillsetCheck" ng-click="skillsetHide = !skillsetHide" />Skillset
-					<select ng-model="skillsetSelect.selectedOption" ng-hide="!skillsetHide" name="slillsetText" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
+					<select ng-model="skillsetSelect.selectedOption" ng-hide="skillsetHide" name="slillsetText" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
 							ng-options="option.name for option in skillsetSelect.availableOptions track by option.value" >
 					</select>
 					 <ul class="givenNamesSearchPossibles"  ng-mouseleave="mouseLeave('givenNamesSearchPossibles')">
@@ -156,11 +156,11 @@ appDemoModule.service('constructInstantSearchService', function($log, $http){
             searchCriteriaUpdate: searchCriteriaUpdate,
             currentInstantSearchNumberDisplayed: matchedCount
           }
-        }).success(function(bookReviewsModelArray){
+        }).then(function successCallback(data) {
             console.log("success update");
-        }).error(function(){
-          console.log("error update");
-        })
+          }, function errorCallback(response) {
+             console.log("error update");
+        });
 
      return displayItems;
   }
@@ -319,7 +319,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
             params: {
               partialSearch: searchType+'-'+tmpStr
             }
-          }).success(function(data){
+          }).then(function successCallback(data) {
             //$scope.responseData = data;
             console.log("data returned "+data[0]['employeeName']);
             console.log("data length returned "+data.length);
@@ -338,10 +338,10 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
              }
 
 
-          }).error(function(data, status){
+          }, function errorCallback(response) {
              $(objClass).css("display", "none");
             console.log('error retrieving data');
-          })
+          });
         }
       }, 250);
   }
