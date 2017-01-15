@@ -22,6 +22,7 @@
 <script type="text/javascript" src="./presentationResources/js/angular.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landing.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script>
+<script type="text/javascript" src="./presentationResources/js/landingMainAppDemo.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.bxslider.min.js"></script>
 
 
@@ -79,7 +80,7 @@
     <welcome-page></welcome-page>
 </div>
 <div id="appTab" class="tabcontent">
-    <app-form></app-form>
+    <app-page-demo></app-page-demo>
 </div>
 <div id="aboutTab" class="tabcontent">
     <about-us-page></about-us-page>

@@ -194,10 +194,12 @@ section.performReviewOnline{
 form.contactForm{
     margin-left: 55%;
 		margin-top: -51%;
+	  position: static;
 }
 
 .contactForm h3{
 	margin-bottom: 5%;
+
 }
 
 .contactImg img{
@@ -333,6 +335,46 @@ body {
 		background-repeat: no-repeat;
 		background-attachment: scroll;
 }
+
+div.surnameAndDept{
+	width:100%;
+	display:inline-block;
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+div.firstnamePosition{
+	width:100%;
+	display:inline-block;
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+div.givenNamesSkillset{
+	width:100%;
+	display:inline-block;
+	margin-top: 2%;
+	margin-left: 2%;
+}
+
+.depSelect{
+	 margin-left: 0%;
+}
+
+.positionSelect{
+	 margin-left: 3.4% !important;
+}
+
+.skillsetSelect{
+	 margin-left: 3.8% !important;
+}
+
+.checks{
+  margin-left: 2% !important;
+}
+
+
+html, body {position: relative !important;}
 
 
 .errorLabel{

@@ -3,7 +3,7 @@
 
 (function(angular) {
 
-		angular.module('landingApp', ['aboutUsTabPage']).component('employmeeProfile', {
+		angular.module('landingApp', ['aboutUsTabPage', 'appTabPage']).component('employmeeProfile', {
 			template: ``,
 
 			controller: function($scope, $http, $log){
