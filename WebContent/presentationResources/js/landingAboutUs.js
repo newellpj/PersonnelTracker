@@ -145,6 +145,8 @@
 												$(confirmDialog).dialog("open");
 												$(confirmDialog).html("<div style='align:center'><p>Your enquiry could not be sent. Please check your email address and send again.</p></div>");
 					  	  });
+
+								return false;
                   }
 			 }
 

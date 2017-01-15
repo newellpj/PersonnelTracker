@@ -51,8 +51,8 @@
 											<li><img src="./presentationResources/images/profilePics/charles.jpeg"   /><p style="margin-top:3%;"><b>Name:</b> Charles Jones </p><p><b>Title:</b>  Senior Software Engineer </p>
 											<p><b>Position:</b> Senior Software Engineer Billing Division</p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
 											<li><img src="./presentationResources/images/profilePics/bill.jpeg" /><p style="margin-top:3%;"><b>Name:</b> Bill Staniforth </p><p><b>Title:</b>
-											 Chief Information Officer </p>
-											<p><b>Position:</b> Chief Information Officer </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
+											 Chief Executive Officer </p>
+											<p><b>Position:</b> Chief Executive Officer </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
 											<li><img src="./presentationResources/images/profilePics/alicia.jpeg" />
 											<p style="margin-top:3%;"><b>Name:</b> Alicia Dunstan </p><p><b>Title:</b>
 											 Deputy Chief Financial Officer </p>
