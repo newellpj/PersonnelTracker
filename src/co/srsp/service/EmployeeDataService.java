@@ -6,8 +6,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import co.srsp.hibernate.EmployeeBusinessObject;
+import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
+import co.srsp.hibernate.orm.OrgDepartment;
 import co.srsp.viewmodel.EmployeeModel;
 
 public class EmployeeDataService {
@@ -46,5 +48,13 @@ public class EmployeeDataService {
 		return employeeBusinessObject.getAllSkillsets();
 	}
 
+	public List<CompanyPositions> getCompanyPositions(){
+		return employeeBusinessObject.getCompanyPositions();
+	}
+	
+	public List<OrgDepartment> getOrgDepts(){
+		return employeeBusinessObject.getOrgDepts();
+	}
+	
 
 }

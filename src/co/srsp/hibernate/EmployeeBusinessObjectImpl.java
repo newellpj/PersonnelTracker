@@ -10,8 +10,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
+import co.srsp.hibernate.orm.OrgDepartment;
 import co.srsp.viewmodel.EmployeeModel;
 import co.srsp.viewmodel.EmployeeSkillsetDataModel;
 
@@ -61,6 +63,28 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		 Session session = this.getSessionFactory().openSession();
 		 
 		 return session.createCriteria(EmployeeSkillset.class).list();
+		 
+	// List<EmployeeSkillset> list = session.createQuery(" from "+EmployeeSkillset.class.getName()).list();
+		 
+
+	}
+	
+	@Override
+	public List<CompanyPositions> getCompanyPositions(){
+		 Session session = this.getSessionFactory().openSession();
+		 
+		 return session.createCriteria(CompanyPositions.class).list();
+		 
+	// List<EmployeeSkillset> list = session.createQuery(" from "+EmployeeSkillset.class.getName()).list();
+		 
+
+	}
+	
+	@Override
+	public List<OrgDepartment> getOrgDepts(){
+		 Session session = this.getSessionFactory().openSession();
+		 
+		 return session.createCriteria(OrgDepartment.class).list();
 		 
 	// List<EmployeeSkillset> list = session.createQuery(" from "+EmployeeSkillset.class.getName()).list();
 		 

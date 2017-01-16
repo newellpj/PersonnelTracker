@@ -260,27 +260,50 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
      selectedOption: {value: '', name: 'Please select..'}
   };
 
-//  $scope.skillsetSelect = {
-  //  availableOptions [
-    /* {value: '', name: 'Please select..'},
+  $scope.skillsetSelect = {
+    availableOptions: [
+     {value: '', name: 'Please select..'},
        {value: 'English', name: 'English'},
        {value: 'French', name: 'French'},
        {value: 'Mandarin', name: 'Mandarin'},
          {value: 'Hindi', name: 'Hindi'},
        {value: 'Latin', name: 'Latin'},
-       {value: 'Spanish', name: 'Spanish'}  */
-    // ]
-    // selectedOption: {value: '', name: 'Please select..'}
-    console.log("dsfdsfdsfdsfdsfdsfdsf");
+       {value: 'Spanish', name: 'Spanish'}
+     ],
+     selectedOption: {value: '', name: 'Please select..'}
+
+  };
 
 $scope.skillsetSelect = [];
 
      $http({
                 method: 'GET',
                 url: 'getSkillsets',
+                headers: {'Content-Type' : 'application/json'},
+                dataType: "JSON",
                 data: { }
-            }).then(function successCallback(skillsetDataList) {
-               $scope.skillsetSelect = skillsetDataList;
+            }).then(function successCallback(response) {
+              console.log("skills ret "+response.data.length);
+               $scope.skillsetSelect.availableOptions = response.data;
+
+
+
+            /*     $scope.skillsetSelect = {
+                       model: response.data,
+                       availableOptions: [
+
+                       {value: '', name: 'Please select..'},
+                          {value: 'English', name: 'English'},
+                          {value: 'French', name: 'French'},
+                          {value: 'Mandarin', name: 'Mandarin'},
+                            {value: 'Hindi', name: 'Hindi'},
+                          {value: 'Latin', name: 'Latin'},
+                          {value: 'Spanish', name: 'Spanish'}
+                       ],
+                    selectedOption: {value: '', name: 'Please select..'}
+                  };*/
+
+
         },  function errorCallback(response) {
 
              console.log('error retrieving data : '+response);
@@ -334,17 +357,19 @@ $scope.skillsetSelect = [];
             params: {
               partialSearch: searchType+'-'+tmpStr
             }
-          }).then(function successCallback(data) {
+          }).then(function successCallback(response) {
             //$scope.responseData = data;
-            console.log("data returned "+data[0]['employeeName']);
-            console.log("data length returned "+data.length);
+          //  console.log("data returned "+data[0]['employeeName']);
+            console.log("data length returned "+response.data.length);
+              console.log("data length returned "+response.data[0]['employeeSurname']);
 
 
-             $scope.data = data;
-             searchedDataSet = data;
+
+             $scope.data = response.data;
+             searchedDataSet = response.data;
            //  $(objClass).css("display", "table");
 
-            if(data.length == 0 || data[0]['employeeName'] == null){
+            if(response.data.length == 0 || response.data[0]['employeeName'] == null){
                $(objClass).css("display", "none");
                 $scope.data = "";
               searchedDataSet = "";
@@ -364,7 +389,7 @@ $scope.skillsetSelect = [];
 
   $scope.$watch('positionCheck', function(newVal, oldVal, scope) {
     $log.info("newVal : "+newVal);
-
+    //$log.info("skillset selected option :: "+$scope.skillsetSelect.selectedOption.value);
       $scope.positionSelect.selectedOption = $scope.positionSelect.availableOptions[0];
 
 
@@ -525,7 +550,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
           positionSelect: positionSelect,
           skillsetSelect: skillsetSelect
         }
-      }).then(function successCallback(successErrorCode) {
+      }).then(function successCallback(bookReviewsModelArray) {
 
         $log.info("we are here : "+bookReviewsModelArray.length);
         $log.info("we are here : "+bookReviewsModelArray);
@@ -621,13 +646,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
   });
 
 
-
-
-
-
-
 })(angular);
-
 
 
 

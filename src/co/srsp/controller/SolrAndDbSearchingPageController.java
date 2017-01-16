@@ -30,8 +30,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import co.srsp.config.ConfigHandler;
 import co.srsp.constants.SessionConstants;
+import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
+import co.srsp.hibernate.orm.OrgDepartment;
 import co.srsp.rss.model.ValueNamePair;
 import co.srsp.service.EmployeeDataService;
 import co.srsp.solr.SolrSearchData;
@@ -738,9 +740,60 @@ public class SolrAndDbSearchingPageController {
 		ValueNamePair vnp = null;
 		
 		for(EmployeeSkillset skills : list){
+			log.info("we in here : "+count);
 			vnp = new ValueNamePair();
 			vnp.setName(skills.getSkillsetName());
 			vnp.setValue(skills.getSkillsetName());
+			returnArray[count] = vnp;
+			count++;
+		}
+		
+		return returnArray;
+	}
+	
+	@RequestMapping(value = { "/getOrgDepts"}, method = RequestMethod.GET)
+	public @ResponseBody ValueNamePair[] getOrgDepts(HttpServletRequest request, HttpServletResponse response){
+		
+		EmployeeDataService eds = new EmployeeDataService();
+		List<OrgDepartment> list = eds.getOrgDepts();
+		log.info("list : "+list);
+		log.info("list size :  "+list.size());
+		ValueNamePair[] returnArray = new ValueNamePair[list.size()];
+		
+		int count = 0;
+		
+		ValueNamePair vnp = null;
+		
+		for(OrgDepartment depts : list){
+			log.info("we in here : "+count);
+			vnp = new ValueNamePair();
+			vnp.setName(depts.getDeptName());
+			vnp.setValue(depts.getDeptName());
+			returnArray[count] = vnp;
+			count++;
+		}
+		
+		return returnArray;
+	}
+	
+	@RequestMapping(value = { "/getCompanyPositions"}, method = RequestMethod.GET)
+	public @ResponseBody ValueNamePair[] getCompanyPositions(HttpServletRequest request, HttpServletResponse response){
+		
+		EmployeeDataService eds = new EmployeeDataService();
+		List<CompanyPositions> list = eds.getCompanyPositions();
+		log.info("list : "+list);
+		log.info("list size :  "+list.size());
+		ValueNamePair[] returnArray = new ValueNamePair[list.size()];
+		
+		int count = 0;
+		
+		ValueNamePair vnp = null;
+		
+		for(CompanyPositions pos : list){
+			log.info("we in here : "+count);
+			vnp = new ValueNamePair();
+			vnp.setName(pos.getPositionName());
+			vnp.setValue(pos.getPositionName());
 			returnArray[count] = vnp;
 			count++;
 		}

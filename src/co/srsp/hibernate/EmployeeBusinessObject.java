@@ -2,8 +2,10 @@ package co.srsp.hibernate;
 
 import java.util.List;
 
+import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
+import co.srsp.hibernate.orm.OrgDepartment;
 import co.srsp.viewmodel.EmployeeModel;
 
 public interface EmployeeBusinessObject {
@@ -34,5 +36,9 @@ public interface EmployeeBusinessObject {
 	public  List<EmployeeModel> getEmployeesFullProfile(String searchCriteria, int offset, int numberOfRecords);
 	
 	public List<EmployeeSkillset> getAllSkillsets();
+	
+	public List<CompanyPositions> getCompanyPositions();
+	
+	public List<OrgDepartment> getOrgDepts();
 }
 
