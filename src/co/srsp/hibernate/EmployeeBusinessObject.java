@@ -3,6 +3,7 @@ package co.srsp.hibernate;
 import java.util.List;
 
 import co.srsp.hibernate.orm.Employee;
+import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.viewmodel.EmployeeModel;
 
 public interface EmployeeBusinessObject {
@@ -22,10 +23,16 @@ public interface EmployeeBusinessObject {
 	
 	public  List<Employee> findEmployeePartialSurnameMatch(String surnamePartial,  int offset, int numberOfRecords);
 	
+	public List<Employee> findEmployeePartialGivenNamesMatch(String givenNamesPartial, int offset, int numberOfRecords);
+	
+	public List<Employee> findEmployeePartialFirstNameMatch(String firstNamePartial, int offset, int numberOfRecords);
+	
 	public  List<Employee> getAllEmployees(int offset, int numberOfRecords);
 	
-	public  List<EmployeeModel> getAllEmployeesFullProfile(int offset, int numberOfRecords);
+	public  List<EmployeeModel> getAllEmployeesFullProfile(Integer empID, int offset, int numberOfRecords);
 	
 	public  List<EmployeeModel> getEmployeesFullProfile(String searchCriteria, int offset, int numberOfRecords);
+	
+	public List<EmployeeSkillset> getAllSkillsets();
 }
 

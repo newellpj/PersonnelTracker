@@ -2,19 +2,21 @@
 package co.srsp.controller;
 
 import java.awt.Image;
-import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.ImageIcon;
 
 import org.apache.log4j.Logger;
@@ -29,6 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
 import co.srsp.config.ConfigHandler;
 import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.Employee;
+import co.srsp.hibernate.orm.EmployeeSkillset;
+import co.srsp.rss.model.ValueNamePair;
 import co.srsp.service.EmployeeDataService;
 import co.srsp.solr.SolrSearchData;
 import co.srsp.viewmodel.EmployeeModel;
@@ -500,39 +504,57 @@ public class SolrAndDbSearchingPageController {
 		return null;
 	}
 	
-	@RequestMapping(value = { "/partialSearchForBook"}, method = RequestMethod.GET)
-	public @ResponseBody EmployeeModel[] partialSearchBook(HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value = { "/partialSearchForName"}, method = RequestMethod.GET)
+	public @ResponseBody EmployeeModel[] partialSearchForName(HttpServletRequest request, HttpServletResponse response){
 		
-//		HttpSession session  = request.getSession();
-//		
-//		if(session == null || session.isNew()){
-//			log.info("$$$$$$$$$$$$$$$ESSION NULL %%%%%%%%%%%%%%%%%%%%%");
-//			return null;
-//		}
-//		
-//		log.info("request contain PARTIAL_TEXT ? : "+request.getParameter(SessionConstants.PARTIAL_TEXT));
-//		String partialText = request.getParameter(SessionConstants.PARTIAL_TEXT);	
-//		String[] keyValuePair = partialText.split("-");
-//		HashMap<String, String> searchCriteria = new HashMap<String, String>();
-//		searchCriteria.put(keyValuePair[0], keyValuePair[1]);
-//		BooksAndReviewsService booksService = new BooksAndReviewsService();
-//		List<Books> booksFoundList = booksService.findBookListByPartialMatch(searchCriteria, 0, 
-//				Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));
-//		
-//		Set<Books> removedDuplicates = new HashSet<Books>();		
-//		log.info("books found list "+booksFoundList.size());
-//		
-//		for(Books book : booksFoundList){
-//			log.info("books found list in loop - title : "+book.getTitle());
-//			removedDuplicates.add(book);
-//		}
-//		
-//		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0);
-//		request.getSession().setAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA, searchCriteria);	
-//		booksFoundList.clear(); //remove all elements and add in the set with duplicates removed.
-//		booksFoundList.addAll(removedDuplicates);	
-//		log.info("books found list 2222222222 "+booksFoundList.size());
-		return  null;//buildBooksFoundReturnModel(request, booksFoundList);
+		HttpSession session  = request.getSession();
+		
+		if(session == null || session.isNew()){
+			log.info("$$$$$$$$$$$$$$$ESSION NULL %%%%%%%%%%%%%%%%%%%%%");
+			return null;
+		}
+		
+		log.info("request contain PARTIAL_TEXT ? : "+request.getParameter(SessionConstants.PARTIAL_TEXT));
+		String partialText = request.getParameter(SessionConstants.PARTIAL_TEXT);	
+		String[] keyValuePair = partialText.split("-");
+		HashMap<String, String> searchCriteria = new HashMap<String, String>();
+		searchCriteria.put(keyValuePair[0], keyValuePair[1]);
+		EmployeeDataService dataService = new EmployeeDataService();
+		
+		List<Employee> employeesFound = null;
+		
+		switch(keyValuePair[0]){
+		
+			case "surname":
+				employeesFound = dataService.getEmployeesBySurname(keyValuePair[1], 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));
+				break;
+			case "firstName":
+				employeesFound = dataService.getEmployeesByFirstName(keyValuePair[1], 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));
+				break;
+			case "givenNames":
+				employeesFound = dataService.getEmployeesByGivenNames(keyValuePair[1], 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));  
+				break;
+		}
+				
+		
+		Set<Employee> removedDuplicates = new HashSet<Employee>();	//A Set object cannot contain duplicate entries	
+		log.info("books found list "+employeesFound.size());
+		
+		for(Employee employee : employeesFound){
+			log.info("books found list in loop - title : "+employee.getEmployeeSurname());
+			removedDuplicates.add(employee);
+		}
+		
+		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0);
+		request.getSession().setAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA, searchCriteria);	
+		employeesFound.clear(); //remove all elements and add in the set with duplicates removed.
+		
+		employeesFound.addAll(removedDuplicates);
+		
+		log.info("books found list 2222222222 "+employeesFound.size());
+		
+			
+		return  buildEmployeeOnlyDataModel(request, employeesFound);
 	}
 	
 	@RequestMapping(value = { "/updateSearchCriteriaAndPaginationOffset"}, method = RequestMethod.POST)
@@ -702,8 +724,32 @@ public class SolrAndDbSearchingPageController {
 		
 	}
 	
+	@RequestMapping(value = { "/getSkillsets"}, method = RequestMethod.GET)
+	public @ResponseBody ValueNamePair[] getSkillsets(HttpServletRequest request, HttpServletResponse response){
+		
+		EmployeeDataService eds = new EmployeeDataService();
+		List<EmployeeSkillset> list = eds.getAllSkillsets();
+		log.info("list : "+list);
+		log.info("list size :  "+list.size());
+		ValueNamePair[] returnArray = new ValueNamePair[list.size()];
+		
+		int count = 0;
+		
+		ValueNamePair vnp = null;
+		
+		for(EmployeeSkillset skills : list){
+			vnp = new ValueNamePair();
+			vnp.setName(skills.getSkillsetName());
+			vnp.setValue(skills.getSkillsetName());
+			returnArray[count] = vnp;
+			count++;
+		}
+		
+		return returnArray;
+	}
 	
-	private EmployeeModel[] buildBooksFoundReturnModel(HttpServletRequest request, List<Employee> empList){
+	
+	private EmployeeModel[] buildEmployeeOnlyDataModel(HttpServletRequest request, List<Employee> empList){
 
 		List<String> employeeStringViewList = new ArrayList<String>();
 		
@@ -726,21 +772,23 @@ public class SolrAndDbSearchingPageController {
 		
 		for(Employee employee : empList){
 		
-
+			model = new EmployeeModel();
 			model.setEmployeeSurname(employee.getEmployeeSurname());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+			model.setEmployeeFirstName(employee.getEmployeeFirstName());			
+			model.setEmployeeGivenNames(employee.getEmployeeGivenNames());
+			model.setEmployeeAge(employee.getEmployeeAge());
+			model.setEmployeeAddress(employee.getEmployeeAddress());
+			model.setEmployeeGender(employee.getEmployeeGender());
+			model.setEmployeeMaritalStatus(employee.getEmployeeMaritalStatus());
+			model.setIdemployee(employee.getIdemployee());
 			
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
-			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+			//EmployeeSkillsetDataModel skillsetsModel = new EmployeeSkillsetDataModel();
+			
+//			model.set(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
 			
 			
 			String loc = "./personnel/"+employee.getIdemployee();
@@ -749,7 +797,7 @@ public class SolrAndDbSearchingPageController {
 
 			log.info("1 book.getThumbnailLocation() : "+model.getThumbnailLocation());	
 			
-			try{
+		/*	try{
 				//file system relative references are different from web application relative references 
 				String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation")+model.getThumbnailLocation();
 				log.info( System.getProperty("user.dir"));
@@ -787,7 +835,7 @@ public class SolrAndDbSearchingPageController {
 				e.printStackTrace();
 				log.error(e.getMessage());
 			}
-			
+			*/
 			employeeModelArray[count] = model;
 			count++;
 		}

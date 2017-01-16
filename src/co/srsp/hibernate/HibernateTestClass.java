@@ -28,7 +28,7 @@ public class HibernateTestClass {
 	public static void testEmployeeLoad(){
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		EmployeeBusinessObject empBO = (EmployeeBusinessObject) ctx.getBean("employeeBusinessObject");
-		List<EmployeeModel> list = empBO.getAllEmployeesFullProfile(0,10);
+		List<EmployeeModel> list = empBO.getAllEmployeesFullProfile(null, 0, 10);
 		
 		System.out.println("testEmployeeLoad");
 		

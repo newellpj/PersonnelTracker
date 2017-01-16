@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import co.srsp.hibernate.EmployeeBusinessObject;
 import co.srsp.hibernate.orm.Employee;
+import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.viewmodel.EmployeeModel;
 
 public class EmployeeDataService {
@@ -24,8 +25,25 @@ public class EmployeeDataService {
 		return employeeBusinessObject.getAllEmployees(startOffset, numberOfRecords);
 	}
 	
-	public  List<EmployeeModel> getAllEmployeesFullProfile(int offset, int numberOfRecords){
-		return employeeBusinessObject.getAllEmployeesFullProfile(offset, numberOfRecords);
+	public  List<EmployeeModel> getAllEmployeesFullProfile(Integer empID, int offset, int numberOfRecords){
+		return employeeBusinessObject.getAllEmployeesFullProfile(empID, offset, numberOfRecords);
+	}
+	
+	
+	public  List<Employee> getEmployeesBySurname(String surnamePartial, int offset, int numberOfRecords){
+		return employeeBusinessObject.findEmployeePartialSurnameMatch(surnamePartial, offset, numberOfRecords);
+	}
+	
+	public  List<Employee> getEmployeesByFirstName(String firstNamePartial, int offset, int numberOfRecords){
+		return employeeBusinessObject.findEmployeePartialFirstNameMatch(firstNamePartial, offset, numberOfRecords);
+	}
+	
+	public  List<Employee> getEmployeesByGivenNames(String givenNamesPartial, int offset, int numberOfRecords){
+		return employeeBusinessObject.findEmployeePartialGivenNamesMatch(givenNamesPartial, offset, numberOfRecords);
+	}
+	
+	public List<EmployeeSkillset> getAllSkillsets(){
+		return employeeBusinessObject.getAllSkillsets();
 	}
 
 

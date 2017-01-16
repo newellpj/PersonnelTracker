@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.srsp.hibernate.orm.Employee;
+import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.viewmodel.EmployeeModel;
 import co.srsp.viewmodel.EmployeeSkillsetDataModel;
 
@@ -54,6 +55,17 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		// TODO Auto-generated method stub
 		return findEmployeePartialSurnameMatch(surname, offset, numberOfRecords);
 	}
+	
+	@Override
+	public List<EmployeeSkillset> getAllSkillsets(){
+		 Session session = this.getSessionFactory().openSession();
+		 
+		 return session.createCriteria(EmployeeSkillset.class).list();
+		 
+	// List<EmployeeSkillset> list = session.createQuery(" from "+EmployeeSkillset.class.getName()).list();
+		 
+
+	}
 
 	@Override
 	public List<Employee> findEmployeeByFullName(String surname, String firstName, String givenNames, int offset,
@@ -83,6 +95,36 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 	}
 	
 	@Override
+	public List<Employee> findEmployeePartialFirstNameMatch(String firstNamePartial, int offset, int numberOfRecords) {
+		
+		StringBuffer sqlAppender = new StringBuffer();	
+		int count = 0;
+		
+		sqlAppender.append(" from "+Employee.class.getName()+" where ");
+		sqlAppender.append("employee_first_name like '%"+firstNamePartial+"%'");
+		log.info("sql to exec : "+sqlAppender.toString());
+		
+		Session session = this.getSessionFactory().openSession();	
+		List<Employee> list = session.createQuery(sqlAppender.toString()).setFirstResult(offset).setMaxResults(numberOfRecords).list();
+		return list;
+	}
+	
+	@Override
+	public List<Employee> findEmployeePartialGivenNamesMatch(String givenNamesPartial, int offset, int numberOfRecords) {
+		
+		StringBuffer sqlAppender = new StringBuffer();	
+		int count = 0;
+		
+		sqlAppender.append(" from "+Employee.class.getName()+" where ");
+		sqlAppender.append("employee_given_names like '%"+givenNamesPartial+"%'");
+		log.info("sql to exec : "+sqlAppender.toString());
+		
+		Session session = this.getSessionFactory().openSession();	
+		List<Employee> list = session.createQuery(sqlAppender.toString()).setFirstResult(offset).setMaxResults(numberOfRecords).list();
+		return list;
+	}
+	
+	@Override
 	public List<Employee> getAllEmployees(int offset, int numberOfRecords) {
 		
 		StringBuffer sqlAppender = new StringBuffer();	
@@ -96,14 +138,22 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		return list;
 	}
 	
-	public  List<EmployeeModel> getAllEmployeesFullProfile(int offset, int numberOfRecords){
+	public  List<EmployeeModel> getAllEmployeesFullProfile(Integer empID, int offset, int numberOfRecords){
 		Session session = this.getSessionFactory().openSession();	
+		
+		
+		String extraClause = "";
+		
+		if(empID != null){
+			extraClause = " and e.idemployee = "+empID;
+		}
+		
 		List<Object[]> list = session.createSQLQuery("select e.idemployee, e.employee_surname, e.employee_first_name, e.employee_given_names, e.employee_age, "+
 		" e.employee_gender, e.employee_marital_status, dept_name, location, position_name, position_importance, skillset_name, es.proficiency, "+
 		" current_position_relevance, years_experience "+
 		" from employee e,  org_department o, company_positions c, employee_to_skillset_ratings ets, employee_skillset es "+
 		" where e.idorg_department =  o.idorg_department and c.idcompany_positions = e.idcompany_positions and "+
-		" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset order by e.idemployee ").
+		" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset order by e.idemployee "+extraClause).
 				setFirstResult(offset).setMaxResults(numberOfRecords).list();
 
 		List<EmployeeModel> employeeModels = new ArrayList<EmployeeModel>();

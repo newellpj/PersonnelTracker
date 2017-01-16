@@ -52,7 +52,7 @@
 					<input ng-model="empGivenNames" id="empGivenNames"  placeholder="Employee given names..." style="width:40%;" type='text' name='empGivenNames' />
 
 					<input id="skillsetCheck" ng-model="skillCheck" class="checks responsive" type="checkbox" name="skillsetCheck" value="skillsetCheck" ng-click="skillsetHide = !skillsetHide" />Skillset
-					<select ng-model="skillsetSelect.selectedOption" ng-hide="skillsetHide" name="slillsetText" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
+					<select ng-model="skillsetSelect.selectedOption" ng-hide="skillsetHide" name="skillsetSelect" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
 							ng-options="option.name for option in skillsetSelect.availableOptions track by option.value" >
 					</select>
 					 <ul class="givenNamesSearchPossibles"  ng-mouseleave="mouseLeave('givenNamesSearchPossibles')">
@@ -71,7 +71,7 @@
 								<span class="glyphicon glyphicon-eye-open" style="padding-right:0.5em;" ></span>Search...
 								</button>
 								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" onclick="resetTheSearch();"  value="Reset" >
-										<span class="glyphicon glyphicon-erase" style="padding-right:0.5em;" ></span> Reset...
+										<span class="glyphicon glyphicon-refresh" style="padding-right:0.5em;" ></span> Reset...
 								</button>
 
 
@@ -260,18 +260,33 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
      selectedOption: {value: '', name: 'Please select..'}
   };
 
-  $scope.skillsetSelect = {
-    availableOptions: [
-       {value: '', name: 'Please select..'},
+//  $scope.skillsetSelect = {
+  //  availableOptions [
+    /* {value: '', name: 'Please select..'},
        {value: 'English', name: 'English'},
        {value: 'French', name: 'French'},
        {value: 'Mandarin', name: 'Mandarin'},
          {value: 'Hindi', name: 'Hindi'},
        {value: 'Latin', name: 'Latin'},
-       {value: 'Spanish', name: 'Spanish'}
-     ],
-     selectedOption: {value: '', name: 'Please select..'}
-  };
+       {value: 'Spanish', name: 'Spanish'}  */
+    // ]
+    // selectedOption: {value: '', name: 'Please select..'}
+    console.log("dsfdsfdsfdsfdsfdsfdsf");
+
+$scope.skillsetSelect = [];
+
+     $http({
+                method: 'GET',
+                url: 'getSkillsets',
+                data: { }
+            }).then(function successCallback(skillsetDataList) {
+               $scope.skillsetSelect = skillsetDataList;
+        },  function errorCallback(response) {
+
+             console.log('error retrieving data : '+response);
+        });
+
+//  };
 
   $scope.testValue = function(searchType, tmpStr){
 
@@ -312,7 +327,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
           console.log("within the title text "+tmpStr);
 
           $http({
-            url : 'partialSearchForBook',
+            url : 'partialSearchForName',
             method : 'GET',
             headers: {'Content-Type' : 'application/json'},
             dataType: "JSON",
@@ -358,7 +373,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
   $scope.$watch('skillsetCheck', function(newVal, oldVal, scope) {
     $log.info("new val skill : "+newVal);
 
-      $scope.skillsetSelect.selectedOption = $scope.skillsetSelect.availableOptions[0];
+      $scope.skillsetSelect.selectedOption = $scope.skillsetSelect[0];
 
   });
 

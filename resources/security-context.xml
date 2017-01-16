@@ -14,6 +14,7 @@
      <security:intercept-url pattern="/compTest" access="permitAll" />
      <security:intercept-url pattern="/loginSignup" access="permitAll" /> 
      <security:intercept-url pattern="/sendEnquiry" access="permitAll" />  
+     <security:intercept-url pattern="/getSkillsets" access="permitAll" /> 
 	 <security:intercept-url pattern="/addAdmin" access="hasRole('ROLE_ADMIN')" />
 	 <security:intercept-url pattern="/trackerHome" access="hasRole('ROLE_USER')" />
 	 <security:intercept-url pattern="/reviewsSearchBook" access="hasRole('ROLE_USER')" />
@@ -26,7 +27,7 @@
      <security:intercept-url pattern="/addNewBook" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/searchForDocs" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getFeeds" access="hasRole('ROLE_USER')" />  
-     <security:intercept-url pattern="/partialSearchForBook" access="hasRole('ROLE_USER')" />   
+     <security:intercept-url pattern="/partialSearchForName" access="permitAll" />   
      <security:intercept-url pattern="/retrieveNextSearchDocsSegment" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getPaginatedFeed" access="hasRole('ROLE_USER')" /> 
      <security:intercept-url pattern="/reviewsReviewBookNoneAdded" access="hasRole('ROLE_USER')" />
