@@ -1,6 +1,7 @@
 package co.srsp.hibernate;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -28,9 +29,9 @@ public class HibernateTestClass {
 	public static void testEmployeeLoad(){
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		EmployeeBusinessObject empBO = (EmployeeBusinessObject) ctx.getBean("employeeBusinessObject");
-		List<EmployeeModel> list = empBO.getAllEmployeesFullProfile(null, 0, 10);
-		
-		System.out.println("testEmployeeLoad");
+		List<EmployeeModel> list = empBO.findEmployeesByAnyCriteriaLazyLoad(new HashMap<String, String>(), 0, 40);
+
+		System.out.println("testEmployeeLoad : "+list.size());
 		
 		for(EmployeeModel model : list){
 			

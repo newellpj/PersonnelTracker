@@ -27,10 +27,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import co.srsp.config.ConfigHandler;
+import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.markup.handlers.HTMLHelper;
 import co.srsp.service.SolrSearchService;
 import co.srsp.solr.SolrSearchData;
+import co.srsp.viewmodel.EmployeeModel;
 import co.srsp.viewmodel.HTMLModel;
 
 
@@ -111,92 +114,85 @@ public class PaginationController {
 	}
 	
 	
-	@RequestMapping(value = { "/retrieveNextSearchSegment"}, method = RequestMethod.GET)
-	public ModelAndView retrieveNextSearchSegment(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = { "/retrieveNextPaginatedResults"}, method = RequestMethod.GET)
+	public ModelAndView retrieveNextPaginatedResults(HttpServletRequest request, HttpServletResponse response) {
 
-//		if(request.getSession() == null){
-//			return null;
-//		}
-//		
-//		log.info("we getting in here retrieveNextSegment?");
-//
-//		
-//		BookReviewsModel bookReviewsModel = new BookReviewsModel();
-//		//bookReviewsModel.setBookTitleReview(request.getSession().getAttribute("bookTitleFound").toString());
-//		//bookReviewsModel.setBookAuthorReview(request.getSession().getAttribute("bookAuthorFound").toString());
-//		
-//		BooksAndReviewsService booksService = new BooksAndReviewsService();
-//		
-//		String currentOffsetInSession = request.getSession().getAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET).toString();
-//		
-//		log.info("currentOffset : "+currentOffsetInSession);
-//		
-//		int offset = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
-//		
-//		int latestOffset = Integer.parseInt(currentOffsetInSession) + offset;
-//		
-//		int paginationOffset = Integer.parseInt(request.getSession().getAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET).toString());
-//		log.info("paginationOffset: "+paginationOffset);
-//		List<Books> booksList = new ArrayList<Books>();
-//		
-//		
-//		HashMap<String, String> booksMap = (HashMap)request.getSession().getAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA);
-//		
-//		log.info("session booksMap : "+booksMap.size());
-//		
-//		HashMap<String, String> tagsAndValueMap = (HashMap)request.getSession().getAttribute(SessionConstants.TAGS_SEARCH_CRITERIA);
-//		
-//		HashMap<String, HashMap<String, String>> searchCriteria = new HashMap<String, HashMap<String, String>>();
-//		
-//		if(booksMap != null && booksMap.size() > 0){
-//			log.info("booksMap size : "+booksMap.size());
-//			searchCriteria.put(SessionConstants.BOOKS_SEARCH_CRITERIA, booksMap);
-//		}else{
-//			searchCriteria.put(SessionConstants.BOOKS_SEARCH_CRITERIA, new HashMap<String, String>());
-//		}
-//		
-//		if(tagsAndValueMap != null && tagsAndValueMap.size() > 0){
-//			searchCriteria.put(SessionConstants.TAGS_SEARCH_CRITERIA, tagsAndValueMap);
-//		}else{
-//			searchCriteria.put(SessionConstants.TAGS_SEARCH_CRITERIA, new HashMap<String, String>());
-//		}
-//		
-//		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, paginationOffset + offset);
-//		
-//		booksList = booksService.findBooksByAnyCriteriaLazyLoad(searchCriteria, paginationOffset+offset, offset);
-//		
-//		
-//		if(booksList != null){
-//			log.info("size of booksList list returned : "+booksList.size());
-//		}else{
-//			log.info("no books returned");
-//		}
-//		//log.info("size of booksList2 list returned : "+booksLists2.size());
-//		List<String> booksLists2 = new ArrayList<String>();
-//
-//		ArrayList<String> list = new ArrayList<String>();
-//		
+		if(request.getSession() == null){
+			return null;
+		}
+		
+		log.info("we getting in here retrieveNextSegment?");
+	
+		List<EmployeeModel> list = (List<EmployeeModel>)request.getSession().getAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST);
+		int currentPaginationOffset = Integer.parseInt(request.getSession().getAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET).toString());
+		
+		int appPaginationValue = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
+		
+		EmployeeModel[] employeeModelArray = null;
+		
+		int count = 0;
+		
+		int breakValue = -1;
+		
+		if(list.size() <= currentPaginationOffset + appPaginationValue){ //if we are in the last segment of the list we don't want an array index out of bounds exception
+			list = list.subList(currentPaginationOffset, list.size()-1);
+			employeeModelArray = new EmployeeModel[list.size() - currentPaginationOffset];
+			breakValue = list.size() - currentPaginationOffset;
+		}else{
+			list = list.subList(currentPaginationOffset, currentPaginationOffset + appPaginationValue);
+			employeeModelArray = new EmployeeModel[appPaginationValue];
+			breakValue = appPaginationValue;
+		}
+		
+		
+		for(EmployeeModel model : list){
+			employeeModelArray[count] = model;
+			count++;
+			if(count >= breakValue) break;
+		}
+		
+		request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET,currentPaginationOffset + appPaginationValue);
+		
+		
+	//	log.info("books List 2 size ::: "+booksLists2.size());
+		
+		ModelAndView model = new ModelAndView();	
+		//model.addObject("bookReviewsModel", bookReviewsModel);
+		
+		List<String> booksLists2 = new ArrayList<String>();
+
+		
+		
 //		if(booksList != null){
 //			for(Books book : booksList){	
 //				booksLists2.add(formattedSearchListItem(book, book.getTitle()+" - "+book.getAuthor()));
 //			}
 //		}
 //		
-//		log.info("books List 2 size ::: "+booksLists2.size());
-//		
-//		ModelAndView model = new ModelAndView();	
-//		//model.addObject("bookReviewsModel", bookReviewsModel);
-//		
 //		if(booksList != null){
-//			model.addObject("booksLists2", booksLists2);
+//			model.addObject("booksLists2", booksLists2); //"booksLists2" matches a model in the searchPaginationPage.jsp page - can see the html and jstl below
 //		}else{
 //			model.addObject("booksLists2", new ArrayList<String>());
 //		}
-//			
-//		model.setViewName("searchPaginationPage"); //reviewsPaginationPage
-//		return model;
+			
+		model.setViewName("searchPaginationPage"); //reviewsPaginationPage
+		return model;
 		
-		return null;
+		/*<div class="add-reviews-box">
+		<div id="reviews" class="reviews">
+		<ul id="bookRevList2" class="bookRevList2" >				
+					
+					<c:if test="${not empty booksLists2}">
+							<c:forEach var="listValue2" items="${booksLists2}">
+								<div class="searchSegment"> ${listValue2} </div>
+							</c:forEach>
+							
+						
+			</ul>
+					 <div class="next"><a href="retrieveNextSearchSegment">next</a> </div>
+		*/
+		//return null; 
 	}
 	
 	private String formattedSearchListItem(Employee employee, String employeeDetails){

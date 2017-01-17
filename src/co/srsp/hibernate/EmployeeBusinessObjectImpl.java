@@ -130,18 +130,19 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		
 		//HashMap<String, String> tagsMap  = searchCriteria.get(SessionConstants.TAGS_SEARCH_CRITERIA);
 		
-		
+		//cannot paginate this query as it CAN return duplicate employee records - if the employee has more than 1 skillset record - most employees will
 		String mainQuery = "select e.idemployee, e.employee_surname, e.employee_first_name, e.employee_given_names, e.employee_age, "+
 				" e.employee_gender, e.employee_marital_status, dept_name, location, position_name, position_importance, skillset_name, es.proficiency, "+
 				" current_position_relevance, years_experience "+
 				" from employee e,  org_department o, company_positions c, employee_to_skillset_ratings ets, employee_skillset es "+
 				" where e.idorg_department =  o.idorg_department and c.idcompany_positions = e.idcompany_positions and "+
-				" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset order by e.idemployee "+extrasClause.toString();
+				" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset "+extrasClause.toString()+" order by e.idemployee ";
 		
+		System.out.println("main query is : "+mainQuery);
 		
-		List<Object[]> list = session.createSQLQuery(mainQuery).setFirstResult(offset).setMaxResults(5).list();
+		List<Object[]> list = session.createSQLQuery(mainQuery).list();
 		
-		
+		System.out.println("THE LIST SIZE RETURNED IS : "+list.size());
 		return buildFullProfileEmployeeModel(list);
 		
 	}

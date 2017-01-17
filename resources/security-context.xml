@@ -18,7 +18,7 @@
      <security:intercept-url pattern="/getOrgDepts" access="permitAll" /> 
      <security:intercept-url pattern="/getCompanyPositions" access="permitAll" /> 
      <security:intercept-url pattern="/searchForEmployee" access="permitAll" />
-     
+     <security:intercept-url pattern="/retrieveNextPaginatedResults" access="permitAll" />
 	 <security:intercept-url pattern="/addAdmin" access="hasRole('ROLE_ADMIN')" />
 	 <security:intercept-url pattern="/trackerHome" access="hasRole('ROLE_USER')" />
 	 <security:intercept-url pattern="/reviewsSearchBook" access="hasRole('ROLE_USER')" />

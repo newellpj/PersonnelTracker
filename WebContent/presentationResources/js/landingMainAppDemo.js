@@ -656,7 +656,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
               }
 
-              $(".search").append("<div class='next'><a href='retrieveNextSearchSegment'>"+""+"</a> </div>");
+              $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
 
               $('.resultsSection').jscroll({
                 loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"

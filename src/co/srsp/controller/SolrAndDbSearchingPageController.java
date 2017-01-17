@@ -691,16 +691,23 @@ public class SolrAndDbSearchingPageController {
 			log.info("in here222");
 		}
 		
-		list.addAll(dataService.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"))));
+		list.addAll(dataService.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, 0, 1000));
 
-		employeeModelArray = new EmployeeModel[list.size()];
+		
+		int numRecords = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
+		
+		employeeModelArray = new EmployeeModel[numRecords];
 		
 		int count = 0;
 		
 		for(EmployeeModel model : list){
 			employeeModelArray[count] = model;
 			count++;
+			if(count >= numRecords) break;
 		}
+		
+		request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0+numRecords);
 		
 		log.info("employeeModelArray array size returned :: "+employeeModelArray.length);
 		
