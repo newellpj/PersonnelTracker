@@ -1,11 +1,13 @@
 package co.srsp.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import co.srsp.hibernate.EmployeeBusinessObject;
+import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
@@ -21,6 +23,11 @@ public class EmployeeDataService {
 		
 		return employeeBusinessObject.findEmployeePartialSurnameMatch("", startOffset, numberOfRecords);
 	}
+	
+	public List<EmployeeModel> findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
+		return employeeBusinessObject.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, offset, numberOfRecords);
+	}
+	
 	
 	public List<Employee> getAllEmployeesPaginated(int startOffset, int numberOfRecords){
 		

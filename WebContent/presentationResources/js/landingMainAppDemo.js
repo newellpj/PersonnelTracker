@@ -67,7 +67,7 @@
 
 								<button id="searchBook" class="searchBook responsive" name="searchBook" type="button"
 								 ng-disabled="employeeName == '' && empFirstName == '' && empGivenNames == '' && skillsetSelect.selectedOption.value == ''
-											&& positionSelect.selectedOption.value == '' && deptSelect.selectedOption.value == '' "  ng-click="performBookSearch();" value="Search.." >
+											&& positionSelect.selectedOption.value == '' && deptSelect.selectedOption.value == '' "  ng-click="performEmployeeSearch();" value="Search.." >
 								<span class="glyphicon glyphicon-eye-open" style="padding-right:0.5em;" ></span>Search...
 								</button>
 								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" onclick="resetTheSearch();"  value="Reset" >
@@ -518,7 +518,7 @@ $scope.skillsetSelect = [];
 
 appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
-   $scope.performBookSearch = function () {
+   $scope.performEmployeeSearch = function () {
 
     var html = document.getElementById("bookRevList").html;
     var innerHTML = document.getElementById("bookRevList").innerHTML;
@@ -546,14 +546,43 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
     //remove all searchSegments - they will be re-added by javascript or the controllers dynamically
     //anyway so no damage is done
 
-    $log.info("we are titleVal 323 : "+$scope.employeeName);
+    $log.info("we are titleVal emp surname : "+$scope.employeeName);
 
-      var employeeName = $scope.employeeName;
-      var empGivenNames = $scope.empGivenNames;
-      var empFirstName = $scope.empFirstName;
-      var deptSelect = $scope.deptSelect.selectedOption.value;
-      var positionSelect = $scope.positionSelect.selectedOption.value;
-      var skillsetSelect = $scope.skillsetSelect.selectedOption.value;
+      var employeeName = '';
+
+      if($scope.employeeName != undefined){
+        employeeName = $scope.employeeName;
+      }
+
+      var empGivenNames = '';
+
+      if($scope.empGivenNames != undefined){
+        empGivenNames = $scope.empGivenNames;
+      }
+
+      var empFirstName = '';
+
+      if($scope.empFirstName != undefined){
+        empFirstName = $scope.empFirstName;
+      }
+
+      var deptSelect = '';
+
+      if($scope.deptSelect.selectedOption != undefined){
+        deptSelect = $scope.deptSelect.selectedOption.value;
+      }
+
+      var positionSelect = '';
+
+      if($scope.deptSelect.selectedOption != undefined){
+        deptSelect = $scope.positionSelect.selectedOption.value;
+      }
+
+      var skillsetSelect = '';
+
+      if($scope.deptSelect.selectedOption != undefined){
+        deptSelect = $scope.skillsetSelect.selectedOption.value;
+      }
 
       $log.info("publisher text ::: "+empGivenNames);
       $log.info("skillsetSelect text ::: "+skillsetSelect);
@@ -576,26 +605,28 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
     $http({
-        url : 'searchForBook',
+        url : 'searchForEmployee',
         method : 'GET',
         headers: {'Content-Type' : 'application/json'},
         dataType: "JSON",
         params: {
-          surname: employeeName,
-          givenNames: empGivenNames,
-          firstName: empFirstName,
-          deptSelect: deptSelect,
-          positionSelect: positionSelect,
-          skillsetSelect: skillsetSelect
+        	e1employee_surname: employeeName,
+        	e1employee_given_names: empGivenNames,
+        	e1employee_first_name: empFirstName,
+        	dept_name: deptSelect,
+        	position_name: positionSelect,
+        	skillset_name: skillsetSelect
         }
-      }).then(function successCallback(bookReviewsModelArray) {
 
-        $log.info("we are here : "+bookReviewsModelArray.length);
-        $log.info("we are here : "+bookReviewsModelArray);
 
-        $log.info("index of ::: "+bookReviewsModelArray.indexOf("html"));
+      }).then(function successCallback(response) {
 
-        if( bookReviewsModelArray.indexOf("html") > -1 && bookReviewsModelArray.indexOf("body") >  -1){
+        $log.info("we are here : "+response.data.length);
+        $log.info("we are here : "+response.data);
+
+        $log.info("index of ::: "+response.data.indexOf("html"));
+
+        if( response.data.indexOf("html") > -1 && response.data.indexOf("body") >  -1){
           $(dlg).dialog("close");
           window.parent.location.href = 'logout';
         }else{
@@ -608,17 +639,17 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             var testFirstElement = bookReviewsModelArray[0]['booksList'];
 
             $log.info('testFirstElement : '+testFirstElement);
-            $log.info('bookReviewsModelArray : '+bookReviewsModelArray.length);
+            $log.info('bookReviewsModelArray : '+response.data.length);
 
             if("No Books Found!!" != testFirstElement){
               $log.info("we here again");
-              for(var i = 0; i < bookReviewsModelArray.length; i++){
+              for(var i = 0; i < response.data.length; i++){
 
                 //$log.info("first book in array : "+$('.bookRevList').html());
 
                 //$('.bookRevList').append("<div class='searchSegment'>");
 
-                var formattedContent = "<div class='searchSegment'>"+formatBooksSearchContent(bookReviewsModelArray[i], $log)+"</div>"
+                var formattedContent = "<div class='searchSegment'>"+formatBooksSearchContent(response.data[i], $log)+"</div>"
 
                 $('.bookRevList').append(formattedContent);
               //	$('.bookRevList').append("</div>");

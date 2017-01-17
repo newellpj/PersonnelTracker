@@ -232,9 +232,8 @@ public class SolrAndDbSearchingPageController {
 		request.getSession().removeAttribute("bookAuthorFound");
 		request.getSession().removeAttribute("bookTitleFound");
 		request.getSession().removeAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET);
-		//request.getSession().removeAttribute(SessionConstants.SEARCH_TYPE_TAG);
-		request.getSession().removeAttribute(SessionConstants.TAGS_SEARCH_CRITERIA);
-		request.getSession().removeAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA);
+		//request.getSession().removeAttribute(SessionConstants.EMPLOYEES_SEARCH_CRITERIA);
+		request.getSession().removeAttribute(SessionConstants.EMPLOYEES_SEARCH_CRITERIA);
 		request.getSession().removeAttribute(SessionConstants.PUBLISHER_TEXT);
 		
 		return new EmployeeModel();
@@ -248,8 +247,7 @@ public class SolrAndDbSearchingPageController {
 		request.getSession().setAttribute(SessionConstants.CATEGORY_SELECT, "");
 		request.getSession().setAttribute(SessionConstants.LANGUAGE_SELECT, "");
 		//request.getSession().setAttribute(SessionConstants.SEARCH_TYPE_TAG, "");
-		request.getSession().setAttribute(SessionConstants.TAGS_SEARCH_CRITERIA, null);
-		request.getSession().setAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA, null);
+		request.getSession().setAttribute(SessionConstants.EMPLOYEES_SEARCH_CRITERIA, null);
 		
 		
 		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0);
@@ -278,7 +276,7 @@ public class SolrAndDbSearchingPageController {
 //			solrDocPartialSearch =  solrService.performQueryPaginated
 //				(keyValuePair[0]+":"+keyValuePair[1]+"*", Integer.parseInt
 //						(ConfigHandler.getInstance().readApplicationProperty("paginationValue")), 0);
-//			//request.getSession().setAttribute("solrAuthorQuery", "author:"+authorText);
+//			//request.getSession().setAttribute("solrAuthorQuery", "author:"+firstNameText);
 //			returnList = new String[solrDocPartialSearch.size()];
 //			log.info("list solrDocListAuthorsSearch is : "+solrDocPartialSearch.size());
 //			
@@ -314,15 +312,15 @@ public class SolrAndDbSearchingPageController {
 //		
 //		log.info("keywords : "+keywords);
 //		
-//		String titleText = request.getParameter("titleText");
-//		String authorText = request.getParameter("authorText");
+//		String surnameText = request.getParameter("surnameText");
+//		String firstNameText = request.getParameter("firstNameText");
 //		
 //		
 //		SolrDocumentList solrDocListAuthorsSearch = null;
 //		
-//		if(!"".equals(authorText)){
-//			solrDocListAuthorsSearch =  solrService.performQueryPaginated("author:"+authorText, 5, 0);
-//			request.getSession().setAttribute("solrAuthorQuery", "author:"+authorText);
+//		if(!"".equals(firstNameText)){
+//			solrDocListAuthorsSearch =  solrService.performQueryPaginated("author:"+firstNameText, 5, 0);
+//			request.getSession().setAttribute("solrAuthorQuery", "author:"+firstNameText);
 //			
 //			log.info("list solrDocListAuthorsSearch is : "+solrDocListAuthorsSearch.size());
 //		}
@@ -333,10 +331,10 @@ public class SolrAndDbSearchingPageController {
 //		
 //		SolrDocumentList solrDocListTitleSearch = null;
 //		
-//		if(!"".equals(titleText)){
-//			solrDocListTitleSearch = solrService.performQueryPaginated("title:"+titleText, 5, 0);
+//		if(!"".equals(surnameText)){
+//			solrDocListTitleSearch = solrService.performQueryPaginated("title:"+surnameText, 5, 0);
 //			
-//			request.getSession().setAttribute("solrTitleQuery", "title:"+titleText);
+//			request.getSession().setAttribute("solrTitleQuery", "title:"+surnameText);
 //	
 //			
 //			log.info("list solrDocListTitleSearch is : "+solrDocListTitleSearch.size());
@@ -548,7 +546,7 @@ public class SolrAndDbSearchingPageController {
 		}
 		
 		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0);
-		request.getSession().setAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA, searchCriteria);	
+		request.getSession().setAttribute(SessionConstants.EMPLOYEES_SEARCH_CRITERIA, searchCriteria);	
 		employeesFound.clear(); //remove all elements and add in the set with duplicates removed.
 		
 		employeesFound.addAll(removedDuplicates);
@@ -607,122 +605,114 @@ public class SolrAndDbSearchingPageController {
 		int paginationValue = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
 		
 		EmployeeDataService eds = new EmployeeDataService();
-		
-		
+
 		eds.getEmployeeRecord(request.getParameter(SessionConstants.EMPLOYEE_SEARCH_STRING), 0, (0+paginationValue));
 		
 		EmployeeModel[] employeeModelArray = new EmployeeModel[0];
 		
 		
+		//return employeeModelArray;
 		
-		return employeeModelArray;
+		
+		if(request.getSession() == null){
+			return null;
+		}
+		
+		resetSearchSessionAttributes(request);
+		log.info("request contain surnameText ? : "+request.getParameter(SessionConstants.EMPLOYEE_SURNAME));
+		log.info("request contain firstNameText ? : "+request.getParameter(SessionConstants.EMPLOYEE_FIRST_NAME));
+		log.info("request contain givenNamesText ? : "+request.getParameter(SessionConstants.EMPLOYEE_GIVEN_NAMES));
+		
+		log.info("request contain lang text ? : "+request.getParameter("langText"));
 		
 		
-//		
-//		if(request.getSession() == null){
-//			return null;
-//		}
-//		
-//		resetSearchSessionAttributes(request);
-//		log.info("request contain titleText ? : "+request.getParameter(SessionConstants.TITLE_TEXT));
-//		log.info("request contain authorText ? : "+request.getParameter(SessionConstants.AUTHOR_TEXT));
-//		log.info("request contain publisherText ? : "+request.getParameter(SessionConstants.PUBLISHER_TEXT));
-//		
-//		log.info("request contain lang text ? : "+request.getParameter("langText"));
-//		
-//	
-//		
-//		String titleText = request.getParameter(SessionConstants.TITLE_TEXT);
-//		String authorText = request.getParameter(SessionConstants.AUTHOR_TEXT);
-//		String publisherText = request.getParameter(SessionConstants.PUBLISHER_TEXT);
-//
-//		
-//		HashMap<String, HashMap<String, String>> searchCriteria = new HashMap<String, HashMap<String, String>>();
-//		
-//		HashMap<String, String> tagsAndValueMap = new HashMap<String, String>();
-//		
-//		if(request.getParameter(SessionConstants.GENRE_SELECT) != null && !"".equals(request.getParameter(SessionConstants.GENRE_SELECT))){
-//			tagsAndValueMap.put(SessionConstants.GENRE_SELECT, request.getParameter(SessionConstants.GENRE_SELECT));
-//			log.info("genreText to search on : "+request.getParameter(SessionConstants.GENRE_SELECT));
-//		}
-//		
-//		if(request.getParameter(SessionConstants.CATEGORY_SELECT) != null && !"".equals(request.getParameter(SessionConstants.CATEGORY_SELECT))){
-//			log.info("catText to search on : "+request.getParameter(SessionConstants.CATEGORY_SELECT));
-//			
-//			tagsAndValueMap.put(SessionConstants.CATEGORY_SELECT, request.getParameter(SessionConstants.CATEGORY_SELECT));
-//		}
-//		
-//		if(request.getParameter(SessionConstants.LANGUAGE_SELECT) != null && !"".equals(request.getParameter(SessionConstants.LANGUAGE_SELECT))){
-//			log.info("lang text to search on : "+request.getParameter("langText"));
-//			tagsAndValueMap.put(SessionConstants.LANGUAGE_SELECT, request.getParameter(SessionConstants.LANGUAGE_SELECT));
-//		}
-//		
-//		log.info("tags and value map size : "+tagsAndValueMap.size());
-//		
-//		if(tagsAndValueMap.size() > 0){
-//			searchCriteria.put(SessionConstants.TAGS_SEARCH_CRITERIA, tagsAndValueMap);
-//			request.getSession().setAttribute(SessionConstants.TAGS_SEARCH_CRITERIA, tagsAndValueMap);
-//		}else{
-//			searchCriteria.put(SessionConstants.TAGS_SEARCH_CRITERIA, new <String, String>HashMap());
-//			request.getSession().setAttribute(SessionConstants.TAGS_SEARCH_CRITERIA,  new <String, String>HashMap());
-//		}
-//
-//		log.info("just before service instantiation !");
-//		
-//		BooksAndReviewsService booksService = new BooksAndReviewsService();
-//		
-//		List<Books> booksList = new ArrayList<Books>();
-//		log.info("just before test !");
-//
-//		request.getSession().setAttribute(SessionConstants.PUBLISHER_TEXT, publisherText);
-//
-//		HashMap<String, String> booksSearchCriteria = null;
-//		
-//		if(titleText != null && !"".equals(titleText)){
-//			
-//			if(booksSearchCriteria == null){
-//				booksSearchCriteria = new HashMap<String, String>(); 
-//			}
-//			
-//			booksSearchCriteria.put(SessionConstants.TITLE_TEXT, titleText);
-//			log.info("in here111");
-//		
-//		}
-//		
-//		if(!"".equals(authorText) && authorText != null){
-//			
-//			if(booksSearchCriteria == null){
-//				booksSearchCriteria = new HashMap<String, String>(); 
-//			}
-//			
-//			booksSearchCriteria.put(SessionConstants.AUTHOR_TEXT, authorText);
-//		}
-//		
-//		if(publisherText != null && !"".equals(publisherText)){
-//			
-//			if(booksSearchCriteria == null){
-//				booksSearchCriteria = new HashMap<String, String>(); 
-//			}
-//			booksSearchCriteria.put(SessionConstants.PUBLISHER_TEXT, publisherText);
-//			log.info("in here222");
-//		}
-//		
-//		if(booksSearchCriteria != null && booksSearchCriteria.size() > 0){
-//			searchCriteria.put(SessionConstants.BOOKS_SEARCH_CRITERIA, booksSearchCriteria); 
-//			request.getSession().setAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA, booksSearchCriteria);
-//		}else{
-//			searchCriteria.put(SessionConstants.BOOKS_SEARCH_CRITERIA, new HashMap<String, String>());
-//			request.getSession().setAttribute(SessionConstants.BOOKS_SEARCH_CRITERIA, new HashMap<String, String>());
-//		}
-//		
-//		
-//		booksList.addAll(booksService.findBooksByAnyCriteriaLazyLoad(searchCriteria, 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"))));
-//
-//		ModelAndView modelView = new ModelAndView();
-//
-//		
-//		modelView.setViewName("reviewsSearchBook");
-//		return buildBooksFoundReturnModel(request, booksList);
+		String surnameText = request.getParameter(SessionConstants.EMPLOYEE_SURNAME);
+		String firstNameText = request.getParameter(SessionConstants.EMPLOYEE_FIRST_NAME);
+		String givenNamesText = request.getParameter(SessionConstants.EMPLOYEE_GIVEN_NAMES);
+	
+		
+		HashMap<String, String> searchCriteria = new HashMap<String, String>();
+		
+		if(request.getParameter(SessionConstants.EMPLOYEE_DEPT) != null && !"".equals(request.getParameter(SessionConstants.EMPLOYEE_DEPT))){
+			searchCriteria.put(SessionConstants.EMPLOYEE_DEPT, request.getParameter(SessionConstants.EMPLOYEE_DEPT));
+			log.info("genreText to search on : "+request.getParameter(SessionConstants.EMPLOYEE_DEPT));
+		}
+		
+		if(request.getParameter(SessionConstants.EMPLOYEE_POSITION) != null && !"".equals(request.getParameter(SessionConstants.EMPLOYEE_POSITION))){
+			log.info("catText to search on : "+request.getParameter(SessionConstants.EMPLOYEE_POSITION));
+			
+			searchCriteria.put(SessionConstants.EMPLOYEE_POSITION, request.getParameter(SessionConstants.EMPLOYEE_POSITION));
+		}
+		
+		if(request.getParameter(SessionConstants.EMPLOYEE_SKILLSET) != null && !"".equals(request.getParameter(SessionConstants.EMPLOYEE_SKILLSET))){
+			log.info("lang text to search on : "+request.getParameter("langText"));
+			searchCriteria.put(SessionConstants.EMPLOYEE_SKILLSET, request.getParameter(SessionConstants.EMPLOYEE_SKILLSET));
+		}
+		
+		log.info("tags and value map size : "+searchCriteria.size());
+		
+
+		log.info("just before service instantiation !");
+		
+		EmployeeDataService dataService = new EmployeeDataService();
+		
+		List<EmployeeModel> list = new ArrayList<EmployeeModel>();
+		log.info("just before test !");
+
+		request.getSession().setAttribute(SessionConstants.EMPLOYEE_GIVEN_NAMES, givenNamesText);
+
+		
+		if(surnameText != null && !"".equals(surnameText)){
+			
+			if(searchCriteria == null){
+				searchCriteria = new HashMap<String, String>(); 
+			}
+			
+			searchCriteria.put(SessionConstants.EMPLOYEE_SURNAME, surnameText);
+			log.info("in here111");
+		
+		}
+		
+		if(!"".equals(firstNameText) && firstNameText != null){
+			
+			if(searchCriteria == null){
+				searchCriteria = new HashMap<String, String>(); 
+			}
+			
+			searchCriteria.put(SessionConstants.EMPLOYEE_FIRST_NAME, firstNameText);
+		}
+		
+		if(givenNamesText != null && !"".equals(givenNamesText)){
+			
+			if(searchCriteria == null){
+				searchCriteria = new HashMap<String, String>(); 
+			}
+			searchCriteria.put(SessionConstants.EMPLOYEE_GIVEN_NAMES, givenNamesText);
+			log.info("in here222");
+		}
+		
+
+		
+		
+		list.addAll(dataService.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"))));
+
+		//ModelAndView modelView = new ModelAndView();
+
+		employeeModelArray = (EmployeeModel[])list.toArray();
+		
+		employeeModelArray = new EmployeeModel[list.size()];
+		
+		int count = 0;
+		
+		for(EmployeeModel model : list){
+			employeeModelArray[count] = model;
+			count++;
+		}
+		
+		log.info("employeeModelArray array size returned :: "+employeeModelArray.length);
+		
+		//modelView.setViewName("reviewsSearchBook");
+		return employeeModelArray;// buildEmployeeFullProfileDataModel(request, list);
 		
 	}
 	
@@ -799,6 +789,113 @@ public class SolrAndDbSearchingPageController {
 		}
 		
 		return returnArray;
+	}
+	
+	private EmployeeModel[] buildEmployeeFullProfileDataModel(HttpServletRequest request, List<Employee> empList){
+
+		List<String> employeeStringViewList = new ArrayList<String>();
+		
+		log.info("empList : "+empList.size());
+		request.getSession().setAttribute("currentPaginationOffset", 0);
+		
+			
+		if(empList == null || empList.size() == 0){
+			request.getSession().setAttribute("bookAuthorFound", "");
+			request.getSession().setAttribute("bookTitleFound", "");
+			request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0);
+			log.info("no books found ");
+			employeeStringViewList.add("No books found");
+		}
+		
+		EmployeeModel[] employeeModelArray = new EmployeeModel[empList.size()];
+		int count = 0;
+		
+		EmployeeModel model = null;
+		
+		for(Employee employee : empList){
+		
+			model = new EmployeeModel();
+			model.setEmployeeSurname(employee.getEmployeeSurname());
+			model.setEmployeeFirstName(employee.getEmployeeFirstName());			
+			model.setEmployeeGivenNames(employee.getEmployeeGivenNames());
+			model.setEmployeeAge(employee.getEmployeeAge());
+			model.setEmployeeAddress(employee.getEmployeeAddress());
+			model.setEmployeeGender(employee.getEmployeeGender());
+			model.setEmployeeMaritalStatus(employee.getEmployeeMaritalStatus());
+			model.setIdemployee(employee.getIdemployee());
+			
+			//EmployeeSkillsetDataModel skillsetsModel = new EmployeeSkillsetDataModel();
+			
+//			model.set(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+//			model.setEmployeeFirstName(employee.getEmployeeFirstName());
+			
+			
+			String loc = "./personnel/"+employee.getIdemployee();
+
+			model.setThumbnailLocation(loc);
+
+			log.info("1 book.getThumbnailLocation() : "+model.getThumbnailLocation());	
+			
+		/*	try{
+				//file system relative references are different from web application relative references 
+				String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation")+model.getThumbnailLocation();
+				log.info( System.getProperty("user.dir"));
+				 
+				File file = new File(fileURLPath);
+				log.info("location for file is :::: "+fileURLPath);
+				log.info("does file exist : "+file.exists());
+				
+				Image image = new ImageIcon(fileURLPath).getImage();
+				
+				int imgWidth = image.getWidth(null);
+				int imgHeight = image.getHeight(null);
+				
+				log.info("imgWidth : "+imgWidth);
+				log.info("imgHeight : "+imgHeight);
+				
+				if(imgWidth > imgHeight){
+					double result = new Double(imgHeight)/ new Double(imgWidth);
+					log.info("result : "+result);
+					imgHeight = (int)(result * new Double(192));
+					imgWidth = 192;
+				}else if(imgWidth < imgHeight){
+					double result = new Double(imgWidth)/ new Double(imgHeight);
+					imgWidth = (int)(result * new Double(192));
+					imgHeight = 192;
+				}else{
+					imgHeight = 192;
+					imgWidth  = 192;
+				}
+				
+				model.setImageHeight(String.valueOf(imgHeight));
+				model.setImageWidth(String.valueOf(imgWidth));
+				
+			}catch(Exception e){
+				e.printStackTrace();
+				log.error(e.getMessage());
+			}
+			*/
+			employeeModelArray[count] = model;
+			count++;
+		}
+		
+		log.info("before testing array length");
+		
+		if(employeeModelArray.length == 0){
+			log.info("after testing array length");
+			employeeModelArray = new EmployeeModel[1];
+			EmployeeModel model_ = new EmployeeModel();
+			log.info("after testing array length 333");
+			model_.setEmployeeSurname("No Employees Found!!");
+			log.info("after testing array length 444");
+			employeeModelArray[0] = model_;
+		}
+		
+		return employeeModelArray;
+		
 	}
 	
 	

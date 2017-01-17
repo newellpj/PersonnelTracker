@@ -1,7 +1,9 @@
 package co.srsp.hibernate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -10,6 +12,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.srsp.constants.SessionConstants;
+import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
@@ -103,6 +107,44 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 
 	}
 
+
+	@Override
+	public List<EmployeeModel> findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
+		log.info("findBooksByAnyCriteriaLazyLoad");
+		Session session = this.getSessionFactory().openSession();
+		StringBuffer extrasClause = new StringBuffer();
+		int count = 0;
+
+		for(String key : searchCriteria.keySet()){
+			
+			String value = searchCriteria.get(key);
+			if(key.contains("1")){
+				key = key.replaceAll("1", ".");
+			}
+			
+			extrasClause.append("and ");
+			extrasClause.append(key+" = "+value);
+			
+		}
+		
+		//HashMap<String, String> tagsMap  = searchCriteria.get(SessionConstants.TAGS_SEARCH_CRITERIA);
+		
+		
+		String mainQuery = "select e.idemployee, e.employee_surname, e.employee_first_name, e.employee_given_names, e.employee_age, "+
+				" e.employee_gender, e.employee_marital_status, dept_name, location, position_name, position_importance, skillset_name, es.proficiency, "+
+				" current_position_relevance, years_experience "+
+				" from employee e,  org_department o, company_positions c, employee_to_skillset_ratings ets, employee_skillset es "+
+				" where e.idorg_department =  o.idorg_department and c.idcompany_positions = e.idcompany_positions and "+
+				" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset order by e.idemployee "+extrasClause.toString();
+		
+		
+		List<Object[]> list = session.createSQLQuery(mainQuery).setFirstResult(offset).setMaxResults(5).list();
+		
+		
+		return buildFullProfileEmployeeModel(list);
+		
+	}
+	
 	@Override
 	public List<Employee> findEmployeePartialSurnameMatch(String surnamePartial, int offset, int numberOfRecords) {
 		
@@ -180,9 +222,13 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset order by e.idemployee "+extraClause).
 				setFirstResult(offset).setMaxResults(numberOfRecords).list();
 
-		List<EmployeeModel> employeeModels = new ArrayList<EmployeeModel>();
+		
+		return buildFullProfileEmployeeModel(list);
+	}
+	
+	private List<EmployeeModel> buildFullProfileEmployeeModel(List<Object[]> list){
 
-
+		List<EmployeeModel> employeeModels = new ArrayList<EmployeeModel>(); 
 		EmployeeModel empModel = null;
 		List<EmployeeSkillsetDataModel> skillsets = null;	
 		EmployeeSkillsetDataModel skillSetModel = null;

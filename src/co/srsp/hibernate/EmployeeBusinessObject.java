@@ -1,5 +1,6 @@
 package co.srsp.hibernate;
 
+import java.util.HashMap;
 import java.util.List;
 
 import co.srsp.hibernate.orm.CompanyPositions;
@@ -24,6 +25,9 @@ public interface EmployeeBusinessObject {
 	public  List<Employee> findEmployeeByFullName(String surname, String firstName, String givenNames, int offset, int numberOfRecords);
 	
 	public  List<Employee> findEmployeePartialSurnameMatch(String surnamePartial,  int offset, int numberOfRecords);
+	
+	public List<EmployeeModel> findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords);
+
 	
 	public List<Employee> findEmployeePartialGivenNamesMatch(String givenNamesPartial, int offset, int numberOfRecords);
 	

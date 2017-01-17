@@ -8,8 +8,8 @@ public interface SessionConstants {
 	public static String BOOK_TITLE_FOUND = "bookTitleFound";
 	public static String BOOK_AUTHOR_FOUND = "bookAuthorFound";
 	
-	public static String BOOKS_SEARCH_CRITERIA = "books";
-	public static String TAGS_SEARCH_CRITERIA = "tags";
+	
+	public static String EMPLOYEES_SEARCH_CRITERIA = "employees";
 	
 	public static String LANGUAGE_SELECT = "langSelect";
 	public static String CATEGORY_SELECT = "catSelect";
@@ -28,8 +28,15 @@ public interface SessionConstants {
 	public static String PHONE = "number";
 	public static String MESSAGE = "message";
 	
-	
 	public static String EMPLOYEE_SEARCH_STRING = "empSearchString";
+	
+	public static String EMPLOYEE_SURNAME = "e1employee_surname"; 
+	public static String EMPLOYEE_GIVEN_NAMES = "e1employee_given_names";
+	public static String EMPLOYEE_FIRST_NAME = "e1employee_first_name";
+	public static String EMPLOYEE_DEPT = "dept_name";
+	public static String EMPLOYEE_POSITION = "position_name";
+	public static String EMPLOYEE_SKILLSET = "skillset_name";
+	
 	
 	//public static String SEARCH_TYPE_TAG = "searchType";
 	public static String FIND_BY_BOOKS_BY_PUBLISHER_LAZY_LOAD = "findBooksByPublisherLazyLoad";
