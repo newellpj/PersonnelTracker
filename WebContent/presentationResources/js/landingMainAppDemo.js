@@ -22,7 +22,7 @@
 
 						 <ul class="nameSearchPossibles" ng-mouseleave="mouseLeave('nameSearchPossibles')">
 							<li ng-repeat="d in data | filter: employeeName track by $index" style="margin-left:2em;">
-							 <span ng-mousedown="displayNames(d)">{{d.employeeName}}</span>
+							 <span ng-mousedown="displayNames(d)">{{d.employeeSurname}}</span>
 							</li>
 						   </ul>
 
@@ -393,7 +393,7 @@ $scope.skillsetSelect = [];
             //$scope.responseData = data;
           //  console.log("data returned "+data[0]['employeeName']);
             console.log("data length returned "+response.data.length);
-              console.log("data length returned "+response.data[0]['employeeSurname']);
+              console.log("data at 0 "+response.data[0]['employeeSurname']);
 
 
 
@@ -401,11 +401,13 @@ $scope.skillsetSelect = [];
              searchedDataSet = response.data;
            //  $(objClass).css("display", "table");
 
-            if(response.data.length == 0 || response.data[0]['employeeName'] == null){
+            if(response.data.length == 0 || response.data[0]['employeeSurname'] == null){
+               console.log('we wont display');
                $(objClass).css("display", "none");
                 $scope.data = "";
               searchedDataSet = "";
              }else{
+               console.log('we should display');
                $(objClass).css("display", "table");
              }
 
