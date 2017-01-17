@@ -24,23 +24,34 @@ public class EmployeeModel {
 	private String employeecol;
 	private Set employeeToSkillsetRatingses = new HashSet(0);
 	private List<EmployeeSkillsetDataModel> empSkillsetsDataModel;
-
-	
-
 	
 	private String imageHeight;
 	
 	private String imageWidth;
 	
-	private String thumbnailLocation;
+	private String profilePicURL;
 	
 	public EmployeeModel(){
 		
 	}
 	
 	
-
+    
 	
+	public String getProfilePicURL() {
+		return profilePicURL;
+	}
+
+
+
+
+	public void setProfilePicURL(String profilePicURL) {
+		this.profilePicURL = profilePicURL;
+	}
+
+
+
+
 	public List<EmployeeSkillsetDataModel> getEmpSkillsetsDateModel() {
 		return empSkillsetsDataModel;
 	}
@@ -77,24 +88,9 @@ public class EmployeeModel {
 	}
 
 
-
 	public void setImageWidth(String imageWidth) {
 		this.imageWidth = imageWidth;
 	}
-
-
-
-	public String getThumbnailLocation() {
-		return thumbnailLocation;
-	}
-
-
-
-	public void setThumbnailLocation(String thumbnailLocation) {
-		this.thumbnailLocation = thumbnailLocation;
-	}
-
-
 
 	public Integer getIdemployee() {
 		return idemployee;

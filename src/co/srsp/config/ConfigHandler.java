@@ -1,5 +1,6 @@
 package co.srsp.config;
 
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.swing.ImageIcon;
+
 import org.apache.log4j.Logger;
+
+import co.srsp.viewmodel.EmployeeModel;
 
 public class ConfigHandler {
 	
@@ -153,6 +158,49 @@ public class ConfigHandler {
 	}
 	
 	public void writeProperty(String propLabel, String propVal){
+		
+	}
+	
+	public void setProfilePicData(EmployeeModel model){
+	  try{
+			//file system relative references are different from web application relative references 
+			String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationProfileImagesLocation");
+			fileURLPath += model.getEmployeeFirstName().toLowerCase()+".jpeg";
+			log.info( System.getProperty("user.dir"));
+			 
+			File file = new File(fileURLPath);
+			log.info("location for file is :::: "+fileURLPath);
+			log.info("does file exist : "+file.exists());
+			
+			Image image = new ImageIcon(fileURLPath).getImage();
+			
+			int imgWidth = image.getWidth(null);
+			int imgHeight = image.getHeight(null);
+			
+			log.info("imgWidth : "+imgWidth);
+			log.info("imgHeight : "+imgHeight);
+			
+			if(imgWidth > imgHeight){
+				double result = new Double(imgHeight)/ new Double(imgWidth);
+				log.info("result : "+result);
+				imgHeight = (int)(result * new Double(192));
+				imgWidth = 192;
+			}else if(imgWidth < imgHeight){
+				double result = new Double(imgWidth)/ new Double(imgHeight);
+				imgWidth = (int)(result * new Double(192));
+				imgHeight = 192;
+			}else{
+				imgHeight = 192;
+				imgWidth  = 192;
+			}
+			
+			model.setImageHeight(String.valueOf(imgHeight));
+			model.setImageWidth(String.valueOf(imgWidth));
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage());
+		}
 		
 	}
 	

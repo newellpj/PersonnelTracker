@@ -266,7 +266,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 			skillSetModel = new EmployeeSkillsetDataModel();
 			skillSetModel.setDepartmentName(obj[7].toString());
 			skillSetModel.setCurrentPostionName(obj[9].toString());
-			skillSetModel.setCurrentPostionName(obj[11].toString());
+			skillSetModel.setSkillsetName(obj[11].toString());
 			skillSetModel.setSkillSetProficiency(Integer.parseInt(obj[12].toString()));
 			skillSetModel.setSkillsetToPositionRelevance(Integer.parseInt(obj[13].toString()));
 			skillSetModel.setSkillsetYearsExperience(Integer.parseInt(obj[14].toString()));
