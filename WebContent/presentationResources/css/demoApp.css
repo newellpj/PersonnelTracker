@@ -5,7 +5,7 @@ ul.nameSearchPossibles, ul.firstNameSearchPossibles, ul.givenNamesSearchPossible
 	background-color:white;
 	list-style-type:none;
 	text-shadow: none;
-	padding-right:1em;
+	padding-right:0em;
 	border: solid 1.5px #dcdcdc;
 	box-shadow: 10px 10px 5px #888888;
     -webkit-padding-start: 10px;
@@ -16,8 +16,8 @@ ul.nameSearchPossibles li span:hover{
 	margin-left:-1em !important;
 	padding-left:1em;
 	cursor:pointer;
-	border-radius:10px;
-	padding-right:3em;
+	border-radius:2px;
+	padding-right:4em;
 	background: linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 	background: -moz-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 	background: -webkit-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
@@ -26,10 +26,10 @@ ul.nameSearchPossibles li span:hover{
 ul.firstNameSearchPossibles li span:hover{
 	z-index: 10;
 	margin-left:-1em !important;
-	border-radius:10px;
+	border-radius:2px;
 	cursor:pointer;
 	padding-left:1em;
-	padding-right:3em;
+	padding-right:4em;
 	background: linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 	background: -moz-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 	background: -webkit-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
@@ -38,9 +38,9 @@ ul.firstNameSearchPossibles li span:hover{
 ul.givenNamesSearchPossibles li span:hover{
 	z-index: 10;
 	margin-left:-1em !important;
-	border-radius:10px;
+	border-radius:2px;
 	padding-left:1em;
-	padding-right:3em;
+	padding-right:4em;
 	cursor:pointer;
 	background: linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 	background: -moz-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);

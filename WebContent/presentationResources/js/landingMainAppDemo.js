@@ -40,8 +40,8 @@
 					</select>
 
 					 <ul class="firstNameSearchPossibles" ng-mouseleave="mouseLeave('firstNameSearchPossibles')">
-							<li ng-repeat="d in data | unique: empFirstName" style="width:100%; padding-left:-2em !important; margin-left:2em;">
-							 <span ng-mousedown="displayFirstNames(d)">{{d.empFirstName}}</span>
+							<li ng-repeat="d in data | filter: empFirstName track by $index" style="width:100%; padding-left:-2em !important; margin-left:2em;">
+							 <span ng-mousedown="displayFirstNames(d)">{{d.employeeFirstName}}</span>
 							</li>
 					  </ul>
 
@@ -56,8 +56,8 @@
 							ng-options="option.name for option in skillsetSelect.availableOptions track by option.value" >
 					</select>
 					 <ul class="givenNamesSearchPossibles"  ng-mouseleave="mouseLeave('givenNamesSearchPossibles')">
-							<li ng-repeat="d in data | unique: empGivenNames " style="margin-left:2em;">
-							 <span ng-mousedown="displayGivenNames(d)">{{d.empGivenNames}}</span>
+							<li ng-repeat="d in data | filter: empGivenNames track by $index" style="margin-left:2em;">
+							 <span ng-mousedown="displayGivenNames(d)">{{d.employeeGivenNames}}</span> <!-- employeeGivenNames is the variable name in the employee data model returned from server-->
 							</li>
 					  </ul>
 		          </div>
@@ -116,6 +116,7 @@ appDemoModule.filter('unique', function() {
       // add it to our keys array
       keys.push(key);
       // push this item to our final output array
+      console.log("item to push : "+item);
       output.push(item);
     }
   });
@@ -393,7 +394,7 @@ $scope.skillsetSelect = [];
             //$scope.responseData = data;
           //  console.log("data returned "+data[0]['employeeName']);
             console.log("data length returned "+response.data.length);
-              console.log("data at 0 "+response.data[0]['employeeSurname']);
+            console.log("data at 0 "+response.data[0]['employeeFirstName']);
 
 
 
@@ -401,7 +402,7 @@ $scope.skillsetSelect = [];
              searchedDataSet = response.data;
            //  $(objClass).css("display", "table");
 
-            if(response.data.length == 0 || response.data[0]['employeeSurname'] == null){
+            if(response.data.length == 0 || response.data[0]['employeeSurname'] == 'No Employees Found!!'){
                console.log('we wont display');
                $(objClass).css("display", "none");
                 $scope.data = "";
@@ -454,9 +455,9 @@ $scope.skillsetSelect = [];
 
   $scope.displayNames = function(data){
     console.log('hello there : '+data);
-    $scope.employeeName = data.employeeName;
+    $scope.employeeName = data.employeeSurname;
     //$scope.data = "";
-    $scope.lastSelectedSurnameItem = data.employeeName;
+    $scope.lastSelectedSurnameItem = data.employeeSurname;
      $('.nameSearchPossibles').css("display", "none");
     var dataToFormat = [];
     dataToFormat[0] = data;
@@ -466,9 +467,9 @@ $scope.skillsetSelect = [];
 
   $scope.displayFirstNames = function(data){
     console.log('hello there : '+data);
-    $scope.employeeName = data.employeeName;
+    $scope.empFirstName = data.employeeFirstName;
     //$scope.data = "";
-    $scope.lastSelectedSurnameItem = data.employeeName;
+    $scope.lastSelectedFirstNameItem = data.employeeFirstName;
      $('.nameSearchPossibles').css("display", "none");
     var dataToFormat = [];
     dataToFormat[0] = data;
@@ -478,9 +479,9 @@ $scope.skillsetSelect = [];
 
   $scope.displayGivenNames = function(data){
     console.log('hello there : '+data);
-    $scope.employeeName = data.employeeName;
+    $scope.empGivenNames = data.employeeGivenNames;
     //$scope.data = "";
-    $scope.lastSelectedSurnameItem = data.employeeName;
+    $scope.lastSelectedGivenNamesItem = data.employeeGivenNames;
      $('.nameSearchPossibles').css("display", "none");
     var dataToFormat = [];
     dataToFormat[0] = data;
