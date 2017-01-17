@@ -161,7 +161,7 @@ public class ConfigHandler {
 		
 	}
 	
-	public void setProfilePicData(EmployeeModel model){
+	public static void setProfilePicData(EmployeeModel model){
 	  try{
 			//file system relative references are different from web application relative references 
 			String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationProfileImagesLocation");
@@ -172,30 +172,8 @@ public class ConfigHandler {
 			log.info("location for file is :::: "+fileURLPath);
 			log.info("does file exist : "+file.exists());
 			
-			Image image = new ImageIcon(fileURLPath).getImage();
-			
-			int imgWidth = image.getWidth(null);
-			int imgHeight = image.getHeight(null);
-			
-			log.info("imgWidth : "+imgWidth);
-			log.info("imgHeight : "+imgHeight);
-			
-			if(imgWidth > imgHeight){
-				double result = new Double(imgHeight)/ new Double(imgWidth);
-				log.info("result : "+result);
-				imgHeight = (int)(result * new Double(192));
-				imgWidth = 192;
-			}else if(imgWidth < imgHeight){
-				double result = new Double(imgWidth)/ new Double(imgHeight);
-				imgWidth = (int)(result * new Double(192));
-				imgHeight = 192;
-			}else{
-				imgHeight = 192;
-				imgWidth  = 192;
-			}
-			
-			model.setImageHeight(String.valueOf(imgHeight));
-			model.setImageWidth(String.valueOf(imgWidth));
+			model.setImageHeight(String.valueOf(190));
+			model.setImageWidth(String.valueOf(190));
 			
 		}catch(Exception e){
 			e.printStackTrace();

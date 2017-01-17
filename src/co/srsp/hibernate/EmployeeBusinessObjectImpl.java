@@ -12,6 +12,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.srsp.config.ConfigHandler;
 import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.CompanyPositions;
@@ -271,7 +272,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 			skillSetModel.setSkillsetToPositionRelevance(Integer.parseInt(obj[13].toString()));
 			skillSetModel.setSkillsetYearsExperience(Integer.parseInt(obj[14].toString()));
 			empModel.getEmpSkillsetsDateModel().add(skillSetModel);
-			
+			ConfigHandler.setProfilePicData(empModel);
 			
 			log.info("obj object 1 : "+obj[0].toString());
 			log.info("the object 2 : "+obj[1].toString());
