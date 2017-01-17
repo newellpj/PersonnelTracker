@@ -825,11 +825,7 @@ public class SolrAndDbSearchingPageController {
 //			model.setEmployeeFirstName(employee.getEmployeeFirstName());
 			
 			
-			String loc = "./personnel/"+employee.getIdemployee();
-
-			model.setThumbnailLocation(loc);
-
-			log.info("1 book.getThumbnailLocation() : "+model.getThumbnailLocation());	
+	
 			
 		/*	try{
 				//file system relative references are different from web application relative references 
@@ -933,12 +929,7 @@ public class SolrAndDbSearchingPageController {
 //			model.setEmployeeFirstName(employee.getEmployeeFirstName());
 			
 			
-			String loc = "./personnel/"+employee.getIdemployee();
 
-			model.setThumbnailLocation(loc);
-
-			log.info("1 book.getThumbnailLocation() : "+model.getThumbnailLocation());	
-			
 		/*	try{
 				//file system relative references are different from web application relative references 
 				String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation")+model.getThumbnailLocation();

@@ -60,11 +60,11 @@
 											<li><img src="./presentationResources/images/profilePics/chloe.jpeg" />
 											<p style="margin-top:3%;"><b>Name:</b> Chloe Williams </p><p><b>Title:</b>
 											    Senior Financial Officer </p> 	<p><b>Position:</b> 	Finance & Billing </p><p><b>Location:</b> 25 Bond Street, Sydney</p></li>
-													<li><img src="./presentationResources/images/profilePics/Kapil.jpeg"  />
+													<li><img src="./presentationResources/images/profilePics/kapil.jpeg"  />
 												<p style="margin-top:3%;"><b>Name:</b> Kapil Singh </p><p><b>Title:</b>
 													Logistical Officer </p>	<p><b>Position:</b> Logistics </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 
-												<li><img src="./presentationResources/images/profilePics/Alexis.jpeg"  />
+												<li><img src="./presentationResources/images/profilePics/alexis.jpeg"  />
 												<p style="margin-top:3%;"><b>Name:</b> Alexis Jonas </p><p><b>Title:</b>
 													Senior Financial Officer </p>	<p><b>Position:</b> 	Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 
@@ -79,7 +79,7 @@
 															<li><img src="./presentationResources/images/profilePics/simon.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Simon Hetherington </p><p><b>Title:</b>
 																	Chief Financial Officer </p>	<p><b>Position:</b> Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 
-																	<li><img src="./presentationResources/images/profilePics/Amanda.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Amanda Campbell</p><p><b>Title:</b>
+																	<li><img src="./presentationResources/images/profilePics/amanda.jpeg"  />	<p style="margin-top:3%;"><b>Name:</b> Amanda Campbell</p><p><b>Title:</b>
 																								Payroll Officer </p>	<p><b>Position:</b>Finance & Billing </p><p><b>Location:</b> 64 Flinders Street, Melbourne</p></li>
 
 												<li><img src="./presentationResources/images/profilePics/robert.jpeg" /><p style="margin-top:3%;"><b>Name:</b> Robert Carter</p><p><b>Title:</b>
