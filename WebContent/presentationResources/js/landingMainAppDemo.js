@@ -51,8 +51,8 @@
 
 					<input ng-model="empGivenNames" id="empGivenNames"  placeholder="Employee given names..." style="width:40%;" type='text' name='empGivenNames' />
 
-					<input id="skillsetCheck" ng-model="skillCheck" class="checks responsive" type="checkbox" name="skillsetCheck" value="skillsetCheck" ng-click="skillsetHide = !skillsetHide" />Skillset
-					<select ng-model="skillsetSelect.selectedOption" ng-hide="skillsetHide" name="skillsetSelect" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
+					<input id="skillsetCheck" ng-model="skillsetCheck" class="checks responsive" type="checkbox" name="skillsetCheck" value="skillsetCheck" ng-click="skillsetHide = !skillsetHide" />Skillset
+					<select ng-model="skillsetSelect.selectedOption" ng-hide="skillsetHide" name="skillSelect" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
 							ng-options="option.name for option in skillsetSelect.availableOptions track by option.value" >
 					</select>
 					 <ul class="givenNamesSearchPossibles"  ng-mouseleave="mouseLeave('givenNamesSearchPossibles')">
@@ -262,17 +262,60 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
 
   $scope.skillsetSelect = {
     availableOptions: [
-     {value: '', name: 'Please select..'},
-       {value: 'English', name: 'English'},
-       {value: 'French', name: 'French'},
-       {value: 'Mandarin', name: 'Mandarin'},
-         {value: 'Hindi', name: 'Hindi'},
-       {value: 'Latin', name: 'Latin'},
-       {value: 'Spanish', name: 'Spanish'}
+     {value: '', name: 'Please select..'}
      ],
      selectedOption: {value: '', name: 'Please select..'}
 
   };
+
+  $scope.deptSelect = [];
+
+       $http({
+                  method: 'GET',
+                  url: 'getOrgDepts',
+                  headers: {'Content-Type' : 'application/json'},
+                  dataType: "JSON",
+                  data: { }
+              }).then(function successCallback(response) {
+                console.log("positions ret "+response.data);
+
+        //      response.data.push("name":"Please Select...", "value":"");
+               //console.log(obj);
+
+               $scope.deptSelect.availableOptions = response.data;
+
+               $scope.deptSelect.availableOptions.unshift({value: '', name: 'Please select..'});
+               $scope.deptSelect.selectedOption = {value: '', name: 'Please select..'};
+
+          },  function errorCallback(response) {
+
+               console.log('error retrieving data : '+response);
+          });
+
+  $scope.positionSelect = [];
+
+       $http({
+                  method: 'GET',
+                  url: 'getCompanyPositions',
+                  headers: {'Content-Type' : 'application/json'},
+                  dataType: "JSON",
+                  data: { }
+              }).then(function successCallback(response) {
+                console.log("positions ret "+response.data);
+
+        //      response.data.push("name":"Please Select...", "value":"");
+               //console.log(obj);
+
+               $scope.positionSelect.availableOptions = response.data;
+
+               $scope.positionSelect.availableOptions.unshift({value: '', name: 'Please select..'});
+               $scope.positionSelect.selectedOption = {value: '', name: 'Please select..'};
+
+          },  function errorCallback(response) {
+
+               console.log('error retrieving data : '+response);
+          });
+
 
 $scope.skillsetSelect = [];
 
@@ -283,33 +326,22 @@ $scope.skillsetSelect = [];
                 dataType: "JSON",
                 data: { }
             }).then(function successCallback(response) {
-              console.log("skills ret "+response.data.length);
-               $scope.skillsetSelect.availableOptions = response.data;
+              console.log("skills ret "+response.data);
 
+      //      response.data.push("name":"Please Select...", "value":"");
+             //console.log(obj);
 
+             $scope.skillsetSelect.availableOptions = response.data;
 
-            /*     $scope.skillsetSelect = {
-                       model: response.data,
-                       availableOptions: [
-
-                       {value: '', name: 'Please select..'},
-                          {value: 'English', name: 'English'},
-                          {value: 'French', name: 'French'},
-                          {value: 'Mandarin', name: 'Mandarin'},
-                            {value: 'Hindi', name: 'Hindi'},
-                          {value: 'Latin', name: 'Latin'},
-                          {value: 'Spanish', name: 'Spanish'}
-                       ],
-                    selectedOption: {value: '', name: 'Please select..'}
-                  };*/
-
+             $scope.skillsetSelect.availableOptions.unshift({value: '', name: 'Please select..'});
+             $scope.skillsetSelect.selectedOption = {value: '', name: 'Please select..'};
 
         },  function errorCallback(response) {
 
              console.log('error retrieving data : '+response);
         });
 
-//  };
+
 
   $scope.testValue = function(searchType, tmpStr){
 
@@ -390,22 +422,25 @@ $scope.skillsetSelect = [];
   $scope.$watch('positionCheck', function(newVal, oldVal, scope) {
     $log.info("newVal : "+newVal);
     //$log.info("skillset selected option :: "+$scope.skillsetSelect.selectedOption.value);
-      $scope.positionSelect.selectedOption = $scope.positionSelect.availableOptions[0];
-
+     if($scope.positionSelect.availableOptions != undefined){
+        $scope.positionSelect.selectedOption = $scope.positionSelect.availableOptions[0];
+     }
 
   });
 
   $scope.$watch('skillsetCheck', function(newVal, oldVal, scope) {
     $log.info("new val skill : "+newVal);
 
-      $scope.skillsetSelect.selectedOption = $scope.skillsetSelect[0];
-
+     if($scope.skillsetSelect.availableOptions != undefined){
+        $scope.skillsetSelect.selectedOption = $scope.skillsetSelect.availableOptions[0];
+     }
   });
 
   $scope.$watch('deptCheck', function(newVal, oldVal, scope) {
     $log.info("new value for genre check :: "+newVal);
-
-      $scope.deptSelect.selectedOption = $scope.deptSelect.availableOptions[0];
+       if($scope.deptSelect.availableOptions != undefined){
+           $scope.deptSelect.selectedOption = $scope.deptSelect.availableOptions[0];
+        }
   });
 
 
