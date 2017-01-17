@@ -691,15 +691,8 @@ public class SolrAndDbSearchingPageController {
 			log.info("in here222");
 		}
 		
-
-		
-		
 		list.addAll(dataService.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"))));
 
-		//ModelAndView modelView = new ModelAndView();
-
-		employeeModelArray = (EmployeeModel[])list.toArray();
-		
 		employeeModelArray = new EmployeeModel[list.size()];
 		
 		int count = 0;
@@ -712,8 +705,7 @@ public class SolrAndDbSearchingPageController {
 		log.info("employeeModelArray array size returned :: "+employeeModelArray.length);
 		
 		//modelView.setViewName("reviewsSearchBook");
-		return employeeModelArray;// buildEmployeeFullProfileDataModel(request, list);
-		
+		return employeeModelArray;// buildEmployeeFullProfileDataModel(request, list);		
 	}
 	
 	@RequestMapping(value = { "/getSkillsets"}, method = RequestMethod.GET)
