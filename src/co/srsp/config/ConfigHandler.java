@@ -168,12 +168,13 @@ public class ConfigHandler {
 			fileURLPath += model.getEmployeeFirstName().toLowerCase()+".jpeg";
 			log.info( System.getProperty("user.dir"));
 			 
-			File file = new File(fileURLPath);
+			
 			log.info("location for file is :::: "+fileURLPath);
-			log.info("does file exist : "+file.exists());
+	
 			
 			model.setImageHeight(String.valueOf(190));
 			model.setImageWidth(String.valueOf(190));
+			model.setProfilePicURL(fileURLPath);
 			
 		}catch(Exception e){
 			e.printStackTrace();

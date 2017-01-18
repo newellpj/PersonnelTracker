@@ -1,16 +1,15 @@
 
 package co.srsp.controller;
 
-import java.awt.Image;
 import java.io.File;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 
 import org.apache.log4j.Logger;
 import org.apache.solr.common.SolrDocument;
@@ -196,31 +195,31 @@ public class PaginationController {
 	}
 	
 	private String formattedSearchListItem(Employee employee, String employeeDetails){
-//		if(!"No books found".equalsIgnoreCase(bookDetails)){			
-//			bookDetails =  URLEncoder.encode(bookDetails);
-//		}
-//		
-//		String thumbLoc = getTrueThumbnailLocation(book);
-//		HashMap imageDimensionsMap = getImageDimensions(thumbLoc, book);
-//		
-//		HTMLModel htmlModel = new HTMLModel();
-//		htmlModel.setauthor(book.getAuthor());
-//		htmlModel.settitle(book.getTitle());
-//		htmlModel.setthumbnailLocFullPath(thumbLoc);
-//		htmlModel.setthumbnailLocation(book.getThumbnailLocation());
-//		htmlModel.setimageHeight(String.valueOf(imageDimensionsMap.get("imageHeight")));
-//		htmlModel.setimageWidth(String.valueOf(imageDimensionsMap.get("imageWidth")));
-//		htmlModel.setexcerpt(book.getExcerpt());
-//		htmlModel.setpublisher(book.getPublisher());
-//		htmlModel.setbookDetails(bookDetails);
-//		
-//		HTMLHelper helper = new HTMLHelper();
-//		String formattedMarkup = helper.formatSearchHTML(htmlModel);
-//		
-//				
-//		return formattedMarkup;
+/*		if(!"No books found".equalsIgnoreCase(employeeDetails)){			
+			employeeDetails =  URLEncoder.encode(employeeDetails);
+		}
 		
-		return null;
+		String thumbLoc = getTrueThumbnailLocation(book);
+		HashMap imageDimensionsMap = getImageDimensions(thumbLoc, book);
+		
+		HTMLModel htmlModel = new HTMLModel();
+		htmlModel.setauthor(book.getAuthor());
+		htmlModel.settitle(book.getTitle());
+		htmlModel.setthumbnailLocFullPath(thumbLoc);
+		htmlModel.setthumbnailLocation(book.getThumbnailLocation());
+		htmlModel.setimageHeight(String.valueOf(imageDimensionsMap.get("imageHeight")));
+		htmlModel.setimageWidth(String.valueOf(imageDimensionsMap.get("imageWidth")));
+		htmlModel.setexcerpt(book.getExcerpt());
+		htmlModel.setpublisher(book.getPublisher());
+		htmlModel.setbookDetails(bookDetails);
+		
+		HTMLHelper helper = new HTMLHelper();
+		String formattedMarkup = helper.formatSearchHTML(htmlModel);
+		
+				
+		return formattedMarkup;*/
+		
+		return "";
 	}
 	
 	private String getTrueThumbnailLocation(Employee employee){

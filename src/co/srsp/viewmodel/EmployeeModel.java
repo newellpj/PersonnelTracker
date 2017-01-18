@@ -52,15 +52,15 @@ public class EmployeeModel {
 
 
 
-	public List<EmployeeSkillsetDataModel> getEmpSkillsetsDateModel() {
+	public List<EmployeeSkillsetDataModel> getEmpSkillsetsDataModel() {
 		return empSkillsetsDataModel;
 	}
 
 
 
 
-	public void setEmpSkillsetsDateModel(List<EmployeeSkillsetDataModel> empSkillsetsDateModel) {
-		this.empSkillsetsDataModel = empSkillsetsDateModel;
+	public void setEmpSkillsetsDataModel(List<EmployeeSkillsetDataModel> empSkillsetsDataModel) {
+		this.empSkillsetsDataModel = empSkillsetsDataModel;
 	}
 
 

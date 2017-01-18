@@ -46,3 +46,47 @@ ul.givenNamesSearchPossibles li span:hover{
 	background: -moz-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 	background: -webkit-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);
 }
+
+.searchSegment{
+	border-top: 1px dotted #e9e9e9;
+	border-bottom: 1px dotted #e9e9e9;
+	border-right: 0px dotted;
+	border-left: 0px dotted;
+	min-height:33%;
+	max-height:33%;
+	margin:1em;
+	padding:5px ;
+	overflow:hidden ;
+	display: block;
+	min-width: 90%;
+	text-overflow: ellipsis !important;
+	white-space: normal;
+}
+
+.skillsetsSearchSummary{
+	margin-left: 22%;
+}
+
+#resultsSection{
+	visibility:hidden;
+	width: 95%;
+	padding: 2.5em;
+	margin-top: 3em;
+	margin-bottom: 3em;
+	margin-left: 2%;
+	background: rgba(255,255,255, 1.0) ;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border: 0px solid #000;
+	box-shadow: 10px 10px 5px #888888;
+	border-radius: 10px 10px 10px 10px;
+}
+
+#searchBook{
+	width:30%;
+	margin-left: 25%;
+}
+
+#resetSearch{
+	width:30%;
+}

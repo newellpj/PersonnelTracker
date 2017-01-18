@@ -262,7 +262,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 				empModel.setEmployeeGender(obj[5].toString());
 				empModel.setEmployeeMaritalStatus(obj[6].toString());
 				skillsets = new ArrayList<EmployeeSkillsetDataModel>();
-				empModel.setEmpSkillsetsDateModel(skillsets);
+				empModel.setEmpSkillsetsDataModel(skillsets);
 			}
 					
 			skillSetModel = new EmployeeSkillsetDataModel();
@@ -272,7 +272,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 			skillSetModel.setSkillSetProficiency(Integer.parseInt(obj[12].toString()));
 			skillSetModel.setSkillsetToPositionRelevance(Integer.parseInt(obj[13].toString()));
 			skillSetModel.setSkillsetYearsExperience(Integer.parseInt(obj[14].toString()));
-			empModel.getEmpSkillsetsDateModel().add(skillSetModel);
+			empModel.getEmpSkillsetsDataModel().add(skillSetModel);
 			ConfigHandler.setProfilePicData(empModel);
 			
 			log.info("obj object 1 : "+obj[0].toString());

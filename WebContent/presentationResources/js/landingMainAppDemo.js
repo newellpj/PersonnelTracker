@@ -575,13 +575,13 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
       var positionSelect = '';
 
       if($scope.deptSelect.selectedOption != undefined){
-        deptSelect = $scope.positionSelect.selectedOption.value;
+        positionSelect = $scope.positionSelect.selectedOption.value;
       }
 
       var skillsetSelect = '';
 
       if($scope.deptSelect.selectedOption != undefined){
-        deptSelect = $scope.skillsetSelect.selectedOption.value;
+        skillsetSelect = $scope.skillsetSelect.selectedOption.value;
       }
 
       $log.info("publisher text ::: "+empGivenNames);
@@ -636,9 +636,6 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
             $scope.formattedSearchData = '';
 
-            var testFirstElement = bookReviewsModelArray[0]['booksList'];
-
-            $log.info('testFirstElement : '+testFirstElement);
             $log.info('bookReviewsModelArray : '+response.data.length);
 
             if("No Books Found!!" != testFirstElement){
@@ -649,18 +646,18 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
                 //$('.bookRevList').append("<div class='searchSegment'>");
 
-                var formattedContent = "<div class='searchSegment'>"+formatBooksSearchContent(response.data[i], $log)+"</div>"
+                var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
 
                 $('.bookRevList').append(formattedContent);
               //	$('.bookRevList').append("</div>");
 
               }
 
-              $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
+            /*  $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
 
               $('.resultsSection').jscroll({
                 loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
-              });
+              });*/
 
             }else{
               $('.bookRevList').append("<span style='text-shadow: 0.5px 0.5px #a8a8a8; '>No Books Found!! </span>");
@@ -694,11 +691,11 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             create: function (event, ui) {
               //$(event.target).parent().css('position', 'fixed'); - this stops the error message jumping around after initial popup
             },
-            title: 'Could NOT find book!',
+            title: 'Could not find employees',
             width: ( 300 )
           });
 
-          msg = "There was an error retrieving book";
+          msg = "There was an error searching";
 
           $(errorDialog).html('<p>'+msg+'</p>');
           $('.ui-dialog-buttonset').css("backgroundImage", "url('')");
@@ -720,25 +717,36 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
 
-	function formatBooksSearchContent(searchData, $log){
+	function formatSearchContent(searchData, $log){
 			$log.info("formatting");
-			var bookDetails =  searchData['booksList'];
+			var bookDetails =  searchData['profilePicURL'];
 			var formattedMarkup = "";
 
-			$log.info("formatBooksSearchContent "+bookDetails);
+			$log.info("formatBooksSearchContent "+JSON.stringify(searchData));
 
-			if("No books found" != bookDetails){
+			if(undefined != searchData['employeeSurname']){
 
-				bookDetails = encodeURI(bookDetails);//bookDetails.replace(/ /g, "-");
 
 				formattedMarkup = "<div style='float:left; margin-right:1.5em;' ><img alt='book thumb' width='"+searchData['imageWidth']+"' height='"+searchData['imageHeight']
-				+"' src='"+searchData['thumbnailLocation']+"' /></div>"+
-				"<span style='font-family:courier;'><b>Title : </b>"+searchData['employeeName']+"<b> Author : </b> "+searchData['employeeFirstName']+" &nbsp; <b>Publisher: </b>"
-				+searchData['employeeGivenNames']+"</span>"+
-				" <p style='font-size:x-small;!important'>"+searchData['excerpt']+
+				+"' src='"+searchData['profilePicURL']+"' /></div>"+
+			"<span><b>Name : </b>"+searchData['employeeFirstName']+" "+
+        searchData['employeeGivenNames'] +" "+searchData['employeeSurname']+"&nbsp;&nbsp;<b>Age : </b>"+searchData['employeeAge']+" <b>&nbsp;&nbsp;Gender : </b> "
+        +searchData['employeeGender']+  "&nbsp;&nbsp;<b>Marital status : </b> " +searchData['employeeMaritalStatus']+" </span></br>"+
 
-				"&nbsp; <a style='font-size:x-small;!important; font-style:italic !important;' href='reviewsReviewBook?titleAuthorText="+bookDetails
-				+"&imageHeight="+searchData['imageHeight']+"&imageWidth="+searchData['imageWidth']+"&thumbnailLocation="+searchData['thumbnailLocation']+"'> Review this </p>";
+        "<span><b>Department : </b>"+searchData['empSkillsetsDataModel'][0]['departmentName']+" "+
+          "&nbsp;&nbsp;<b>Current Position : </b>"+searchData['empSkillsetsDataModel'][0]['currentPostionName']+" <b>&nbsp;&nbsp;Skillsets : </b> "+
+          "</br></br><div class='skillsetsSearchSummary'>";
+
+          for(var i =0 ; i < searchData['empSkillsetsDataModel'].length; i++){
+            formattedMarkup= formattedMarkup+" <i><b>Name</b></i> : "+searchData['empSkillsetsDataModel'][i]['skillsetName']+
+            "&nbsp;&nbsp;<i> <b>Proficiency</b></i> : "
+            +searchData['empSkillsetsDataModel'][i]['skillSetProficiency']+
+            "&nbsp;&nbsp; <i><b>Relevance to position (1-10)</b></i> : "+searchData['empSkillsetsDataModel'][i]['skillsetToPositionRelevance']+
+            "&nbsp;&nbsp;<i><b> Skillset Years Experience</b></i> : "+searchData['empSkillsetsDataModel'][i]['skillsetYearsExperience']+"</br>"
+          }
+
+          formattedMarkup= formattedMarkup+"</div>";
+
 			}
 
 			return formattedMarkup;
