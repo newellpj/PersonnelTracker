@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> 
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <%@ page language="java"  session="true" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -9,8 +9,9 @@
 
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap-custom.css">
-<link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
-<link rel="stylesheet" type="text/css" href="./presentationResources/css/search.css">
+  <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
+  <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
+  <link rel="stylesheet" type="text/css" href="./presentationResources/css/demoApp.css">
 
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
@@ -24,10 +25,10 @@
 <script>
 //$(document).ready(function() {
 //	  $('.add-reviews-box').jscroll({
-//		 loadingHtml: "<div class='ajax-loader-2'> Loading...</div>"  	  
+//		 loadingHtml: "<div class='ajax-loader-2'> Loading...</div>"
 //	  });
-	  
-	     
+
+
 //});
 
 
@@ -40,18 +41,18 @@
 
 <div class="add-reviews-box">
 	<div id="reviews" class="reviews">
-	<ul id="bookRevList2" class="bookRevList2" >				
-				
+	<ul id="bookRevList2" class="bookRevList2" >
+
 				<c:if test="${not empty booksLists2}">
 						<c:forEach var="listValue2" items="${booksLists2}">
 							<div class="searchSegment"> ${listValue2} </div>
 						</c:forEach>
-						
-					
+
+
 		</ul>
-				 <div class="next"><a href="retrieveNextSearchSegment">next</a> </div>
-					
-			
+				 <div class="next"><a href="retrieveNextPaginatedResults">next</a> </div>
+
+
 				</c:if>
 			</div>
 </div>

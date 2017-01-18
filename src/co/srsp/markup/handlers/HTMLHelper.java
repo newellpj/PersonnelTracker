@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import co.srsp.config.ConfigHandler;
 import co.srsp.viewmodel.HTMLModel;
+import co.srsp.viewmodel.HTMLModelSkillsets;
 
 
 public class HTMLHelper {
@@ -47,11 +48,10 @@ public class HTMLHelper {
 	
 	public String formatSearchHTML(HTMLModel htmlModel){
 		
-		String searchListHTML = ConfigHandler.getInstance().readApplicationProperty("searchListHTML")  +
-				 ConfigHandler.getInstance().readApplicationProperty("searchListHTML2") + ConfigHandler.getInstance().readApplicationProperty("searchListHTML3") +
-				 ConfigHandler.getInstance().readApplicationProperty("searchListHTML4") +ConfigHandler.getInstance().readApplicationProperty("searchListHTML5");
+		String searchListHTML = ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML1")  +
+				 ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML2") + ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML3");
 		
-		String substitutionPlaceholders = ConfigHandler.getInstance().readApplicationProperty("searchHTMLSubstititionVars");
+		String substitutionPlaceholders = ConfigHandler.getInstance().readApplicationProperty("searchEmployeesSubstitutionVars");
 		String[] subArray = substitutionPlaceholders.split(",");
 
 		System.out.println("subArray : "+subArray.length);
@@ -77,8 +77,39 @@ public class HTMLHelper {
 				System.out.println("we in here ");
 			}
 		}
+		//
 		
-		return searchListHTML;
+		substitutionPlaceholders = ConfigHandler.getInstance().readApplicationProperty("skillsetRepeatedSubstitutionVars");
+		subArray = substitutionPlaceholders.split(",");
+		
+		String repeatedHTML = ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML4") +ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML5");
+		
+		String fullRepeatedHTML = "";
+		
+		for(HTMLModelSkillsets htmlSkillsetModel : htmlModel.getskillsetsList()){
+            
+			for(int i = 0; i < subArray.length; i++){
+				String subVar = subArray[i].trim();
+				
+				try{
+					java.lang.reflect.Method method = htmlSkillsetModel.getClass().
+						getDeclaredMethod("get"+subVar, new Class[] {});
+				
+					Object obj = method.invoke(htmlSkillsetModel);
+					String value = (obj != null) ? obj.toString() : "";
+					System.out.println("value : "+value);
+					repeatedHTML = repeatedHTML.replace(":"+subVar, value );
+					
+				}catch(Throwable t){
+					t.printStackTrace();
+					System.out.println("we in here ");
+				}
+			}
+			
+			fullRepeatedHTML += repeatedHTML;
+		}
+		
+		return searchListHTML + fullRepeatedHTML;
 	}
 	
 	public String formatSearchDocsHTML(HTMLModel htmlModel){
@@ -159,25 +190,10 @@ public class HTMLHelper {
 		
 		ConfigHandler.getInstance().setUnderTest(true);
 		
-		HTMLModel htmlModel = new HTMLModel();
-		htmlModel = new HTMLModel();
-		htmlModel.setauthor("Paul Newell");
-		htmlModel.settitle("My Homies");
-		htmlModel.setimageHeight("120");
-		htmlModel.setimageWidth("110");
-		htmlModel.setpublisher("Harper Collins");
-		htmlModel.setthumbnailLocation("that.png");
-		htmlModel.setexcerpt("That cat sat on that mat");
-		htmlModel.setbookDetails("My Homies - Paul Newell");
-		htmlModel.setdocID("My awesome document title");
-		htmlModel.setspecifiedDocumentContentExtract(" The quick brown fox jumped over the lazy dog. The quick brown fox jumped over. ");
-		htmlModel.setlargerContent(" The quick brown fox jumped over the lazy dog. The quick brown fox jumped over. "
-				+ " The quick brown fox jumped over the lazy dog. The quick brown fox jumped over. "+
-				  " The quick brown fox jumped over the lazy dog. The quick brown fox jumped over.");
+
 		
 		HTMLHelper helper = new HTMLHelper();
-		
-		System.out.println("formatted html returned : "+helper.formatSearchDocsHTML(htmlModel));
+
 		
 //		HTMLModel htmlModel = new HTMLModel();
 //		htmlModel.setstarRating("3");

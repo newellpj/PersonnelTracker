@@ -31,7 +31,6 @@
      <security:intercept-url pattern="/searchForDocs" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getFeeds" access="hasRole('ROLE_USER')" />  
      <security:intercept-url pattern="/partialSearchForName" access="permitAll" />   
-     <security:intercept-url pattern="/retrieveNextSearchDocsSegment" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/getPaginatedFeed" access="hasRole('ROLE_USER')" /> 
      <security:intercept-url pattern="/reviewsReviewBookNoneAdded" access="hasRole('ROLE_USER')" />
      <security:intercept-url pattern="/partialSearchForDocs" access="hasRole('ROLE_USER')" />  

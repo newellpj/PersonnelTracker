@@ -1,114 +1,123 @@
 package co.srsp.viewmodel;
 
+import java.util.List;
+
 public class HTMLModel {
 	
 	private String imageWidth;
 	private String imageHeight;
-	private String thumbnailLocation;
-	private String thumbnailLocFullPath;
-	private String title;
-	private String author;
-	private String publisher;
-	private String excerpt;
-	private String starRating;
-	private String reviewerText;
-	private String reviewersUserName;	
-	private String bookDetails;
-	private String docID;
-	private String specifiedDocumentContentExtract;
-	private String largerContent;
-		
+	private String profilePicURL;
+	private String employeeFirstName;
+	private String employeeGivenNames;
+	private String employeeSurname;
+	private String employeeAge;
+	private String employeeGender;
+	private String employeeMaritalStatus;
+	private String currentPosition;
+	private String departmentName;
+	private List<HTMLModelSkillsets> skillsetsList;
 
-	public String getdocID() {
-		return docID;
+	
+	
+	
+	
+	public List<HTMLModelSkillsets> getskillsetsList() {
+		return skillsetsList;
 	}
-	public void setdocID(String docID) {
-		this.docID = docID;
+
+	public void setskillsetsList(List<HTMLModelSkillsets> skillsetsList) {
+		this.skillsetsList = skillsetsList;
 	}
-	public String getspecifiedDocumentContentExtract() {
-		return specifiedDocumentContentExtract;
+
+	public String getcurrentPosition() {
+		return currentPosition;
 	}
-	public void setspecifiedDocumentContentExtract(String specifiedDocumentContentExtract) {
-		this.specifiedDocumentContentExtract = specifiedDocumentContentExtract;
+
+	public void setcurrentPosition(String currentPosition) {
+		this.currentPosition = currentPosition;
 	}
-	public String getlargerContent() {
-		return largerContent;
-	}
-	public void setlargerContent(String largerContent) {
-		this.largerContent = largerContent;
-	}
-	public String getthumbnailLocFullPath() {
-		return thumbnailLocFullPath;
-	}
-	public void setthumbnailLocFullPath(String thumbnailLocFullPath) {
-		this.thumbnailLocFullPath = thumbnailLocFullPath;
-	}
-	public String getbookDetails() {
-		return bookDetails;
-	}
-	public void setbookDetails(String bookDetails) {
-		this.bookDetails = bookDetails;
-	}
-	public String getstarRating() {
-		return starRating;
-	}
-	public void setstarRating(String starRating) {
-		this.starRating = starRating;
-	}
-	public String getreviewerText() {
-		return reviewerText;
-	}
-	public void setreviewerText(String reviewerText) {
-		this.reviewerText = reviewerText;
-	}
-	public String getreviewersUserName() {
-		return reviewersUserName;
-	}
-	public void setreviewersUserName(String reviewersUserName) {
-		this.reviewersUserName = reviewersUserName;
-	}
+
 	public String getimageWidth() {
 		return imageWidth;
 	}
+	
 	public void setimageWidth(String imageWidth) {
 		this.imageWidth = imageWidth;
 	}
+	
 	public String getimageHeight() {
 		return imageHeight;
 	}
+	
 	public void setimageHeight(String imageHeight) {
 		this.imageHeight = imageHeight;
 	}
-	public String getthumbnailLocation() {
-		return thumbnailLocation;
-	}
-	public void setthumbnailLocation(String thumbnailLocation) {
-		this.thumbnailLocation = thumbnailLocation;
-	}
-	public String gettitle() {
-		return title;
-	}
-	public void settitle(String title) {
-		this.title = title;
-	}
-	public String getauthor() {
-		return author;
-	}
-	public void setauthor(String author) {
-		this.author = author;
-	}
-	public String getpublisher() {
-		return publisher;
-	}
-	public void setpublisher(String publisher) {
-		this.publisher = publisher;
-	}
-	public String getexcerpt() {
-		return excerpt;
-	}
-	public void setexcerpt(String excerpt) {
-		this.excerpt = excerpt;
+	
+	public String getprofilePicURL() {
+		return profilePicURL;
 	}
 	
+	public void setprofilePicURL(String profilePicURL) {
+		this.profilePicURL = profilePicURL;
+	}
+	
+	public String getemployeeFirstName() {
+		return employeeFirstName;
+	}
+	
+	public void setemployeeFirstName(String employeeFirstName) {
+		this.employeeFirstName = employeeFirstName;
+	}
+	
+	public String getemployeeGivenNames() {
+		return employeeGivenNames;
+	}
+	
+	public void setemployeeGivenNames(String employeeGivenNames) {
+		this.employeeGivenNames = employeeGivenNames;
+	}
+	
+	public String getemployeeSurname() {
+		return employeeSurname;
+	}
+	
+	public void setemployeeSurname(String employeeSurname) {
+		this.employeeSurname = employeeSurname;
+	}
+	
+	public String getemployeeAge() {
+		return employeeAge;
+	}
+	
+	public void setemployeeAge(String employeeAge) {
+		this.employeeAge = employeeAge;
+	}
+	
+	public String getemployeeGender() {
+		return employeeGender;
+	}
+	
+	public void setemployeeGender(String employeeGender) {
+		this.employeeGender = employeeGender;
+	}
+	
+	public String getemployeeMaritalStatus() {
+		return employeeMaritalStatus;
+	}
+	
+	public void setemployeeMaritalStatus(String employeeMaritalStatus) {
+		this.employeeMaritalStatus = employeeMaritalStatus;
+	}
+	
+	public String getdepartmentName() {
+		return departmentName;
+	}
+	
+	public void setdepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+	
+
+
 	
 }

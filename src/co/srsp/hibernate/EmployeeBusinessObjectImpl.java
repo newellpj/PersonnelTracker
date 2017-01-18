@@ -265,6 +265,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 				empModel.setEmployeeMaritalStatus(obj[6].toString());
 				skillsets = new ArrayList<EmployeeSkillsetDataModel>();
 				empModel.setEmpSkillsetsDataModel(skillsets);
+				
 			}
 					
 			skillSetModel = new EmployeeSkillsetDataModel();

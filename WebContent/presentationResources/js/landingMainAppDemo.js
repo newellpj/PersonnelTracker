@@ -645,20 +645,20 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
                 //$log.info("first book in array : "+$('.bookRevList').html());
 
                 //$('.bookRevList').append("<div class='searchSegment'>");
-              
+
                   var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
 
                   $('.bookRevList').append(formattedContent);
-                
+
               //	$('.bookRevList').append("</div>");
 
               }
 
-            /*  $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
+              $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
 
               $('.resultsSection').jscroll({
                 loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
-              });*/
+              });
 
             }else{
               $('.bookRevList').append("<span style='text-shadow: 0.5px 0.5px #a8a8a8; '>No Books Found!! </span>");

@@ -33,7 +33,9 @@ import co.srsp.markup.handlers.HTMLHelper;
 import co.srsp.service.SolrSearchService;
 import co.srsp.solr.SolrSearchData;
 import co.srsp.viewmodel.EmployeeModel;
+import co.srsp.viewmodel.EmployeeSkillsetDataModel;
 import co.srsp.viewmodel.HTMLModel;
+import co.srsp.viewmodel.HTMLModelSkillsets;
 
 
 @Controller
@@ -150,7 +152,7 @@ public class PaginationController {
 			if(count >= breakValue) break;
 		}
 		
-		request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+		//request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list); //this would be setting the sublist which we don't wish to do
 		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET,currentPaginationOffset + appPaginationValue);
 		
 		
@@ -160,21 +162,21 @@ public class PaginationController {
 		//model.addObject("bookReviewsModel", bookReviewsModel);
 		
 		List<String> booksLists2 = new ArrayList<String>();
+		
+		if(list != null){
+			for(EmployeeModel empModel : list){	
+				booksLists2.add(formattedSearchListItem(empModel));
+			}
+		}
+		
 
-		
-		
-//		if(booksList != null){
-//			for(Books book : booksList){	
-//				booksLists2.add(formattedSearchListItem(book, book.getTitle()+" - "+book.getAuthor()));
-//			}
-//		}
-//		
-//		if(booksList != null){
-//			model.addObject("booksLists2", booksLists2); //"booksLists2" matches a model in the searchPaginationPage.jsp page - can see the html and jstl below
-//		}else{
-//			model.addObject("booksLists2", new ArrayList<String>());
-//		}
+		if(list != null){
+			model.addObject("booksLists2", booksLists2);
+		}else{
+			model.addObject("booksLists2", new ArrayList<String>());
+		}
 			
+	
 		model.setViewName("searchPaginationPage"); //reviewsPaginationPage
 		return model;
 		
@@ -194,32 +196,47 @@ public class PaginationController {
 		//return null; 
 	}
 	
-	private String formattedSearchListItem(Employee employee, String employeeDetails){
-/*		if(!"No books found".equalsIgnoreCase(employeeDetails)){			
-			employeeDetails =  URLEncoder.encode(employeeDetails);
-		}
-		
-		String thumbLoc = getTrueThumbnailLocation(book);
-		HashMap imageDimensionsMap = getImageDimensions(thumbLoc, book);
+	private String formattedSearchListItem(EmployeeModel employeeModel){
+
 		
 		HTMLModel htmlModel = new HTMLModel();
-		htmlModel.setauthor(book.getAuthor());
-		htmlModel.settitle(book.getTitle());
-		htmlModel.setthumbnailLocFullPath(thumbLoc);
-		htmlModel.setthumbnailLocation(book.getThumbnailLocation());
-		htmlModel.setimageHeight(String.valueOf(imageDimensionsMap.get("imageHeight")));
-		htmlModel.setimageWidth(String.valueOf(imageDimensionsMap.get("imageWidth")));
-		htmlModel.setexcerpt(book.getExcerpt());
-		htmlModel.setpublisher(book.getPublisher());
-		htmlModel.setbookDetails(bookDetails);
+		htmlModel.setemployeeAge(employeeModel.getEmployeeAge());
+		htmlModel.setemployeeSurname(employeeModel.getEmployeeSurname());
+		htmlModel.setemployeeFirstName(employeeModel.getEmployeeFirstName());
+		htmlModel.setemployeeGivenNames(employeeModel.getEmployeeGivenNames());
+		htmlModel.setemployeeMaritalStatus(employeeModel.getEmployeeMaritalStatus());
+		htmlModel.setemployeeGender(employeeModel.getEmployeeGender());
+		htmlModel.setimageHeight(employeeModel.getImageHeight());
+		htmlModel.setimageWidth(employeeModel.getImageWidth());
+		htmlModel.setprofilePicURL(employeeModel.getProfilePicURL());
+		htmlModel.setdepartmentName(employeeModel.getEmpSkillsetsDataModel().get(0).getDepartmentName());
+		htmlModel.setcurrentPosition(employeeModel.getEmpSkillsetsDataModel().get(0).getCurrentPostionName());
+		
+		HTMLModelSkillsets htmlModelSkillsets = null;
+		
+		List<HTMLModelSkillsets> skillsets = new ArrayList<HTMLModelSkillsets>();
+		
+		for(EmployeeSkillsetDataModel model : employeeModel.getEmpSkillsetsDataModel()){
+			htmlModelSkillsets = new HTMLModelSkillsets();
+			htmlModelSkillsets.setskillSetProficiency(model.getSkillSetProficiency().toString());
+			htmlModelSkillsets.setskillsetName(model.getSkillsetName());
+			htmlModelSkillsets.setskillsetYearsExperience(model.getSkillsetYearsExperience().toString());
+			htmlModelSkillsets.setskillsetToPositionRelevance(model.getSkillsetToPositionRelevance().toString());
+			skillsets.add(htmlModelSkillsets);
+		}
+		
+		htmlModel.setskillsetsList(skillsets);
+		
+		
+  //profilePicURL,employeeFirstName,employeeGivenNames,employeeSurname,employeeAge,
+		//employeeGender,employeeMaritalStatus,departmentName,skillsetName,skillSetProficiency,skillsetToPositionRelevance,skillsetYearsExperience
 		
 		HTMLHelper helper = new HTMLHelper();
 		String formattedMarkup = helper.formatSearchHTML(htmlModel);
 		
 				
-		return formattedMarkup;*/
-		
-		return "";
+		return formattedMarkup;
+
 	}
 	
 	private String getTrueThumbnailLocation(Employee employee){
@@ -277,222 +294,6 @@ public class PaginationController {
 		return null;//imageDimensionsMap;
 	}
 	
-	@RequestMapping(value = { "/retrieveNextSearchDocsSegment"}, method = RequestMethod.GET)
-	public ModelAndView retrieveNextSearchDocsSegment(HttpServletRequest request, HttpServletResponse response) {
-		log.info("searchForDocs keyword text : : "+request.getParameter("keywordText"));
-		
-		if(request.getSession() == null){
-			return null;
-		}
-		
-		SolrSearchData ssd = new SolrSearchData();
-		SolrSearchService solrService = new SolrSearchService();	
-		
-		String keywordsQuery = request.getSession().getAttribute("solrKeywordsQuery").toString();
-	
-		
-		log.info("keywords : "+keywordsQuery);
-		
-		String titleQueryText = request.getSession().getAttribute("solrTitleQuery").toString();
-		String authorQueryText = request.getSession().getAttribute("solrAuthorQuery").toString();
-		
-		String offset = request.getSession().getAttribute("solrPaginationOffset").toString();
-		
-		log.info("OFFSET : "+offset);
-		
-		SolrDocumentList solrDocListAuthorsSearch = null;
-		
-		if(!"".equals(authorQueryText)){
-			solrDocListAuthorsSearch =  solrService.performQueryPaginated(authorQueryText, 5, Integer.parseInt(offset)+5);
-			log.info("list solrDocListAuthorsSearch is : "+solrDocListAuthorsSearch.size());
-		}
-		
-		request.getSession().setAttribute("solrPaginationOffset", Integer.parseInt(offset)+5);
-		
-		
-		
-		SolrDocumentList solrDocListTitleSearch = null;
-		
-		if(!"".equals(titleQueryText)){
-			solrDocListTitleSearch = solrService.performQueryPaginated(titleQueryText, 5, Integer.parseInt(offset)+5);
-			log.info("list solrDocListTitleSearch is : "+solrDocListTitleSearch.size());
-		}
-		
-		
-		
-		SolrDocumentList filteredList = new SolrDocumentList();
-		
-		if(solrDocListTitleSearch != null && solrDocListTitleSearch.size() > 0 && 
-				solrDocListAuthorsSearch != null && solrDocListAuthorsSearch.size() > 0){
-			
-			for(SolrDocument solrDoc : solrDocListTitleSearch){
-				
-				for(SolrDocument solrDocAuthors : solrDocListAuthorsSearch){
-					if(solrDocAuthors.getFieldValue("id").toString().equals(solrDoc.getFieldValue("id").toString())){
-						filteredList.add(solrDoc);
-					}
-				}
-			}
-			
-		}else{
-			
-			if(solrDocListAuthorsSearch != null){
-				filteredList.addAll(solrDocListAuthorsSearch);
-			}
-			
-			if(solrDocListTitleSearch != null){
-				filteredList.addAll(solrDocListTitleSearch);
-			}
-		}
-		
-		
-		log.info("filteredList size "+filteredList.size());
-		
-		SolrDocumentList solrDocListKeywordsSearch = null;
-		
-		if(!"".equals(keywordsQuery)){
-			solrDocListKeywordsSearch = solrService.performQueryPaginated(keywordsQuery, 5, Integer.parseInt(offset)+5);
-			log.info("list solrDocListKeywordsSearch is : "+solrDocListKeywordsSearch.size());
-		}
-
-		for(SolrDocument solrDocument : filteredList){
-			log.info("solrDocument filtered list ID : "+solrDocument.getFieldValue("id"));
-		}
-		
-		SolrDocumentList finalisedFilteredList = new SolrDocumentList();
-		
-		if(solrDocListKeywordsSearch != null && solrDocListKeywordsSearch.size() > 0 && filteredList.size() > 0){
-			for(SolrDocument solrDocument : solrDocListKeywordsSearch){
-				
-				log.info("keywords list ID : "+solrDocument.getFieldValue("id"));
-				
-				for(SolrDocument solrDocFiltered : filteredList){
-					if(solrDocFiltered.getFieldValue("id").toString().equals(solrDocument.getFieldValue("id").toString())){
-						finalisedFilteredList.add(solrDocument);
-					}
-				}
-			}
-		}else{
-			finalisedFilteredList.addAll(filteredList);
-			
-			if(solrDocListKeywordsSearch != null){
-				finalisedFilteredList.addAll(solrDocListKeywordsSearch);
-			}
-			
-		}
-		
-		log.info("finalisedFilteredList size "+finalisedFilteredList.size());
-
-		List<SolrSearchData> returnList = new ArrayList<SolrSearchData>();
-		List<String> formattedList = new ArrayList<String>();
-
-		for(SolrDocument solrD : finalisedFilteredList){
-			
-			ssd = new SolrSearchData();
-			
-			for(String field : solrService.getFieldsArray()){
-				String fieldToSet = (solrD.getFieldValue(field) != null) ? solrD.getFieldValue(field).toString() : "";
-				
-				try{
-					Method method = ssd.getClass().getDeclaredMethod("set"+field, String.class);
-					method.invoke(ssd, fieldToSet);
-				}catch(Exception e){
-					e.printStackTrace();
-					log.error(e.getMessage());
-				}
-			}
-			
-			log.info("author set : "+ssd.getauthor());
-			log.info("title set : "+ssd.gettitle());
-			log.info("id set : "+ssd.getid());
-			
-			returnList.add(ssd);
-			
-			String title = "";
-			
-			if(ssd.gettitle() == null || "".equals(ssd.gettitle().trim()) || "Unknown".equalsIgnoreCase(ssd.gettitle()) || "en".equalsIgnoreCase(ssd.gettitle())){
-
-				if(ssd.getid().lastIndexOf(File.separator) > -1){
-					title = ssd.getid().substring(ssd.getid().lastIndexOf(File.separator)+1);
-				}else{
-					title = ssd.getid();
-				}
-			}else{
-				title = ssd.gettitle();
-			}
-			
-			log.info("title "+title);
-
-			String largerContent = solrService.extractSpecifiedDocumentContent(ssd.getid(), 2000);
-			
-			if(largerContent.length() >= 1999){
-				largerContent = largerContent + "<i> ...open document to see more</i>";
-			}
-			
-			TikaConfig config = TikaConfig.getDefaultConfig();
-			Detector detector = new DefaultDetector(config.getMimeRepository());
-			
-	
-			try{
-				TikaInputStream stream = TikaInputStream.get(new File(ssd.getid()));
-	
-				Metadata metadata = new Metadata();
-				metadata.add(Metadata.RESOURCE_NAME_KEY, ssd.getid());
-			    MediaType mediaType = detector.detect(stream, metadata);
-			    
-			    log.info("media type : "+mediaType.getType());
-			    log.info("media base type : "+mediaType.getBaseType());
-			    log.info("media sub type : "+mediaType.getSubtype());
-			    log.info(detector.detect(stream, metadata).toString());
-			    
-			    ssd.setThumbnailLocation(solrService.getMimeTypeToThumbLocationMap().get(mediaType.getSubtype().toLowerCase().trim()));
-			    
-			}catch(Exception e){
-				e.printStackTrace();
-				log.error(e.getMessage());
-			}
-			
-			
-			String author = ssd.getauthor().replaceAll("\\[", "").replaceAll("\\]","");
-			log.info("author 2 : "+author);
-			
-			String specifiedDocumentContentExtract = solrService.extractSpecifiedDocumentContent(ssd.getid(), 600);
-
-			
-			HTMLModel htmlModel = new HTMLModel();
-			htmlModel.setauthor(author);
-			htmlModel.settitle(title);
-			htmlModel.setthumbnailLocation(ssd.getThumbnailLocation());
-			htmlModel.setdocID(ssd.getid());
-			htmlModel.setspecifiedDocumentContentExtract(specifiedDocumentContentExtract);
-			htmlModel.setlargerContent(largerContent);
-			HTMLHelper helper = new HTMLHelper();
-			helper.formatSearchDocsHTML(htmlModel);
-			
-			formattedList.add("<div style='float:left; margin-right:1.5em;' ><img src='"+ssd.getThumbnailLocation()+"' /></div>"
-					+ "<b>Title : </b>"+title+"<b> Author : </b> "+author+" &nbsp; <b> link to doc </b> <a href='file://///"+ssd.getid()+"'"+
-					" target="+"'"+"_blank"+"'"+">"+title+"</a><p style='font-size:x-small;!important'>"+solrService.extractSpecifiedDocumentContent(ssd.getid(), 600)+
-					"<i> <a href='#' onclick='displayFullContent();'> ...see more</a></i></p><div class='fullContent' style='color:white; display:none'>"+
-					largerContent+"</div>");
-			
-		}
-
-		
-		request.getSession().setAttribute("solrSearchListReturned", returnList);
-		
-		log.info("list to return is : "+returnList.size());
-		
-		request.getSession().setAttribute("solrPaginationOffset", Integer.parseInt(offset)+5);
-		
-		// formattedList;
-		
-		ModelAndView model = new ModelAndView();	
-		model.addObject("booksLists2", formattedList);
-		model.setViewName("searchDocsPaginationPage"); 
-		
-		return model;
-		
-	}
 	
 }
 
