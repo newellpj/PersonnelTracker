@@ -73,8 +73,8 @@ ul.givenNamesSearchPossibles li span:hover{
 	padding: 2.5em;
 	margin-top: 3em;
 	margin-bottom: 1%;
-	margin-left: 2%;
-	background: rgba(255,255,255, 1.0) ;
+	margin-left: 0%;
+	background-color: #c2c7c9 ;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border: 0px solid #000;

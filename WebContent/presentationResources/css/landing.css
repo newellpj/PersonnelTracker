@@ -330,8 +330,8 @@ hiddenH1{
 
 
 body {
-    /*background: url("../images/dialogbg.jpg") repeat !important;*/
-		background-color: #bababa;
+   background-image: url("../images/hr2b.jpg");
+		background-color: #34424b;
     background-position: center top;
 		background-size: auto;
 		background-repeat: no-repeat;
