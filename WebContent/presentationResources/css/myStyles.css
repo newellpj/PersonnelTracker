@@ -242,7 +242,7 @@ button:disabled {
 
 input[type="text"]{
   border-right: none;
-  border: solid 1.5px #dcdcdc;
+  border: solid 1.5px rgb(169, 169, 169);
   padding:2px;
   transition: box-shadow 0.3s, border 0.3s;
   border-radius: 3px;

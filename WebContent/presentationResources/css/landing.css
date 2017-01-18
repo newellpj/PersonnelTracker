@@ -8,14 +8,15 @@
 	/*margin-top: 1%;*/
 	 margin-top:2%;
 	margin-bottom:5%;
+	max-height: auto;
 	/*background: #fff; 	background-color: white; */
 	  background-color: rgba(255, 255, 255, 0.7);
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border: 0px dotted #000;
 	border-radius: 10px 10px 10px 10px;
-	box-shadow: 7px 7px 15px #888888;
-/*	overflow:auto !important; */
+/*	box-shadow: 7px 7px 15px #888888;
+	overflow:auto !important; */
 
 	transform: scale(1.0);
 	-webkit-transition: all 300ms 0ms ease-in-out;
@@ -329,7 +330,8 @@ hiddenH1{
 
 
 body {
-    background: url("../images/hr2b.jpg") no-repeat !important;
+    /*background: url("../images/dialogbg.jpg") repeat !important;*/
+		background-color: #bababa;
     background-position: center top;
 		background-size: auto;
 		background-repeat: no-repeat;
