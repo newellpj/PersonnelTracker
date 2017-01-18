@@ -78,8 +78,8 @@ ul.givenNamesSearchPossibles li span:hover{
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border: 0px solid #000;
-	box-shadow: 10px 10px 5px #888888;
-	border-radius: 10px 10px 10px 10px;
+	/*box-shadow: 10px 10px 5px #888888;*/
+	border-radius: 7px;
 }
 
 #searchBook{

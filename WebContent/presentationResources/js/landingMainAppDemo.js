@@ -628,7 +628,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
         if( response.data.indexOf("html") > -1 && response.data.indexOf("body") >  -1){
           $(dlg).dialog("close");
-          window.parent.location.href = 'logout';
+          $('.bookRevList').append("No employees details discovered");
         }else{
 
             document.getElementById("search").style.display = "inline";
@@ -636,19 +636,20 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
             $scope.formattedSearchData = '';
 
-            $log.info('bookReviewsModelArray : '+response.data.length);
 
-            if("No Books Found!!" != testFirstElement){
+
+            if(undefined != response.data){
               $log.info("we here again");
               for(var i = 0; i < response.data.length; i++){
 
                 //$log.info("first book in array : "+$('.bookRevList').html());
 
                 //$('.bookRevList').append("<div class='searchSegment'>");
+              
+                  var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
 
-                var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
-
-                $('.bookRevList').append(formattedContent);
+                  $('.bookRevList').append(formattedContent);
+                
               //	$('.bookRevList').append("</div>");
 
               }
@@ -719,12 +720,12 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 	function formatSearchContent(searchData, $log){
 			$log.info("formatting");
-			var bookDetails =  searchData['profilePicURL'];
+
 			var formattedMarkup = "";
 
 			$log.info("formatBooksSearchContent "+JSON.stringify(searchData));
 
-			if(undefined != searchData['employeeSurname']){
+			if(undefined != searchData){
 
 
 				formattedMarkup = "<div style='float:left; margin-right:1.5em;' ><img alt='book thumb' width='"+searchData['imageWidth']+"' height='"+searchData['imageHeight']

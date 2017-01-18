@@ -124,9 +124,11 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 			}
 			
 			extrasClause.append("and ");
-			extrasClause.append(key+" = "+value);
+			extrasClause.append(key+" = '"+value+"'");
 			
 		}
+		
+		log.info("extras clause :::: "+extrasClause);
 		
 		//HashMap<String, String> tagsMap  = searchCriteria.get(SessionConstants.TAGS_SEARCH_CRITERIA);
 		
@@ -138,11 +140,11 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 				" where e.idorg_department =  o.idorg_department and c.idcompany_positions = e.idcompany_positions and "+
 				" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset "+extrasClause.toString()+" order by e.idemployee ";
 		
-		System.out.println("main query is : "+mainQuery);
+		log.info("main query is : "+mainQuery);
 		
 		List<Object[]> list = session.createSQLQuery(mainQuery).list();
 		
-		System.out.println("THE LIST SIZE RETURNED IS : "+list.size());
+		log.info("THE LIST SIZE RETURNED IS : "+list.size());
 		return buildFullProfileEmployeeModel(list);
 		
 	}

@@ -29,7 +29,10 @@ public class HibernateTestClass {
 	public static void testEmployeeLoad(){
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		EmployeeBusinessObject empBO = (EmployeeBusinessObject) ctx.getBean("employeeBusinessObject");
-		List<EmployeeModel> list = empBO.findEmployeesByAnyCriteriaLazyLoad(new HashMap<String, String>(), 0, 40);
+		HashMap searchCrit = new HashMap<String, String>();
+		searchCrit.put("skillset_name", "Java Programmer");
+		
+		List<EmployeeModel> list = empBO.findEmployeesByAnyCriteriaLazyLoad(searchCrit, 0, 40);
 
 		System.out.println("testEmployeeLoad : "+list.size());
 		

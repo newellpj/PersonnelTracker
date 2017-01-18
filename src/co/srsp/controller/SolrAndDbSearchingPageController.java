@@ -696,6 +696,16 @@ public class SolrAndDbSearchingPageController {
 		
 		int numRecords = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
 		
+		if(list.size() > numRecords){
+			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+		}else{
+			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, null); //check for null when paginating and return nothing if null
+		}
+		
+		if(list.size() < numRecords){
+			numRecords = list.size();
+		}
+		
 		employeeModelArray = new EmployeeModel[numRecords];
 		
 		int count = 0;
@@ -706,7 +716,7 @@ public class SolrAndDbSearchingPageController {
 			if(count >= numRecords) break;
 		}
 		
-		request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+		
 		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0+numRecords);
 		
 		log.info("employeeModelArray array size returned :: "+employeeModelArray.length);
