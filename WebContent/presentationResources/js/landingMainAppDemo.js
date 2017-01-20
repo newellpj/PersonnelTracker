@@ -1,7 +1,7 @@
 (function(angular) {
 
 
-    var appDemoModule = angular.module('appTabPage', []);
+    var appDemoModule = angular.module('appTabPage', ['infinite-scroll']);
 
 
 
@@ -196,6 +196,8 @@ this.searchDisplayInit = function(){
 });
 
 
+
+
 appDemoModule.service('formatSearchService', function($log, searchDisplayInitService) {
 
 
@@ -215,7 +217,9 @@ appDemoModule.service('formatSearchService', function($log, searchDisplayInitSer
 
 
 
-    $(".search").append("<div class='next'><a href='retrieveNextSearchSegment'>"+""+"</a> </div>");
+    $(".search").append("<div infinite-scroll='myPagingFunction()' infinite-scroll-distance='3'></div>");
+    
+   
 
     $('.resultsSection').jscroll({
       loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
@@ -518,29 +522,31 @@ $scope.skillsetSelect = [];
 
 appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
-   $scope.performEmployeeSearch = function () {
+   $scope.performEmployeeSearch = function (paginating) {
 
-    var html = document.getElementById("bookRevList").html;
-    var innerHTML = document.getElementById("bookRevList").innerHTML;
-
-    document.getElementById("resultsSection").style.visibility = "visible";
-    document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
-
-    $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
-
-    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
-
-      document.getElementById("bookRevList2").innerHTML = "";
-
-       $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
-          this.innerHTML = "";
-        });
-
-      $( ".searchSegment" ).remove();
-
-
-
-    }
+	 if(!paginating){  
+		    var html = document.getElementById("bookRevList").html;
+		    var innerHTML = document.getElementById("bookRevList").innerHTML;
+		
+		    document.getElementById("resultsSection").style.visibility = "visible";
+		    document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
+		
+		    $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
+		
+		    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
+		
+		      document.getElementById("bookRevList2").innerHTML = "";
+		
+		       $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
+		          this.innerHTML = "";
+		        });
+		
+		      $( ".searchSegment" ).remove();
+		
+		
+		
+		    }
+	 }
 
     //as search segment can get placed outside the book list by the jscroll function we should
     //remove all searchSegments - they will be re-added by javascript or the controllers dynamically
@@ -548,6 +554,8 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
     $log.info("we are titleVal emp surname : "+$scope.employeeName);
 
+    
+    
       var employeeName = '';
 
       if($scope.employeeName != undefined){
@@ -603,20 +611,33 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
       $(dlg).dialog("open");
 
+      var urlDest = '';
+      
+      var theParams ={};
+      
+      if(!paginating){
+    	 theParams ={
+		      	'e1employee_surname': employeeName,
+		      	'e1employee_given_names': empGivenNames,
+		      	'e1employee_first_name': empFirstName,
+		      	'dept_name': deptSelect,
+		      	'position_name': positionSelect,
+		      	'skillset_name': skillsetSelect
+    	  };
+    	 urlDest = 'searchForEmployee';
+      	
+  	  }else{
+  		theParams = {};
+  		urlDest = 'retrieveNextPaginatedResults'; 
+  	  }
+      
 
     $http({
-        url : 'searchForEmployee',
+        url : urlDest,
         method : 'GET',
         headers: {'Content-Type' : 'application/json'},
         dataType: "JSON",
-        params: {
-        	e1employee_surname: employeeName,
-        	e1employee_given_names: empGivenNames,
-        	e1employee_first_name: empFirstName,
-        	dept_name: deptSelect,
-        	position_name: positionSelect,
-        	skillset_name: skillsetSelect
-        }
+        params: theParams
 
 
       }).then(function successCallback(response) {
@@ -637,7 +658,6 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             $scope.formattedSearchData = '';
 
 
-
             if(undefined != response.data){
               $log.info("we here again");
               for(var i = 0; i < response.data.length; i++){
@@ -656,9 +676,9 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
               $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
 
-              $('.resultsSection').jscroll({
-                loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
-              });
+              //$('.resultsSection').jscroll({
+              //  loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
+              //});
 
             }else{
               $('.bookRevList').append("<span style='text-shadow: 0.5px 0.5px #a8a8a8; '>No Books Found!! </span>");

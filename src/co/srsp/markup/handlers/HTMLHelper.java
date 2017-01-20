@@ -54,12 +54,12 @@ public class HTMLHelper {
 		String substitutionPlaceholders = ConfigHandler.getInstance().readApplicationProperty("searchEmployeesSubstitutionVars");
 		String[] subArray = substitutionPlaceholders.split(",");
 
-		System.out.println("subArray : "+subArray.length);
+		log.info("subArray : "+subArray.length);
 		
 		for(int i = 0; i < subArray.length; i++){
 	
 			
-			System.out.println("sub array ::: "+subArray[i]);
+			log.info("sub array ::: "+subArray[i]);
 			
 			String subVar = subArray[i].trim();
 			
@@ -87,7 +87,11 @@ public class HTMLHelper {
 		String fullRepeatedHTML = "";
 		
 		for(HTMLModelSkillsets htmlSkillsetModel : htmlModel.getskillsetsList()){
+			
+			log.info("html formatting htmlSkillsetModel : "+htmlSkillsetModel.getskillsetName());
             
+			repeatedHTML = ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML4") +ConfigHandler.getInstance().readApplicationProperty("searchEmpHTML5");
+			
 			for(int i = 0; i < subArray.length; i++){
 				String subVar = subArray[i].trim();
 				
@@ -97,18 +101,20 @@ public class HTMLHelper {
 				
 					Object obj = method.invoke(htmlSkillsetModel);
 					String value = (obj != null) ? obj.toString() : "";
-					System.out.println("value : "+value);
+					log.info("value : "+value);
 					repeatedHTML = repeatedHTML.replace(":"+subVar, value );
 					
 				}catch(Throwable t){
 					t.printStackTrace();
-					System.out.println("we in here ");
+					log.error(t.getMessage());
+					log.info("we in here ?!?!?!?!?!?!?");
 				}
 			}
 			
 			fullRepeatedHTML += repeatedHTML;
+			log.info("fullRepeatedHTML : "+fullRepeatedHTML);
 		}
-		
+		log.info("searchListHTML : "+searchListHTML);
 		return searchListHTML + fullRepeatedHTML;
 	}
 	

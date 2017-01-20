@@ -523,16 +523,18 @@ public class SolrAndDbSearchingPageController {
 		
 		List<Employee> employeesFound = null;
 		
+		int pagintionValue = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
+		
 		switch(keyValuePair[0]){
 		
 			case "surname":
-				employeesFound = dataService.getEmployeesBySurname(keyValuePair[1], 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));
+				employeesFound = dataService.getEmployeesBySurname(keyValuePair[1], 0, pagintionValue);
 				break;
 			case "firstName":
-				employeesFound = dataService.getEmployeesByFirstName(keyValuePair[1], 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));
+				employeesFound = dataService.getEmployeesByFirstName(keyValuePair[1], 0, pagintionValue);
 				break;
 			case "givenNames":
-				employeesFound = dataService.getEmployeesByGivenNames(keyValuePair[1], 0, Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue")));  
+				employeesFound = dataService.getEmployeesByGivenNames(keyValuePair[1], 0, pagintionValue);  
 				break;
 		}
 				
@@ -545,7 +547,7 @@ public class SolrAndDbSearchingPageController {
 			removedDuplicates.add(employee);
 		}
 		
-		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0);
+		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0 + pagintionValue);
 		request.getSession().setAttribute(SessionConstants.EMPLOYEES_SEARCH_CRITERIA, searchCriteria);	
 		employeesFound.clear(); //remove all elements and add in the set with duplicates removed.
 		

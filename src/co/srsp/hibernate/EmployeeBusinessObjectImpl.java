@@ -123,8 +123,8 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 				key = key.replaceAll("1", ".");
 			}
 			
-			extrasClause.append("and ");
-			extrasClause.append(key+" = '"+value+"'");
+			extrasClause.append(" and ");
+			extrasClause.append(key+" = '"+value+"' ");
 			
 		}
 		

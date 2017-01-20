@@ -21,8 +21,9 @@
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="./presentationResources/js/angular.js"></script>
-<script type="text/javascript" src="./presentationResources/js/jquery.jscroll.min.js"></script>
+<!-- <script type="text/javascript" src="./presentationResources/js/jquery.jscroll.min.js"></script>  -->
 <script type="text/javascript" src="./presentationResources/js/landing.js"></script>
+<script type='text/javascript' src='./presentationResources/js/ngInfiniteScroll.js'></script>
 <script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landingMainAppDemo.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.bxslider.min.js"></script>

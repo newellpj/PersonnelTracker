@@ -122,63 +122,97 @@ public class PaginationController {
 			return null;
 		}
 		
+		
+		
 		log.info("we getting in here retrieveNextSegment?");
 	
-		List<EmployeeModel> list = (List<EmployeeModel>)request.getSession().getAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST);
-		int currentPaginationOffset = Integer.parseInt(request.getSession().getAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET).toString());
+		Object obj = request.getSession().getAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST);
 		
-		int appPaginationValue = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
+	
 		
-		EmployeeModel[] employeeModelArray = null;
-		
-		int count = 0;
-		
-		int breakValue = -1;
-		
-		if(list.size() <= currentPaginationOffset + appPaginationValue){ //if we are in the last segment of the list we don't want an array index out of bounds exception
-			list = list.subList(currentPaginationOffset, list.size()-1);
-			employeeModelArray = new EmployeeModel[list.size() - currentPaginationOffset];
-			breakValue = list.size() - currentPaginationOffset;
-		}else{
-			list = list.subList(currentPaginationOffset, currentPaginationOffset + appPaginationValue);
-			employeeModelArray = new EmployeeModel[appPaginationValue];
-			breakValue = appPaginationValue;
-		}
-		
-		
-		for(EmployeeModel model : list){
-			employeeModelArray[count] = model;
-			count++;
-			if(count >= breakValue) break;
-		}
-		
-		//request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list); //this would be setting the sublist which we don't wish to do
-		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET,currentPaginationOffset + appPaginationValue);
-		
-		
-	//	log.info("books List 2 size ::: "+booksLists2.size());
-		
-		ModelAndView model = new ModelAndView();	
-		//model.addObject("bookReviewsModel", bookReviewsModel);
-		
-		List<String> booksLists2 = new ArrayList<String>();
-		
-		if(list != null){
-			for(EmployeeModel empModel : list){	
-				booksLists2.add(formattedSearchListItem(empModel));
-			}
-		}
-		
-
-		if(list != null){
-			model.addObject("booksLists2", booksLists2);
-		}else{
+		if(obj == null){
+			ModelAndView model = new ModelAndView();
+			model.setViewName("searchPaginationPage"); //reviewsPaginationPage
 			model.addObject("booksLists2", new ArrayList<String>());
-		}
+			log.info("returning empty model as list is null");
+			return model;
+			
+		}else{
+			
+			List<EmployeeModel> completeList = (List<EmployeeModel>)obj;
+			List<EmployeeModel> listToAlter = new ArrayList<EmployeeModel>();
+			listToAlter.addAll(completeList);
+		
+			int currentPaginationOffset = Integer.parseInt(request.getSession().getAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET).toString());
+			
+			int appPaginationValue = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
+			
+			log.info("currentPaginationOffset : "+currentPaginationOffset);
+			log.info("appPaginationValue : "+appPaginationValue);
+			log.info("employee model list size stored in session : "+listToAlter.size());
+			
+			
+			
+			int count = 0;
+			
+			int breakValue = -1;
+			
+			if(listToAlter.size() <= currentPaginationOffset + appPaginationValue){ //if we are in the last segment of the list we don't want an array index out of bounds exception
+				listToAlter = listToAlter.subList(currentPaginationOffset, listToAlter.size());
+				
+				breakValue = listToAlter.size() - currentPaginationOffset;
+			}else{
+				listToAlter = listToAlter.subList(currentPaginationOffset, currentPaginationOffset + appPaginationValue);
+		
+				breakValue = appPaginationValue;
+			}
+			
+			
+			log.info("sublist size is : "+listToAlter.size());
+			
+			for(EmployeeModel model : listToAlter){
+			
+				count++;
+				if(count >= breakValue) break;
+			}
+			
+			//request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list); //this would be setting the sublist which we don't wish to do
+			request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, currentPaginationOffset + appPaginationValue);
+			if((currentPaginationOffset + appPaginationValue) >  completeList.size()){
+				request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, null);
+			}
+			
+			log.info("");
+			
+		//	log.info("books List 2 size ::: "+booksLists2.size());
+			
+			ModelAndView model = new ModelAndView();	
+			//model.addObject("bookReviewsModel", bookReviewsModel);
+			
+			List<String> booksLists2 = new ArrayList<String>();
+			
+			if(listToAlter != null){
+				for(EmployeeModel empModel : listToAlter){	
+					booksLists2.add(formattedSearchListItem(empModel));
+				}
+			}
+			
+			int count1 = 0;
+			for(String formattedMarkup : booksLists2){
+				log.info(++count1 +" : formatted markup to return :: "+formattedMarkup);
+			}
 			
 	
-		model.setViewName("searchPaginationPage"); //reviewsPaginationPage
-		return model;
+			if(listToAlter != null){
+				log.info("bookslist size "+booksLists2.size());
+				model.addObject("booksLists2", booksLists2);
+			}else{
+				model.addObject("booksLists2", new ArrayList<String>());
+			}
+				
+		
+			model.setViewName("searchPaginationPage"); //reviewsPaginationPage
+			return model;
 		
 		/*<div class="add-reviews-box">
 		<div id="reviews" class="reviews">
@@ -194,12 +228,16 @@ public class PaginationController {
 					 <div class="next"><a href="retrieveNextSearchSegment">next</a> </div>
 		*/
 		//return null; 
+		}
 	}
 	
 	private String formattedSearchListItem(EmployeeModel employeeModel){
 
 		
 		HTMLModel htmlModel = new HTMLModel();
+		
+		log.info("employeeModel.getEmployeeSurname() : "+employeeModel.getEmployeeSurname());
+		
 		htmlModel.setemployeeAge(employeeModel.getEmployeeAge());
 		htmlModel.setemployeeSurname(employeeModel.getEmployeeSurname());
 		htmlModel.setemployeeFirstName(employeeModel.getEmployeeFirstName());
@@ -210,13 +248,14 @@ public class PaginationController {
 		htmlModel.setimageWidth(employeeModel.getImageWidth());
 		htmlModel.setprofilePicURL(employeeModel.getProfilePicURL());
 		htmlModel.setdepartmentName(employeeModel.getEmpSkillsetsDataModel().get(0).getDepartmentName());
-		htmlModel.setcurrentPosition(employeeModel.getEmpSkillsetsDataModel().get(0).getCurrentPostionName());
+		htmlModel.setcurrentPositionName(employeeModel.getEmpSkillsetsDataModel().get(0).getCurrentPostionName());
 		
 		HTMLModelSkillsets htmlModelSkillsets = null;
 		
 		List<HTMLModelSkillsets> skillsets = new ArrayList<HTMLModelSkillsets>();
 		
 		for(EmployeeSkillsetDataModel model : employeeModel.getEmpSkillsetsDataModel()){
+			log.info("model.getSkillsetName() : "+model.getSkillsetName());
 			htmlModelSkillsets = new HTMLModelSkillsets();
 			htmlModelSkillsets.setskillSetProficiency(model.getSkillSetProficiency().toString());
 			htmlModelSkillsets.setskillsetName(model.getSkillsetName());
@@ -233,8 +272,9 @@ public class PaginationController {
 		
 		HTMLHelper helper = new HTMLHelper();
 		String formattedMarkup = helper.formatSearchHTML(htmlModel);
-		
 				
+		log.info("formattedMarkup : "+formattedMarkup);
+		
 		return formattedMarkup;
 
 	}

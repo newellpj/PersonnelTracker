@@ -13,7 +13,7 @@ public class HTMLModel {
 	private String employeeAge;
 	private String employeeGender;
 	private String employeeMaritalStatus;
-	private String currentPosition;
+	private String currentPostionName;
 	private String departmentName;
 	private List<HTMLModelSkillsets> skillsetsList;
 
@@ -29,12 +29,12 @@ public class HTMLModel {
 		this.skillsetsList = skillsetsList;
 	}
 
-	public String getcurrentPosition() {
-		return currentPosition;
+	public String getcurrentPositionName() {
+		return currentPostionName;
 	}
 
-	public void setcurrentPosition(String currentPosition) {
-		this.currentPosition = currentPosition;
+	public void setcurrentPositionName(String currentPostionName) {
+		this.currentPostionName = currentPostionName;
 	}
 
 	public String getimageWidth() {
