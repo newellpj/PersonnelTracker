@@ -15,8 +15,8 @@
 					<select ng-model="deptSelect.selectedOption" class="depSelect responsive" ng-hide="deptHide" style="width:30%; margin-left:1.7em; " id="departSelect"
 							ng-options="option.name for option in deptSelect.availableOptions track by option.value">
 					</select>
-						 <ul class="nameSearchPossibles" ng-mouseleave="mouseLeave('nameSearchPossibles')">
-							<li ng-repeat="d in data | filter: employeeName track by $index" style="margin-left:2em;">
+						 <ul class="nameSearchPossibles" ng-mouseleave="mouseLeave('nameSearchPossibles')" >
+							<li ng-repeat="d in data | filter: employeeName track by $index" style="margin-left:2em;" >
 							 <span ng-mousedown="displayNames(d)">{{d.employeeSurname}}</span>
 							</li>
 						   </ul>
@@ -28,8 +28,8 @@
           id="positionSelect"
 					    ng-options="option.name for option in positionSelect.availableOptions track by option.value" >
 					</select>
-					 <ul class="firstNameSearchPossibles" ng-mouseleave="mouseLeave('firstNameSearchPossibles')">
-							<li ng-repeat="d in data | filter: empFirstName track by $index" style="width:100%; padding-left:-2em !important; margin-left:2em;">
+					 <ul class="firstNameSearchPossibles" ng-mouseleave="mouseLeave('firstNameSearchPossibles')" >
+							<li ng-repeat="d in data | filter: empFirstName track by $index" style="width:100%; padding-left:-2em !important; margin-left:2em;" >
 							 <span ng-mousedown="displayFirstNames(d)">{{d.employeeFirstName}}</span>
 							</li>
 					  </ul>
@@ -48,8 +48,7 @@
 		          </div>
 			  <div class="tagSearches responsive" ng-controller="searchSubmitter">
 								<button id="searchBook" class="searchBook responsive" name="searchBook" type="button"
-								 ng-disabled="employeeName == '' && empFirstName == '' && empGivenNames == '' && skillsetSelect.selectedOption.value == ''
-											&& positionSelect.selectedOption.value == '' && deptSelect.selectedOption.value == '' "  ng-click="performEmployeeSearch();" value="Search.." >
+								  ng-click="performEmployeeSearch();" value="Search.." >
 								<span class="glyphicon glyphicon-eye-open" style="padding-right:0.5em;" ></span>Search...
 								</button>
 								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" ng-click="resetTheSearch()"  value="Reset" >
@@ -513,6 +512,11 @@ $scope.skillsetSelect = [];
           });
   }
 
+  $scope.keys = [];
+$scope.keys.push({ code: 13, action: function() { $scope.open( $scope.focusIndex ); }});
+$scope.keys.push({ code: 38, action: function() { $scope.focusIndex--; }});
+$scope.keys.push({ code: 40, action: function() { $scope.focusIndex++; }});
+
 
 
   $scope.$watch('employeeName', function (tmpStr){
@@ -539,6 +543,25 @@ $scope.skillsetSelect = [];
 //return { employeeName: '' };
 //});
 
+/*
+appDemoModule.directive('keyNavigation', function ($timeout) {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+
+            console.log('stuff ');
+
+            if (event.which === 38) {
+                var target = $(event.target).prev();
+                $(target).trigger('focus');
+            }
+            if (event.which === 40) {
+                var target = $(event.target).next();
+                $(target).trigger('focus');
+            }
+        });
+    };
+});
+*/
 
 appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
