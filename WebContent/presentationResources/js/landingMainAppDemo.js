@@ -638,41 +638,26 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
         }else{
 
             document.getElementById("search").style.display = "inline";
-
-
             $scope.formattedSearchData = '';
+            if(undefined != response.data && response.data.length > 0 && response.data[0] != null){
+                  $log.info("we here again :"+response.data[0]);
+                  for(var i = 0; i < response.data.length; i++){
+
+                    //$log.info("first book in array : "+$('.bookRevList').html());
+
+                    //$('.bookRevList').append("<div class='searchSegment'>");
+
+                      var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
+
+                      $('.bookRevList').append(formattedContent);
+
+                      attachScroll();
 
 
-
-            if(undefined != response.data){
-              $log.info("we here again");
-              for(var i = 0; i < response.data.length; i++){
-
-                //$log.info("first book in array : "+$('.bookRevList').html());
-
-                //$('.bookRevList').append("<div class='searchSegment'>");
-
-                  var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
-
-                  $('.bookRevList').append(formattedContent);
-
-                  attachScroll();
-
-              //	$('.bookRevList').append("</div>");
-
-              }
-
-
-            /*  $(".search").append("<div class='next'><a href='thatone'>"+""+"</a> </div>");
-
-              $('.resultsSection').jscroll({
-                loadingHtml: "<center><div class='ajax-loader-2'> </div></center>",
-                callback: paginateHere()
-
-              });*/
+                  }
 
             }else{
-              $('.bookRevList').append("<span style='text-shadow: 0.5px 0.5px #a8a8a8; '>No Books Found!! </span>");
+              $('.bookRevList').append("<span style='font-size:1.5em;'>No Records Found </span>");
             }
 
             $(dlg).dialog("close");
@@ -765,13 +750,13 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 	 }
 
    function paginateHere(){
-     console.log('7777777777 are here at all?!!?!?!?');
+     //console.log('7777777777 paginate here method are here at all?!!?!?!?');
 
 
      $.ajax('retrieveNextPaginatedResults', {
            success: function(data) {
-             console.log("success we are here : "+data.length);
-             console.log("we are here : "+data);
+        //     console.log("success we are here : "+data.length);
+        //     console.log("we are here : "+data);
 
         //    $('.bookRevList').append(formatSearchContent(data[i]));
             for(var i = 0; i < data.length; i++){
@@ -789,7 +774,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             }
 
             if(data == undefined || data == null || data.length < 1){
-              console.log('trying to remove class');
+
               $('.ajax-loader-2').remove();
           }else{
             detachScroll();
@@ -823,10 +808,10 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 function attachScroll(){
    $( window ).scroll(function() {
-      console.log('inside scroll function');
 
-      console.log($(window).scrollTop()+' : '+$(window).height());
-      console.log(getDocHeight()+": "+document.body.scrollHeight);
+
+      //console.log($(window).scrollTop()+' : '+$(window).height());
+      //console.log(getDocHeight()+": "+document.body.scrollHeight);
       if($(window).scrollTop() + $(window).height() >= getDocHeight()) {
             // console.log("bottom bitch : "+$('.ajax-loader-2').html());
 
