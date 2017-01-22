@@ -52,7 +52,7 @@
 											&& positionSelect.selectedOption.value == '' && deptSelect.selectedOption.value == '' "  ng-click="performEmployeeSearch();" value="Search.." >
 								<span class="glyphicon glyphicon-eye-open" style="padding-right:0.5em;" ></span>Search...
 								</button>
-								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" onclick="resetTheSearch();"  value="Reset" >
+								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" ng-click="resetTheSearch()"  value="Reset" >
 										<span class="glyphicon glyphicon-refresh" style="padding-right:0.5em;" ></span> Reset...
 								</button>
 					</div>
@@ -80,6 +80,7 @@ appDemoModule.filter('unique', function() {
   var output = [],
     keys = [];
 
+
   // we utilize angular's foreach function
   // this takes in our original collection and an iterator function
   angular.forEach(collection, function(item) {
@@ -99,6 +100,9 @@ appDemoModule.filter('unique', function() {
   return output;
  };
 });
+
+
+
 
 
 appDemoModule.service('constructInstantSearchService', function($log, $http){
@@ -207,6 +211,22 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
    $scope.lastSelectedSurnameItem = '';
    $scope.lastSelectedFirstNameItem = '';
    $scope.lastSelectedGivenNamesItem = '';
+
+  $scope.resetTheSearch = function(){
+//      $scope.deptSelect.selectedOption = $scope.deptSelect.availableOptions[0];
+//      $scope.skillsetSelect.selectedOption = $scope.skillsetSelect.availableOptions[0];
+//      $scope.positionSelect.selectedOption = $scope.positionSelect.availableOptions[0];
+      $scope.employeeName = '';
+      $scope.empFirstName = '';
+      $scope.empGivenNames = '';
+      $scope.skillsetCheck = false;
+      $scope.positionCheck = false;
+      $scope.deptCheck = false;
+      $scope.positionHide = true;
+      $scope.skillsetHide = true;
+      $scope.deptHide = true;
+      document.getElementById("resultsSection").style.visibility = "hidden";
+  }
 
   $scope.deptSelect = {
     model: null,
