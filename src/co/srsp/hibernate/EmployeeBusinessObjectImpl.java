@@ -3,7 +3,6 @@ package co.srsp.hibernate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
@@ -13,8 +12,6 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.srsp.config.ConfigHandler;
-import co.srsp.constants.SessionConstants;
-import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
@@ -107,6 +104,71 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		return list;
 
 	}
+	
+	public EmployeeModel findEmployeePerformanceDetails(EmployeeModel empModel){
+		String mainQuery = " select es.idemployee_skillset, dept_name, location, position_name, position_importance, skillset_name, es.proficiency, "+ 
+			" current_position_relevance, years_experience "+
+		 	" from  org_department o, company_positions c, employee_to_skillset_ratings ets, employee_skillset es, employee e "+
+		 	" where e.idorg_department =  o.idorg_department and c.idcompany_positions = e.idcompany_positions and "+
+		 	" ets.idemployee = e.idemployee and es.idemployee_skillset = ets.idemployee_skillset and ets.idemployee = "+empModel.getIdemployee();
+		
+		Session session = this.getSessionFactory().openSession();
+		List<Object[]> list = session.createSQLQuery(mainQuery).list();
+		//buildEmployeeFullProfileEmployeeModel
+		return buildEmployeeFullProfileEmployeeModel(list, empModel);
+	}
+	
+	
+	/**
+	 * when we already have the employee model build a list of supplementary data
+	 * @param list
+	 * @return
+	 */
+	private EmployeeModel buildEmployeeFullProfileEmployeeModel(List<Object[]> list, EmployeeModel empModel){
+
+		List<EmployeeSkillsetDataModel> skillsets = null;	
+		EmployeeSkillsetDataModel skillSetModel = null;
+		String previousId = ""; 
+		int count = 0;
+		
+		empModel.setEmpSkillsetsDataModel(new ArrayList<EmployeeSkillsetDataModel>());
+		
+		for(Object obj[] : list){
+					
+			skillSetModel = new EmployeeSkillsetDataModel();
+			skillSetModel.setDepartmentName(obj[1].toString());
+			
+			log.info("department name : "+skillSetModel.getDepartmentName());
+			
+			skillSetModel.setCurrentPostionName(obj[3].toString());
+			
+			log.info("skillset position name : "+skillSetModel.getCurrentPostionName());
+			
+			skillSetModel.setSkillsetName(obj[5].toString());
+			
+			log.info("skillset name : "+skillSetModel.getSkillsetName());
+			
+			skillSetModel.setSkillSetProficiency(Integer.parseInt(obj[6].toString()));
+			
+			log.info("skillset prof : "+skillSetModel.getSkillSetProficiency());
+			
+			skillSetModel.setSkillsetToPositionRelevance(Integer.parseInt(obj[7].toString()));
+			
+			log.info("skillset pos relevance : "+skillSetModel.getSkillsetToPositionRelevance());
+			
+			skillSetModel.setSkillsetYearsExperience(Integer.parseInt(obj[8].toString()));
+			
+			log.info("skillset years experience : "+skillSetModel.getSkillsetYearsExperience());
+			
+			empModel.getEmpSkillsetsDataModel().add(skillSetModel);
+			ConfigHandler.setProfilePicData(empModel);
+			count++;
+		}
+		
+		//add final model to list - within the loop it happens at start of loop due to duplicate employee personal data showing.			
+		
+		return empModel;
+	}
 
 
 	@Override
@@ -148,6 +210,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		return buildFullProfileEmployeeModel(list);
 		
 	}
+
 	
 	@Override
 	public List<Employee> findEmployeePartialSurnameMatch(String surnamePartial, int offset, int numberOfRecords) {
@@ -229,6 +292,8 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		
 		return buildFullProfileEmployeeModel(list);
 	}
+	
+
 	
 	private List<EmployeeModel> buildFullProfileEmployeeModel(List<Object[]> list){
 

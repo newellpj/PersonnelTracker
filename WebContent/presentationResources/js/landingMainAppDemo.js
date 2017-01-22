@@ -1,56 +1,41 @@
+
 (function(angular) {
 
 
-    var appDemoModule = angular.module('appTabPage', ['infinite-scroll']);
+    var appDemoModule = angular.module('appTabPage', []);
 
 
 
     appDemoModule.component('appPageDemo', {
       template: `<div ng-controller="searchPageController">
       	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel">
-
-
 				<div class="surnameAndDept responsive" >
-
 					<input ng-model="employeeName" id="employeeName"  placeholder="Employee surname..."  type='text' name='employeeName' style="width:40%;">
-
 					<input id="deptCheck" type="checkbox"  ng-model="deptCheck" class="checks responsive" name="deptCheck" value="deptCheck" ng-click="deptHide = !deptHide" />Department
 					<select ng-model="deptSelect.selectedOption" class="depSelect responsive" ng-hide="deptHide" style="width:30%; margin-left:1.7em; " id="departSelect"
 							ng-options="option.name for option in deptSelect.availableOptions track by option.value">
-
 					</select>
-
 						 <ul class="nameSearchPossibles" ng-mouseleave="mouseLeave('nameSearchPossibles')">
 							<li ng-repeat="d in data | filter: employeeName track by $index" style="margin-left:2em;">
 							 <span ng-mousedown="displayNames(d)">{{d.employeeSurname}}</span>
 							</li>
 						   </ul>
-
-
 				</div>
-
 				<div class="firstnamePosition responsive">
-
 					<input ng-model="empFirstName" id="empFirstName"  placeholder="Employee first name..." style="width:40%;" type='text' name='empFirstName' />
-
 					<input id="positionCheck" type="checkbox" class="checks responsive" ng-model="positionCheck"  name="positionCheck" value="positionCheck" ng-click="positionHide = !positionHide" />Position
 					<select  ng-model="positionSelect.selectedOption" name="posText" ng-hide="positionHide" class="positionSelect responsive" style="width:30%; margin-left:0.4em;"
           id="positionSelect"
 					    ng-options="option.name for option in positionSelect.availableOptions track by option.value" >
 					</select>
-
 					 <ul class="firstNameSearchPossibles" ng-mouseleave="mouseLeave('firstNameSearchPossibles')">
 							<li ng-repeat="d in data | filter: empFirstName track by $index" style="width:100%; padding-left:-2em !important; margin-left:2em;">
 							 <span ng-mousedown="displayFirstNames(d)">{{d.employeeFirstName}}</span>
 							</li>
 					  </ul>
-
 				</div>
-
 				<div class="givenNamesSkillset responsive">
-
 					<input ng-model="empGivenNames" id="empGivenNames"  placeholder="Employee given names..." style="width:40%;" type='text' name='empGivenNames' />
-
 					<input id="skillsetCheck" ng-model="skillsetCheck" class="checks responsive" type="checkbox" name="skillsetCheck" value="skillsetCheck" ng-click="skillsetHide = !skillsetHide" />Skillset
 					<select ng-model="skillsetSelect.selectedOption" ng-hide="skillsetHide" name="skillSelect" class="skillsetSelect responsive" style="width:30%;" id="skillsetSelect"
 							ng-options="option.name for option in skillsetSelect.availableOptions track by option.value" >
@@ -61,10 +46,7 @@
 							</li>
 					  </ul>
 		          </div>
-
 			  <div class="tagSearches responsive" ng-controller="searchSubmitter">
-
-
 								<button id="searchBook" class="searchBook responsive" name="searchBook" type="button"
 								 ng-disabled="employeeName == '' && empFirstName == '' && empGivenNames == '' && skillsetSelect.selectedOption.value == ''
 											&& positionSelect.selectedOption.value == '' && deptSelect.selectedOption.value == '' "  ng-click="performEmployeeSearch();" value="Search.." >
@@ -73,24 +55,16 @@
 								<button id="resetSearch" class="resetSearch responsive" name="resetSearch" type="button" onclick="resetTheSearch();"  value="Reset" >
 										<span class="glyphicon glyphicon-refresh" style="padding-right:0.5em;" ></span> Reset...
 								</button>
-
-
 					</div>
 			<br/>
-
-
 		</form>
-
 </div>
-
 <div id="resultsSection" class="resultsSection responsive" >
 		<form id="searchResults" class="searchResults">
-
 			<div id="search" class="search" style="display:none; width:1000px !important;">
 				<ul id="bookRevList" class="bookRevList">
 				</ul>
 			</div>
-
 		</form>
 </div></div>		`
     });
@@ -196,8 +170,6 @@ this.searchDisplayInit = function(){
 });
 
 
-
-
 appDemoModule.service('formatSearchService', function($log, searchDisplayInitService) {
 
 
@@ -209,21 +181,20 @@ appDemoModule.service('formatSearchService', function($log, searchDisplayInitSer
     document.getElementById("search").style.display = "inline";
 
     $log.info("data to format length :::: "+dataToFormat.length);
+    $log.info("data to format length :::: "+dataToFormat);
 
     for(var i = 0; i < dataToFormat.length; i++){
-      var formattedContent = "<div class='searchSegment'>"+formatBooksSearchContent(dataToFormat[i], $log)+"</div>"
+      var formattedContent = "<div class='searchSegment'>"+formatSearchContent(dataToFormat[i], $log)+"</div>"
       $('.bookRevList').append(formattedContent);
     }
 
 
-
-    $(".search").append("<div infinite-scroll='myPagingFunction()' infinite-scroll-distance='3'></div>");
-    
-   
+/*
+    $(".search").append("<div class='next'><a href='thatone'>"+""+"</a> </div>");
 
     $('.resultsSection').jscroll({
-      loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
-    });
+      loadingHtml: "<center><div class='ajax-loader-2'> </div></center>
+    }); */
   }
 });
 
@@ -465,7 +436,10 @@ $scope.skillsetSelect = [];
      $('.nameSearchPossibles').css("display", "none");
     var dataToFormat = [];
     dataToFormat[0] = data;
-     formatSearchService.formatContent(dataToFormat);
+     $log.info("data :::: "+data);
+
+    getFullEmployeeDetails(data);
+
 
   }
 
@@ -477,7 +451,9 @@ $scope.skillsetSelect = [];
      $('.nameSearchPossibles').css("display", "none");
     var dataToFormat = [];
     dataToFormat[0] = data;
-     formatSearchService.formatContent(dataToFormat);
+    $log.info("data :::: "+data);
+    getFullEmployeeDetails(data);
+
 
   }
 
@@ -489,8 +465,32 @@ $scope.skillsetSelect = [];
      $('.nameSearchPossibles').css("display", "none");
     var dataToFormat = [];
     dataToFormat[0] = data;
-     formatSearchService.formatContent(dataToFormat);
+    $log.info("data :::: "+data);
 
+      getFullEmployeeDetails(data);
+
+
+  }
+
+  var getFullEmployeeDetails = function(data){
+	  $http({
+	        url : 'getEmployeePerformanceDetails',
+	        method : 'GET',
+	        headers: {'Content-Type' : 'application/json'},
+	        dataType: "JSON",
+	        params: {
+	        	empData: data
+
+	        }
+
+
+	      }).then(function successCallback(response) {
+	    	  $log.info("we have success : "+response.data);
+	    	  formatSearchService.formatContent(response.data);
+
+	      }, function errorCallback(response) {
+	    	  $log.info("we have an error");
+          });
   }
 
 
@@ -522,31 +522,31 @@ $scope.skillsetSelect = [];
 
 appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
-   $scope.performEmployeeSearch = function (paginating) {
 
-	 if(!paginating){  
-		    var html = document.getElementById("bookRevList").html;
-		    var innerHTML = document.getElementById("bookRevList").innerHTML;
-		
-		    document.getElementById("resultsSection").style.visibility = "visible";
-		    document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
-		
-		    $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
-		
-		    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
-		
-		      document.getElementById("bookRevList2").innerHTML = "";
-		
-		       $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
-		          this.innerHTML = "";
-		        });
-		
-		      $( ".searchSegment" ).remove();
-		
-		
-		
-		    }
-	 }
+
+   $scope.performEmployeeSearch = function () {
+
+    var html = document.getElementById("bookRevList").html;
+    var innerHTML = document.getElementById("bookRevList").innerHTML;
+
+    document.getElementById("resultsSection").style.visibility = "visible";
+    document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
+
+    $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
+
+    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
+
+      document.getElementById("bookRevList2").innerHTML = "";
+
+       $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
+          this.innerHTML = "";
+        });
+
+      $( ".searchSegment" ).remove();
+
+
+
+    }
 
     //as search segment can get placed outside the book list by the jscroll function we should
     //remove all searchSegments - they will be re-added by javascript or the controllers dynamically
@@ -554,8 +554,6 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
     $log.info("we are titleVal emp surname : "+$scope.employeeName);
 
-    
-    
       var employeeName = '';
 
       if($scope.employeeName != undefined){
@@ -611,33 +609,20 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
       $(dlg).dialog("open");
 
-      var urlDest = '';
-      
-      var theParams ={};
-      
-      if(!paginating){
-    	 theParams ={
-		      	'e1employee_surname': employeeName,
-		      	'e1employee_given_names': empGivenNames,
-		      	'e1employee_first_name': empFirstName,
-		      	'dept_name': deptSelect,
-		      	'position_name': positionSelect,
-		      	'skillset_name': skillsetSelect
-    	  };
-    	 urlDest = 'searchForEmployee';
-      	
-  	  }else{
-  		theParams = {};
-  		urlDest = 'retrieveNextPaginatedResults'; 
-  	  }
-      
 
     $http({
-        url : urlDest,
+        url : 'searchForEmployee',
         method : 'GET',
         headers: {'Content-Type' : 'application/json'},
         dataType: "JSON",
-        params: theParams
+        params: {
+        	e1employee_surname: employeeName,
+        	e1employee_given_names: empGivenNames,
+        	e1employee_first_name: empFirstName,
+        	dept_name: deptSelect,
+        	position_name: positionSelect,
+        	skillset_name: skillsetSelect
+        }
 
 
       }).then(function successCallback(response) {
@@ -658,6 +643,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             $scope.formattedSearchData = '';
 
 
+
             if(undefined != response.data){
               $log.info("we here again");
               for(var i = 0; i < response.data.length; i++){
@@ -670,15 +656,20 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
                   $('.bookRevList').append(formattedContent);
 
+                  attachScroll();
+
               //	$('.bookRevList').append("</div>");
 
               }
 
-              $(".search").append("<div class='next'><a href='retrieveNextPaginatedResults'>"+""+"</a> </div>");
 
-              //$('.resultsSection').jscroll({
-              //  loadingHtml: "<center><div class='ajax-loader-2'> </div></center>"
-              //});
+            /*  $(".search").append("<div class='next'><a href='thatone'>"+""+"</a> </div>");
+
+              $('.resultsSection').jscroll({
+                loadingHtml: "<center><div class='ajax-loader-2'> </div></center>",
+                callback: paginateHere()
+
+              });*/
 
             }else{
               $('.bookRevList').append("<span style='text-shadow: 0.5px 0.5px #a8a8a8; '>No Books Found!! </span>");
@@ -739,11 +730,11 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
 	function formatSearchContent(searchData, $log){
-			$log.info("formatting");
+	//		$log.info("formatting");
 
 			var formattedMarkup = "";
 
-			$log.info("formatBooksSearchContent "+JSON.stringify(searchData));
+	//		$log.info("formatBooksSearchContent "+JSON.stringify(searchData));
 
 			if(undefined != searchData){
 
@@ -772,3 +763,88 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 			return formattedMarkup;
 	 }
+
+   function paginateHere(){
+     console.log('7777777777 are here at all?!!?!?!?');
+
+
+     $.ajax('retrieveNextPaginatedResults', {
+           success: function(data) {
+             console.log("success we are here : "+data.length);
+             console.log("we are here : "+data);
+
+        //    $('.bookRevList').append(formatSearchContent(data[i]));
+            for(var i = 0; i < data.length; i++){
+
+              //$log.info("first book in array : "+$('.bookRevList').html());
+
+              //$('.bookRevList').append("<div class='searchSegment'>");
+                console.log(data[i]);
+                var formattedContent = "<div class='searchSegment'>"+formatSearchContent(data[i])+"</div>"
+
+                $('.bookRevList').append(formattedContent);
+
+            //	$('.bookRevList').append("</div>");
+                      $('.ajax-loader-2').remove();
+            }
+
+            if(data == undefined || data == null || data.length < 1){
+              console.log('trying to remove class');
+              $('.ajax-loader-2').remove();
+          }else{
+            detachScroll();
+            //$(".search").append("<div class='next'><a href='thatone'>"+""+"</a> </div>");
+
+            /*$('.resultsSection').jscroll({
+              loadingHtml: "<center><div class='ajax-loader-2'> </div></center>",
+              callback: paginateHere()
+            }); */
+          }
+
+
+           },
+           error: function() {
+               console.log('An error occurred');
+           }
+        });
+
+
+
+   }
+   function getDocHeight() {
+       var D = document;
+       return Math.max(
+           D.body.scrollHeight, D.documentElement.scrollHeight,
+           D.body.offsetHeight, D.documentElement.offsetHeight,
+           D.body.clientHeight, D.documentElement.clientHeight
+       );
+   }
+
+
+function attachScroll(){
+   $( window ).scroll(function() {
+      console.log('inside scroll function');
+
+      console.log($(window).scrollTop()+' : '+$(window).height());
+      console.log(getDocHeight()+": "+document.body.scrollHeight);
+      if($(window).scrollTop() + $(window).height() >= getDocHeight()) {
+            // console.log("bottom bitch : "+$('.ajax-loader-2').html());
+
+            if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
+
+                  $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
+                  paginateHere();
+            }
+        }
+
+
+
+   });
+
+ }
+
+ function detachScroll(){
+      $( window ).scroll(function(){
+
+      });
+ }

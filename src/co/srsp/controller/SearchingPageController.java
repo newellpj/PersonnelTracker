@@ -28,6 +28,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.srsp.config.ConfigHandler;
 import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.CompanyPositions;
@@ -40,9 +43,9 @@ import co.srsp.solr.SolrSearchData;
 import co.srsp.viewmodel.EmployeeModel;
 
 @Controller
-public class SolrAndDbSearchingPageController {
+public class SearchingPageController {
 
-	private final static Logger log = Logger.getLogger(SolrAndDbSearchingPageController.class); 
+	private final static Logger log = Logger.getLogger(SearchingPageController.class); 
 	
 	@RequestMapping(value = { "/trackerHome"}, method = RequestMethod.GET)
 	public ModelAndView welcomePage() {
@@ -78,33 +81,10 @@ public class SolrAndDbSearchingPageController {
 		return model;
 	}
 	
-	@RequestMapping(value = { "/reviewsSearchDocs"}, method = RequestMethod.GET)
-	public ModelAndView addDocsSearchPage() {
-		log.info("we getting in here addDocsSearchPage?");
-		ModelAndView model = new ModelAndView();		
-		model.setViewName("reviewsSearchDocs");
-		return model;
-	}
-	
-	@RequestMapping(value = { "/reviewsReviewBookNoneAdded"}, method = RequestMethod.GET)
-	public ModelAndView reviewsReviewBookNoneAdded(HttpServletRequest request, HttpServletResponse response) {
-//		log.info("we getting in here reviewsReviewBookNoneAdded?");
-//		ModelAndView model = new ModelAndView();
-//		
-//		request.getSession().setAttribute("bookAuthorFound", "");
-//		request.getSession().setAttribute("bookTitleFound", "");
-//
-//		model.setViewName("reviewsReviewBook");
-		return null;
-	}
+
 	
 	
-	
-	@RequestMapping(value = { "/reviewsReviewBook"}, method = RequestMethod.GET)
-	public ModelAndView addReviewsPage(HttpServletRequest request, HttpServletResponse response) {
-		return null;
-	}
-	
+
 	@RequestMapping(value = { "/sendEnquiry"}, method = RequestMethod.GET)
 	public @ResponseBody String[] sendEnquiry(HttpServletRequest request, HttpServletResponse response){
 		
@@ -259,251 +239,7 @@ public class SolrAndDbSearchingPageController {
 	}
 	
 	
-	
-	@RequestMapping(value = { "/partialSearchForDocs"}, method = RequestMethod.GET)
-	public @ResponseBody String[] partialSearchForDocs(HttpServletRequest request, HttpServletResponse response){
-		
-//		SolrSearchData ssd = new SolrSearchData();
-//		SolrSearchService solrService = new SolrSearchService();	
-//		String partialText = request.getParameter(SessionConstants.PARTIAL_TEXT);	
-//		String[] keyValuePair = partialText.split("-");
-//		
-//		SolrDocumentList solrDocPartialSearch = null;
-//		
-//		String[] returnList = null;
-//		
-//		if(!"".equals(partialText)){
-//			solrDocPartialSearch =  solrService.performQueryPaginated
-//				(keyValuePair[0]+":"+keyValuePair[1]+"*", Integer.parseInt
-//						(ConfigHandler.getInstance().readApplicationProperty("paginationValue")), 0);
-//			//request.getSession().setAttribute("solrAuthorQuery", "author:"+firstNameText);
-//			returnList = new String[solrDocPartialSearch.size()];
-//			log.info("list solrDocListAuthorsSearch is : "+solrDocPartialSearch.size());
-//			
-//			
-//			Set<String> uniqueReturnList = new HashSet<String>();
-//			
-//			for(SolrDocument solrDoc : solrDocPartialSearch){
-//				log.info("field names returned !! "+solrDoc.getFieldNames());
-//				uniqueReturnList.add(solrDoc.getFieldValue(keyValuePair[0]).toString());
-//			}
-//			
-//			int count = 0;
-//
-//			for(String value : uniqueReturnList){
-//				returnList[count] = value;
-//				count++;
-//			}
-//			
-//		}
-		
-		return null;
-	}
-	
-	@RequestMapping(value = { "/searchForDocs"}, method = RequestMethod.GET)
-	public @ResponseBody SolrSearchData[] searchForDocs(HttpServletRequest request, HttpServletResponse response){
-//		log.info("searchForDocs keyword text : : "+request.getParameter("keywordText"));
-//		
-//		resetSearchSessionAttributes(request);
-//		SolrSearchData ssd = new SolrSearchData();
-//		SolrSearchService solrService = new SolrSearchService();	
-//		String keywords = request.getParameter("keywordText");
-//		keywords = keywords.replaceAll(",", " ");
-//		
-//		log.info("keywords : "+keywords);
-//		
-//		String surnameText = request.getParameter("surnameText");
-//		String firstNameText = request.getParameter("firstNameText");
-//		
-//		
-//		SolrDocumentList solrDocListAuthorsSearch = null;
-//		
-//		if(!"".equals(firstNameText)){
-//			solrDocListAuthorsSearch =  solrService.performQueryPaginated("author:"+firstNameText, 5, 0);
-//			request.getSession().setAttribute("solrAuthorQuery", "author:"+firstNameText);
-//			
-//			log.info("list solrDocListAuthorsSearch is : "+solrDocListAuthorsSearch.size());
-//		}
-//		
-//		request.getSession().setAttribute("solrPaginationOffset", 0);
-//		
-//		
-//		
-//		SolrDocumentList solrDocListTitleSearch = null;
-//		
-//		if(!"".equals(surnameText)){
-//			solrDocListTitleSearch = solrService.performQueryPaginated("title:"+surnameText, 5, 0);
-//			
-//			request.getSession().setAttribute("solrTitleQuery", "title:"+surnameText);
-//	
-//			
-//			log.info("list solrDocListTitleSearch is : "+solrDocListTitleSearch.size());
-//		}
-//		
-//		
-//		
-//		SolrDocumentList filteredList = new SolrDocumentList();
-//		
-//		if(solrDocListTitleSearch != null && solrDocListTitleSearch.size() > 0 && 
-//				solrDocListAuthorsSearch != null && solrDocListAuthorsSearch.size() > 0){
-//			
-//			for(SolrDocument solrDoc : solrDocListTitleSearch){
-//				
-//				for(SolrDocument solrDocAuthors : solrDocListAuthorsSearch){
-//					if(solrDocAuthors.getFieldValue("id").toString().equals(solrDoc.getFieldValue("id").toString())){
-//						filteredList.add(solrDoc);
-//					}
-//				}
-//			}
-//			
-//		}else{
-//			
-//			if(solrDocListAuthorsSearch != null){
-//				filteredList.addAll(solrDocListAuthorsSearch);
-//			}
-//			
-//			if(solrDocListTitleSearch != null){
-//				filteredList.addAll(solrDocListTitleSearch);
-//			}
-//		}
-//		
-//		
-//		log.info("filteredList size "+filteredList.size());
-//		
-//		SolrDocumentList solrDocListKeywordsSearch = null;
-//		
-//		if(!"".equals(keywords)){
-//			solrDocListKeywordsSearch = solrService.performQueryPaginated(keywords,5, 0);
-//			request.getSession().setAttribute("solrKeywordsQuery", keywords);
-//			log.info("list solrDocListKeywordsSearch is : "+solrDocListKeywordsSearch.size());
-//		}
-//
-//		for(SolrDocument solrDocument : filteredList){
-//			log.info("solrDocument filtered list ID : "+solrDocument.getFieldValue("id"));
-//		}
-//		
-//		SolrDocumentList finalisedFilteredList = new SolrDocumentList();
-//		
-//		if(solrDocListKeywordsSearch != null && solrDocListKeywordsSearch.size() > 0 && filteredList.size() > 0){
-//			for(SolrDocument solrDocument : solrDocListKeywordsSearch){
-//				
-//				log.info("keywords list ID : "+solrDocument.getFieldValue("id"));
-//				
-//				for(SolrDocument solrDocFiltered : filteredList){
-//					if(solrDocFiltered.getFieldValue("id").toString().equals(solrDocument.getFieldValue("id").toString())){
-//						finalisedFilteredList.add(solrDocument);
-//					}
-//				}
-//			}
-//		}else{
-//			finalisedFilteredList.addAll(filteredList);
-//			
-//			if(solrDocListKeywordsSearch != null){
-//				finalisedFilteredList.addAll(solrDocListKeywordsSearch);
-//			}
-//			
-//		}
-//		
-//		log.info("finalisedFilteredList size "+finalisedFilteredList.size());
-//
-//		List<SolrSearchData> returnList = new ArrayList<SolrSearchData>();
-//
-//
-//		SolrSearchData[] returnArray = new SolrSearchData[finalisedFilteredList.size()];
-//		
-//		int count = 0;
-//		
-//		for(SolrDocument solrD : finalisedFilteredList){
-//
-//			ssd = new SolrSearchData();
-//			
-//			for(String field : solrService.getFieldsArray()){
-//				
-//				String fieldToSet = (solrD.getFieldValue(field) != null) ? solrD.getFieldValue(field).toString() : "";
-//				
-//				try{
-//					Method method = ssd.getClass().getDeclaredMethod("set"+field, String.class);
-//					method.invoke(ssd, fieldToSet);
-//				}catch(Exception e){
-//					e.printStackTrace();
-//					log.error(e.getMessage());
-//				}
-//			}
-//			
-//			log.info("author set : "+ssd.getauthor());
-//			log.info("title set : "+ssd.gettitle());
-//			log.info("id set : "+ssd.getid());
-//
-//			String title = "";
-//			
-//			if(ssd.gettitle() == null || "".equals(ssd.gettitle().trim()) || "Unknown".equalsIgnoreCase(ssd.gettitle()) || "en".equalsIgnoreCase(ssd.gettitle())){
-//
-//				if(ssd.getid().lastIndexOf(File.separator) > -1){
-//					title = ssd.getid().substring(ssd.getid().lastIndexOf(File.separator)+1);
-//				}else{
-//					title = ssd.getid();
-//				}
-//			}else{
-//				title = ssd.gettitle();
-//			}
-//			
-//			log.info("title "+title);
-//
-//			String largerContent = solrService.extractSpecifiedDocumentContent(ssd.getid(), 2000);
-//			
-//			if(largerContent.length() >= 1999){
-//				largerContent = largerContent + "<i> ...open document to see more</i>";
-//			}
-//			
-//			
-//			String author = ssd.getauthor().replaceAll("\\[", "").replaceAll("\\]","");
-//			
-//			
-//			log.info("larger content :::: "+largerContent);
-//			
-//			ssd.setauthor(author);
-//			ssd.settitle(title);
-//			ssd.setlargercontent(largerContent);
-//			
-//			
-//			//TODO detect content
-//			TikaConfig config = TikaConfig.getDefaultConfig();
-//			Detector detector = new DefaultDetector(config.getMimeRepository());
-//			
-//	
-//			try{
-//				TikaInputStream stream = TikaInputStream.get(new File(ssd.getid()));
-//	
-//				Metadata metadata = new Metadata();
-//				metadata.add(Metadata.RESOURCE_NAME_KEY, ssd.getid());
-//			    MediaType mediaType = detector.detect(stream, metadata);
-//			    
-//			    log.info("media type : "+mediaType.getType());
-//			    log.info("media base type : "+mediaType.getBaseType());
-//			    log.info("media sub type : "+mediaType.getSubtype());
-//			    log.info(detector.detect(stream, metadata).toString());
-//			    
-//			    ssd.setThumbnailLocation(solrService.getMimeTypeToThumbLocationMap().get(mediaType.getSubtype().toLowerCase().trim()));
-//			    
-//			}catch(Exception e){
-//				e.printStackTrace();
-//				log.error(e.getMessage());
-//			}
-//			
-//			log.info("author 2 : "+author);
-//			
-//			ssd.setextract(solrService.extractSpecifiedDocumentContent(ssd.getid(), 600));
-//			
-//			returnArray[count] = ssd;
-//			count++;
-//		}
-//
-//	
-//		request.getSession().setAttribute("solrSearchListReturned", returnList);		
-//		log.info("list to return is : "+returnList.size());
-		return null;
-	}
-	
+
 	@RequestMapping(value = { "/partialSearchForName"}, method = RequestMethod.GET)
 	public @ResponseBody EmployeeModel[] partialSearchForName(HttpServletRequest request, HttpServletResponse response){
 		
@@ -725,6 +461,38 @@ public class SolrAndDbSearchingPageController {
 		
 		//modelView.setViewName("reviewsSearchBook");
 		return employeeModelArray;// buildEmployeeFullProfileDataModel(request, list);		
+	}
+	
+	@RequestMapping(value = { "/getEmployeePerformanceDetails"}, method = RequestMethod.GET)
+	public @ResponseBody EmployeeModel[] getEmployeePerformanceDetails(HttpServletRequest request, HttpServletResponse response){
+		EmployeeDataService eds = new EmployeeDataService();
+		
+		///construct emp model here
+		
+		String empModelStr = request.getParameter("empData");
+		
+		log.info("empModelStr :::::::::::: "+empModelStr);
+		
+		EmployeeModel empModel = new EmployeeModel();
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try{
+			empModel = mapper.readValue(empModelStr, EmployeeModel.class); //converting json data back into the java object
+		}catch(Exception e){
+			log.error(e.getMessage());
+		}
+		
+		log.info("emp id : "+empModel.getIdemployee());
+		log.info("emp surname : "+empModel.getEmployeeSurname());
+		log.info("emp marital status : "+empModel.getEmployeeMaritalStatus());
+		
+		EmployeeModel[] array = new EmployeeModel[1];
+		
+		
+		array[0] = eds.findEmployeePerformanceDetails(empModel);
+		
+		return array;
 	}
 	
 	@RequestMapping(value = { "/getSkillsets"}, method = RequestMethod.GET)

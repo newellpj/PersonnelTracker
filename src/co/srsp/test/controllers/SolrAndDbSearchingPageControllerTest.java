@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.web.servlet.MockMvc;
 
-import co.srsp.controller.SolrAndDbSearchingPageController;
+import co.srsp.controller.SearchingPageController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class)
@@ -47,7 +47,7 @@ public class SolrAndDbSearchingPageControllerTest extends Mockito{
         
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         
-        SolrAndDbSearchingPageController controller = (SolrAndDbSearchingPageController) ctx.getBean("solrAndDbSearchController");
+        SearchingPageController controller = (SearchingPageController) ctx.getBean("solrAndDbSearchController");
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% "+controller.welcomePage());
        
         

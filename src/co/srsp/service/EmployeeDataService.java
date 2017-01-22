@@ -28,6 +28,10 @@ public class EmployeeDataService {
 		return employeeBusinessObject.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, offset, numberOfRecords);
 	}
 	
+	public EmployeeModel findEmployeePerformanceDetails(EmployeeModel empModel){
+		return employeeBusinessObject.findEmployeePerformanceDetails(empModel);
+	}
+	
 	
 	public List<Employee> getAllEmployeesPaginated(int startOffset, int numberOfRecords){
 		

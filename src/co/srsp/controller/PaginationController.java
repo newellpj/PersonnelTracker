@@ -1,9 +1,6 @@
 
 package co.srsp.controller;
 
-import java.io.File;
-import java.lang.reflect.Method;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,17 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrDocumentList;
-import org.apache.tika.config.TikaConfig;
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.detect.Detector;
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -30,8 +20,6 @@ import co.srsp.config.ConfigHandler;
 import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.markup.handlers.HTMLHelper;
-import co.srsp.service.SolrSearchService;
-import co.srsp.solr.SolrSearchData;
 import co.srsp.viewmodel.EmployeeModel;
 import co.srsp.viewmodel.EmployeeSkillsetDataModel;
 import co.srsp.viewmodel.HTMLModel;
@@ -116,8 +104,10 @@ public class PaginationController {
 	
 	
 	@RequestMapping(value = { "/retrieveNextPaginatedResults"}, method = RequestMethod.GET)
-	public ModelAndView retrieveNextPaginatedResults(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody EmployeeModel[] retrieveNextPaginatedResults(HttpServletRequest request, HttpServletResponse response) {
 
+	
+		
 		if(request.getSession() == null){
 			return null;
 		}
@@ -128,12 +118,12 @@ public class PaginationController {
 	
 		Object obj = request.getSession().getAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST);
 		
-	
+	   EmployeeModel [] model = null;
 		
 		if(obj == null){
-			ModelAndView model = new ModelAndView();
-			model.setViewName("searchPaginationPage"); //reviewsPaginationPage
-			model.addObject("booksLists2", new ArrayList<String>());
+			 model = null;
+			//model.setViewName("searchPaginationPage"); //reviewsPaginationPage
+			//model.addObject("booksLists2", new ArrayList<String>());
 			log.info("returning empty model as list is null");
 			return model;
 			
@@ -170,7 +160,7 @@ public class PaginationController {
 			
 			log.info("sublist size is : "+listToAlter.size());
 			
-			for(EmployeeModel model : listToAlter){
+			for(EmployeeModel aModel : listToAlter){
 			
 				count++;
 				if(count >= breakValue) break;
@@ -186,15 +176,21 @@ public class PaginationController {
 			
 		//	log.info("books List 2 size ::: "+booksLists2.size());
 			
-			ModelAndView model = new ModelAndView();	
+			
 			//model.addObject("bookReviewsModel", bookReviewsModel);
 			
 			List<String> booksLists2 = new ArrayList<String>();
 			
 			if(listToAlter != null){
-				for(EmployeeModel empModel : listToAlter){	
-					booksLists2.add(formattedSearchListItem(empModel));
+				int iCount = 0;
+				model = new EmployeeModel[listToAlter.size()];
+				for(EmployeeModel empModel : listToAlter){
+					model[iCount] = empModel;
+					iCount ++;
+					//booksLists2.add(formattedSearchListItem(empModel));
 				}
+			}else{
+				
 			}
 			
 			int count1 = 0;
@@ -205,13 +201,14 @@ public class PaginationController {
 	
 			if(listToAlter != null){
 				log.info("bookslist size "+booksLists2.size());
-				model.addObject("booksLists2", booksLists2);
+				//model.addObject("booksLists2", booksLists2);
 			}else{
-				model.addObject("booksLists2", new ArrayList<String>());
+				
+				//model.addObject("booksLists2", new ArrayList<String>());
 			}
 				
 		
-			model.setViewName("searchPaginationPage"); //reviewsPaginationPage
+			
 			return model;
 		
 		/*<div class="add-reviews-box">
