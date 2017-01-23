@@ -321,7 +321,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 				
 				empModel = new EmployeeModel();
 				previousId = obj[0].toString(); 
-				
+				empModel.setIdemployee(Integer.parseInt(obj[0].toString()));
 				empModel.setEmployeeSurname(obj[1].toString());
 				empModel.setEmployeeFirstName(obj[2].toString());
 				empModel.setEmployeeGivenNames(obj[3].toString());

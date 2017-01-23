@@ -40,6 +40,13 @@ ul.firstNameSearchPossibles li span:hover{
 	background: -webkit-linear-gradient(top, #dfdfdf 0%, #d7d7d7 100%);*/
 }
 
+.note{
+	color:red;
+	max-width:85%;
+	margin-top:1em;
+	margin-left:2em;
+}
+
 ul.givenNamesSearchPossibles li span:hover{
 	z-index: 10;
 	margin-left:-1em !important;
@@ -74,7 +81,7 @@ ul.givenNamesSearchPossibles li span:hover{
 }
 
 #resultsSection{
-	visibility:hidden;
+	display:none;
 	width: 95%;
 	padding: 2.5em;
 	margin-top: 3em;

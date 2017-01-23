@@ -275,19 +275,19 @@ public class SearchingPageController {
 		}
 				
 		
-		Set<Employee> removedDuplicates = new HashSet<Employee>();	//A Set object cannot contain duplicate entries	
-		log.info("books found list "+employeesFound.size());
-		
-		for(Employee employee : employeesFound){
-			log.info("books found list in loop - title : "+employee.getEmployeeSurname());
-			removedDuplicates.add(employee);
-		}
+//		Set<Employee> removedDuplicates = new HashSet<Employee>();	//A Set object cannot contain duplicate entries	
+//		log.info("books found list "+employeesFound.size());
+//		
+//		for(Employee employee : employeesFound){
+//			log.info("books found list in loop - title : "+employee.getEmployeeSurname());
+//			removedDuplicates.add(employee);
+//		}
 		
 		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0 + pagintionValue);
 		request.getSession().setAttribute(SessionConstants.EMPLOYEES_SEARCH_CRITERIA, searchCriteria);	
-		employeesFound.clear(); //remove all elements and add in the set with duplicates removed.
+		//employeesFound.clear(); //remove all elements and add in the set with duplicates removed.
 		
-		employeesFound.addAll(removedDuplicates);
+		//employeesFound.addAll(removedDuplicates);
 		
 		log.info("books found list 2222222222 "+employeesFound.size());
 		

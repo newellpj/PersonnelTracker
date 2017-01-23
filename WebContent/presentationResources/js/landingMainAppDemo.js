@@ -9,6 +9,8 @@
     appDemoModule.component('appPageDemo', {
       template: `<div ng-controller="searchPageController">
       	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel">
+
+        <div class="note"> * PLEASE NOTE ALL DETAILS AND COMPANIES LISTED HERE ARE FICTIONAL. PICTURES ARE USED FOR DEMONSTRATION AND DETAILS ARE NOT IN ANY WAY RELATED TO THE PERSON ILLUSTRATED IN THE PHOTOS </div>
 				<div class="surnameAndDept responsive" >
 					<input ng-model="employeeName" id="employeeName"  placeholder="Employee surname..."  type='text' name='employeeName' style="width:40%;">
 					<input id="deptCheck" type="checkbox"  ng-model="deptCheck" class="checks responsive" name="deptCheck" value="deptCheck" ng-click="deptHide = !deptHide" />Department
@@ -153,7 +155,7 @@ this.searchDisplayInit = function(){
 
     $log.info("results section");
 
-    document.getElementById("resultsSection").style.visibility = "visible";
+    document.getElementById("resultsSection").style.display = "block";
     document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
 
     $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
@@ -224,7 +226,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
       $scope.positionHide = true;
       $scope.skillsetHide = true;
       $scope.deptHide = true;
-      document.getElementById("resultsSection").style.visibility = "hidden";
+      document.getElementById("resultsSection").style.display = "none";
   }
 
   $scope.deptSelect = {
@@ -572,7 +574,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
     var html = document.getElementById("bookRevList").html;
     var innerHTML = document.getElementById("bookRevList").innerHTML;
 
-    document.getElementById("resultsSection").style.visibility = "visible";
+    document.getElementById("resultsSection").style.display = "block";
     document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
 
     $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);

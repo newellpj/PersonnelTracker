@@ -164,7 +164,7 @@ public class ConfigHandler {
 	public static void setProfilePicData(EmployeeModel model){
 	  try{
 			//file system relative references are different from web application relative references 
-			String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationProfileImagesLocation");
+			String fileURLPath = ConfigHandler.getInstance().readApplicationProperty("applicationProfileImagesLocation")+model.getIdemployee();
 			fileURLPath += model.getEmployeeFirstName().toLowerCase()+".jpeg";
 			log.info( System.getProperty("user.dir"));
 			 
