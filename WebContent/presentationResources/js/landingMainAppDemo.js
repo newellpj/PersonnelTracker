@@ -855,7 +855,7 @@ function attachScroll(){
    $( window ).scroll(function() {
 
 
-      //console.log($(window).scrollTop()+' : '+$(window).height());
+      //console.log($(window).scrollTop()+' R: '+$(window).height());
       //console.log(getDocHeight()+": "+document.body.scrollHeight);
       if($(window).scrollTop() + $(window).height() >= getDocHeight()) {
             // console.log("bottom bitch : "+$('.ajax-loader-2').html());
