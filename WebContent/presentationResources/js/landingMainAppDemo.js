@@ -19,7 +19,7 @@
 					</select>
 						 <ul class="nameSearchPossibles" ng-mouseleave="mouseLeave('nameSearchPossibles')" >
 							<li ng-repeat="d in data | filter: employeeName track by $index" style="margin-left:2em;" >
-							 <span ng-mousedown="displayNames(d)">{{d.employeeSurname}}</span>
+							 <span ng-mousedown="displayNames(d)"><span style="font-style:italic;">{{d.employeeSurname}}</span>, {{d.employeeFirstName}} {{d.employeeGivenNames}}</span>
 							</li>
 						   </ul>
 				</div>
@@ -32,7 +32,7 @@
 					</select>
 					 <ul class="firstNameSearchPossibles" ng-mouseleave="mouseLeave('firstNameSearchPossibles')" >
 							<li ng-repeat="d in data | filter: empFirstName track by $index" style="width:100%; padding-left:-2em !important; margin-left:2em;" >
-							 <span ng-mousedown="displayFirstNames(d)">{{d.employeeFirstName}}</span>
+							 <span ng-mousedown="displayFirstNames(d)">{{d.employeeSurname}}, <span style="font-style:italic;">{{d.employeeFirstName}}</span> {{d.employeeGivenNames}}</span>
 							</li>
 					  </ul>
 				</div>
@@ -44,7 +44,7 @@
 					</select>
 					 <ul class="givenNamesSearchPossibles"  ng-mouseleave="mouseLeave('givenNamesSearchPossibles')">
 							<li ng-repeat="d in data | filter: empGivenNames track by $index" style="margin-left:2em;">
-							 <span ng-mousedown="displayGivenNames(d)">{{d.employeeGivenNames}}</span> <!-- employeeGivenNames is the variable name in the employee data model returned from server-->
+							 <span ng-mousedown="displayGivenNames(d)">{{d.employeeSurname}}, {{d.employeeFirstName}} <span style="font-style:italic;">{{d.employeeGivenNames}}</span></span> <!-- employeeGivenNames is the variable name in the employee data model returned from server-->
 							</li>
 					  </ul>
 		          </div>
