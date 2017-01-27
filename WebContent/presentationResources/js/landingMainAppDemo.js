@@ -7,8 +7,9 @@
 
 
     appDemoModule.component('appPageDemo', {
-      template: `<div ng-controller="searchPageController">
-      	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel">
+      template: `<div ng-controller="searchPageController" >
+       <span ng-show="searchFormHide"><button class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button> </span>
+      	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel" ng-hide="searchFormHide">
 
         <div class="note"> * PLEASE NOTE ALL DETAILS AND COMPANIES LISTED HERE ARE FICTIONAL. PICTURES ARE USED FOR DEMONSTRATION AND DETAILS ARE NOT IN ANY WAY RELATED TO THE PERSON ILLUSTRATED IN THE PHOTOS </div>
 				<div class="surnameAndDept responsive" >
@@ -61,6 +62,7 @@
 		</form>
 </div>
 <div id="resultsSection" class="resultsSection responsive" >
+
 		<form id="searchResults" class="searchResults">
 			<div id="search" class="search" style="display:none; width:1000px !important;">
 				<ul id="bookRevList" class="bookRevList">
@@ -207,6 +209,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
  $log.info("11 title text from search page controller : "+$scope.employeeName);
 
    $scope.deptHide = true;
+   $scope.searchFormHide = false;
    $scope.positionHide = true;
    $scope.skillsetHide = true;
    $scope.lastSelectedSurnameItem = '';
@@ -226,6 +229,9 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
       $scope.positionHide = true;
       $scope.skillsetHide = true;
       $scope.deptHide = true;
+
+
+      $scope.searchFormHide = false;
       document.getElementById("resultsSection").style.display = "none";
   }
 
@@ -537,40 +543,19 @@ $scope.keys.push({ code: 40, action: function() { $scope.focusIndex++; }});
      $scope.performInstantSearch(tmpStr, '.givenNamesSearchPossibles', 'givenNames');
   });
 
+  $scope.setHideSearchFields = function(){
+          $scope.searchFormHide = true;
+  }
 
 });
 
-
-//searchBookApp.factory('titleVal', function(){
-//return { employeeName: '' };
-//});
-
-/*
-appDemoModule.directive('keyNavigation', function ($timeout) {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-
-            console.log('stuff ');
-
-            if (event.which === 38) {
-                var target = $(event.target).prev();
-                $(target).trigger('focus');
-            }
-            if (event.which === 40) {
-                var target = $(event.target).next();
-                $(target).trigger('focus');
-            }
-        });
-    };
-});
-*/
 
 appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
 
    $scope.performEmployeeSearch = function () {
-
+      $scope.setHideSearchFields();
     var html = document.getElementById("bookRevList").html;
     var innerHTML = document.getElementById("bookRevList").innerHTML;
 
@@ -685,6 +670,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             document.getElementById("search").style.display = "inline";
             $scope.formattedSearchData = '';
             if(undefined != response.data && response.data.length > 0 && response.data[0] != null){
+
                   $log.info("we here again :"+response.data[0]);
                   for(var i = 0; i < response.data.length; i++){
 
@@ -701,11 +687,16 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
                   }
 
+
+
             }else{
               $('.bookRevList').append("<span style='font-size:1.5em;'>No Records Found </span>");
+              $scope.searchFormHide = false;
             }
 
             $(dlg).dialog("close");
+
+              $log.info("1bbbbbbbbbbb search form hide is true  ::: "+$scope.searchFormHide);
          }
 
       }, function errorCallback(response) {
@@ -747,6 +738,8 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
            $(errorDialog).dialog("open");
             window.parent.location.href = 'logout';
           });
+
+            $log.info("2222222222222 search form hide is true  ::: "+$scope.searchFormHide);
 
       }
 
