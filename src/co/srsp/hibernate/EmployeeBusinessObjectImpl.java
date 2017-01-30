@@ -12,10 +12,12 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.srsp.config.ConfigHandler;
+import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.hibernate.orm.OrgDepartment;
+import co.srsp.rss.model.ValueNamePair;
 import co.srsp.viewmodel.EmployeeModel;
 import co.srsp.viewmodel.EmployeeSkillsetDataModel;
 
@@ -172,7 +174,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 
 
 	@Override
-	public List<EmployeeModel> findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
+	public  HashMap<String, List>  findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
 		log.info("findBooksByAnyCriteriaLazyLoad");
 		Session session = this.getSessionFactory().openSession();
 		StringBuffer extrasClause = new StringBuffer();
@@ -207,8 +209,12 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		List<Object[]> list = session.createSQLQuery(mainQuery).list();
 		
 		log.info("THE LIST SIZE RETURNED IS : "+list.size());
-		return buildFullProfileEmployeeModel(list);
+		List<EmployeeModel> modelLizt = buildFullProfileEmployeeModel(list);
+		HashMap<String, List> modelsAndFacetsMap = new HashMap<String, List>();
+		modelsAndFacetsMap.put(SessionConstants.EMPLOYEE_MODEL_LIZT, modelLizt);
+		modelsAndFacetsMap.put(SessionConstants.FACET_MATCHED_LIZT, countFacetItems(modelLizt));
 		
+		return modelsAndFacetsMap;
 	}
 
 	
@@ -293,6 +299,77 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		return buildFullProfileEmployeeModel(list);
 	}
 	
+	private List<HashMap<String, ValueNamePair>> countFacetItems(List<EmployeeModel> list){
+		
+		List<HashMap<String, ValueNamePair>> facetsMaps = new ArrayList<HashMap<String, ValueNamePair>>(); 
+		
+		List<OrgDepartment> orgDeptLizt = getOrgDepts();
+		
+		HashMap<String, ValueNamePair> orgToEmployeeModelCount = new HashMap<String, ValueNamePair>();
+		
+		List<EmployeeModel> matchedList = null;
+		
+		for(OrgDepartment orgDept : orgDeptLizt){
+			matchedList = new ArrayList<EmployeeModel>();
+			int count = 0;
+			for(EmployeeModel model : list){
+				if(orgDept.getDeptName().equalsIgnoreCase(model.getEmpSkillsetsDataModel().get(0).getDepartmentName())){
+					count++;
+					matchedList.add(model);
+				}
+			} 
+			
+			orgToEmployeeModelCount.put(orgDept.getDeptName(), new ValueNamePair(String.valueOf(count), matchedList));
+			
+		}
+		
+		facetsMaps.add(orgToEmployeeModelCount);
+		
+		HashMap<String, ValueNamePair> compPostEmployeeModelCount = new HashMap<String, ValueNamePair>();
+		
+		List<CompanyPositions> positionsLizt = this.getCompanyPositions();
+		
+		for(CompanyPositions companyPos : positionsLizt){
+			matchedList = new ArrayList<EmployeeModel>();
+			int count = 0;
+			for(EmployeeModel model : list){
+				if(companyPos.getPositionName().equalsIgnoreCase(model.getEmpSkillsetsDataModel().get(0).getCurrentPostionName())){
+					count++;
+					matchedList.add(model);
+				}
+			} 
+			
+			compPostEmployeeModelCount.put(companyPos.getPositionName(), new ValueNamePair(String.valueOf(count), matchedList));
+			
+		}
+		
+		facetsMaps.add(compPostEmployeeModelCount);
+		
+	    HashMap<String, ValueNamePair> skillsetToEmployeeModelCount = new HashMap<String, ValueNamePair>();
+		
+		List<EmployeeSkillset> skillsetsLizt = this.getAllSkillsets();
+		
+		for(EmployeeSkillset skillset : skillsetsLizt){
+			matchedList = new ArrayList<EmployeeModel>();
+			int count = 0;
+			for(EmployeeModel model : list){
+				
+				for(EmployeeSkillsetDataModel skillsetDataModel : model.getEmpSkillsetsDataModel()){
+					if(skillset.getSkillsetName().equalsIgnoreCase(skillsetDataModel.getSkillsetName())){
+						count++;
+						matchedList.add(model); //may add the same 
+					}
+				}
+			} 
+			
+			skillsetToEmployeeModelCount.put(skillset.getSkillsetName(), new ValueNamePair(String.valueOf(count), matchedList));
+			
+		}
+		
+		facetsMaps.add(skillsetToEmployeeModelCount);
+
+		return facetsMaps;
+	}
 
 	
 	private List<EmployeeModel> buildFullProfileEmployeeModel(List<Object[]> list){

@@ -188,8 +188,6 @@ public class SearchingPageController {
 	@RequestMapping(value = { "/addBookReview"}, method = RequestMethod.GET)
 	public @ResponseBody String[] addBookReview(HttpServletRequest request, HttpServletResponse response){
 		
-		
-		
 	    String[] strResponse = new String[1];
 	    strResponse[0] = "Successfully added book review";
 		//modelAndView.setViewName("reviews");

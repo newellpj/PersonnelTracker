@@ -28,6 +28,10 @@ public interface SessionConstants {
 	public static String PHONE = "number";
 	public static String MESSAGE = "message";
 	
+	
+	public static String EMPLOYEE_MODEL_LIZT = "employeesModels";
+	public static String FACET_MATCHED_LIZT = "fazetsMatched";
+	
 	public static String EMPLOYEE_SEARCH_STRING = "empSearchString";
 	
 	public static String EMPLOYEE_SURNAME = "e1employee_surname"; 

@@ -85,11 +85,11 @@ ul.givenNamesSearchPossibles li span:hover{
 
 #resultsSection{
 	display:none;
-	width: 95%;
+	width: 85%;
 	padding: 2.5em;
 	margin-top: 3em;
 	margin-bottom: 1%;
-	margin-left: 0%;
+	margin-left: 15%;
 	background-color:  #E5E5E5;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
@@ -104,7 +104,12 @@ ul.givenNamesSearchPossibles li span:hover{
 	box-shadow: 3px 3px 10px #252728;
 }
 
+#searchAgain{
+	margin-left: 15%;
+}
+
 #resetSearch{
+
 	width:30%;
 	box-shadow: 3px 3px 10px #252728;
 }

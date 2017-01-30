@@ -266,11 +266,11 @@ form.contactForm{
 }
 
 .pageHeaderLogo{
-	font-family: 'Lobster', cursive;
-	/*	 font-family: 'Open Sans Condensed', sans-serif;
-		font-family: 'Playfair Display', serif; */
-		font-weight: normal;
-		font-style: normal;
+	/*font-family: 'Lobster', cursive;
+		 font-family: 'Open Sans Condensed', sans-serif; */
+		font-family: 'Playfair Display', serif;
+		font-weight: bold;
+		font-style: italic;
 		width:33%;
 		font-size:3rem;
 		color: #514c4c;

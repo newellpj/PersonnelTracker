@@ -18,11 +18,13 @@
 
  <link rel="shortcut icon" href="./presentationResources/images/favicon.png" type="image/x-icon">
 
+<script type="text/javascript" src="./presentationResources/js/highlighter.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-1.9.1.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="./presentationResources/js/angular.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landing.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landingAboutUs.js"></script>
+<script type="text/javascript" src="./presentationResources/js/landingMainAppDemoSupp.js"></script>
 <script type="text/javascript" src="./presentationResources/js/landingMainAppDemo.js"></script>
 <script type="text/javascript" src="./presentationResources/js/jquery.bxslider.min.js"></script>
 
