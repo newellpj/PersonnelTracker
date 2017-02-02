@@ -7,11 +7,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import co.srsp.hibernate.EmployeeBusinessObject;
-import co.srsp.hibernate.orm.Books;
 import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.hibernate.orm.OrgDepartment;
+import co.srsp.viewmodel.EmployeeFacetWrapperModel;
 import co.srsp.viewmodel.EmployeeModel;
 
 public class EmployeeDataService {
@@ -24,7 +24,7 @@ public class EmployeeDataService {
 		return employeeBusinessObject.findEmployeePartialSurnameMatch("", startOffset, numberOfRecords);
 	}
 	
-	public List<EmployeeModel> findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
+	public EmployeeFacetWrapperModel findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
 		return employeeBusinessObject.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, offset, numberOfRecords);
 	}
 	

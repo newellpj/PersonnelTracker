@@ -12,14 +12,16 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.srsp.config.ConfigHandler;
-import co.srsp.constants.SessionConstants;
 import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.hibernate.orm.OrgDepartment;
 import co.srsp.rss.model.ValueNamePair;
+import co.srsp.viewmodel.EmployeeFacetWrapperModel;
 import co.srsp.viewmodel.EmployeeModel;
 import co.srsp.viewmodel.EmployeeSkillsetDataModel;
+import co.srsp.viewmodel.FacetGroupModel;
+import co.srsp.viewmodel.FacetModel;
 
 
 @Configuration
@@ -174,7 +176,7 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 
 
 	@Override
-	public  HashMap<String, List>  findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
+	public  EmployeeFacetWrapperModel  findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords){
 		log.info("findBooksByAnyCriteriaLazyLoad");
 		Session session = this.getSessionFactory().openSession();
 		StringBuffer extrasClause = new StringBuffer();
@@ -211,10 +213,13 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		log.info("THE LIST SIZE RETURNED IS : "+list.size());
 		List<EmployeeModel> modelLizt = buildFullProfileEmployeeModel(list);
 		HashMap<String, List> modelsAndFacetsMap = new HashMap<String, List>();
-		modelsAndFacetsMap.put(SessionConstants.EMPLOYEE_MODEL_LIZT, modelLizt);
-		modelsAndFacetsMap.put(SessionConstants.FACET_MATCHED_LIZT, countFacetItems(modelLizt));
 		
-		return modelsAndFacetsMap;
+		EmployeeFacetWrapperModel wrapperModel = new EmployeeFacetWrapperModel();
+		
+		wrapperModel.setEmployeeModels(modelLizt);
+		wrapperModel.setFacetGroupModels(countFacetItems(modelLizt));
+		
+		return wrapperModel;
 	}
 
 	
@@ -299,35 +304,46 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 		return buildFullProfileEmployeeModel(list);
 	}
 	
-	private List<HashMap<String, ValueNamePair>> countFacetItems(List<EmployeeModel> list){
+	private List<FacetGroupModel> countFacetItems(List<EmployeeModel> list){
 		
-		List<HashMap<String, ValueNamePair>> facetsMaps = new ArrayList<HashMap<String, ValueNamePair>>(); 
+		List<FacetModel> facetsModels = new ArrayList<FacetModel>(); 
 		
 		List<OrgDepartment> orgDeptLizt = getOrgDepts();
 		
-		HashMap<String, ValueNamePair> orgToEmployeeModelCount = new HashMap<String, ValueNamePair>();
+		List<FacetGroupModel> facetGroupModelLizt = new ArrayList<FacetGroupModel>();
+		
+		FacetModel facetModel = null;
 		
 		List<EmployeeModel> matchedList = null;
+		
+		FacetGroupModel groupModel = new FacetGroupModel();
 		
 		for(OrgDepartment orgDept : orgDeptLizt){
 			matchedList = new ArrayList<EmployeeModel>();
 			int count = 0;
 			for(EmployeeModel model : list){
 				if(orgDept.getDeptName().equalsIgnoreCase(model.getEmpSkillsetsDataModel().get(0).getDepartmentName())){
-					count++;
+					count++;				
 					matchedList.add(model);
 				}
+				
 			} 
+			facetModel = new FacetModel();
+			facetModel.setFacetLabel(orgDept.getDeptName());
+			facetModel.setEmployeesMatchedAgainstFacetCategory(matchedList);
+			facetModel.setFacetCount(String.valueOf(count));
 			
-			orgToEmployeeModelCount.put(orgDept.getDeptName(), new ValueNamePair(String.valueOf(count), matchedList));
-			
+			groupModel.getFacetModelsMatchingGroupItems().add(facetModel);
 		}
 		
-		facetsMaps.add(orgToEmployeeModelCount);
-		
-		HashMap<String, ValueNamePair> compPostEmployeeModelCount = new HashMap<String, ValueNamePair>();
+		groupModel.setGroupLabel("Organisation Department");
+
+		facetGroupModelLizt.add(groupModel);
 		
 		List<CompanyPositions> positionsLizt = this.getCompanyPositions();
+		
+		
+		groupModel = new FacetGroupModel();
 		
 		for(CompanyPositions companyPos : positionsLizt){
 			matchedList = new ArrayList<EmployeeModel>();
@@ -338,16 +354,21 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 					matchedList.add(model);
 				}
 			} 
-			
-			compPostEmployeeModelCount.put(companyPos.getPositionName(), new ValueNamePair(String.valueOf(count), matchedList));
+			facetModel = new FacetModel();
+			facetModel.setFacetLabel(companyPos.getPositionName());
+			facetModel.setEmployeesMatchedAgainstFacetCategory(matchedList);
+			facetModel.setFacetCount(String.valueOf(count));
+			groupModel.getFacetModelsMatchingGroupItems().add(facetModel);
 			
 		}
 		
-		facetsMaps.add(compPostEmployeeModelCount);
+		groupModel.setGroupLabel("Company Positions");
+		facetGroupModelLizt.add(groupModel);
 		
-	    HashMap<String, ValueNamePair> skillsetToEmployeeModelCount = new HashMap<String, ValueNamePair>();
 		
 		List<EmployeeSkillset> skillsetsLizt = this.getAllSkillsets();
+		
+		groupModel = new FacetGroupModel();
 		
 		for(EmployeeSkillset skillset : skillsetsLizt){
 			matchedList = new ArrayList<EmployeeModel>();
@@ -362,13 +383,19 @@ public class EmployeeBusinessObjectImpl extends HibernateDaoSupport implements E
 				}
 			} 
 			
-			skillsetToEmployeeModelCount.put(skillset.getSkillsetName(), new ValueNamePair(String.valueOf(count), matchedList));
+			facetModel = new FacetModel();
+			facetModel.setFacetLabel(skillset.getSkillsetName());
+			facetModel.setEmployeesMatchedAgainstFacetCategory(matchedList);
+			facetModel.setFacetCount(String.valueOf(count));			
+			groupModel.getFacetModelsMatchingGroupItems().add(facetModel);
+			
 			
 		}
 		
-		facetsMaps.add(skillsetToEmployeeModelCount);
+		groupModel.setGroupLabel("Skillsets");
+		facetGroupModelLizt.add(groupModel);
 
-		return facetsMaps;
+		return facetGroupModelLizt;
 	}
 
 	

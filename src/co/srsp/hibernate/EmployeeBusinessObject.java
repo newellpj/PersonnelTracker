@@ -7,6 +7,7 @@ import co.srsp.hibernate.orm.CompanyPositions;
 import co.srsp.hibernate.orm.Employee;
 import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.hibernate.orm.OrgDepartment;
+import co.srsp.viewmodel.EmployeeFacetWrapperModel;
 import co.srsp.viewmodel.EmployeeModel;
 
 public interface EmployeeBusinessObject {
@@ -26,7 +27,7 @@ public interface EmployeeBusinessObject {
 	
 	public  List<Employee> findEmployeePartialSurnameMatch(String surnamePartial,  int offset, int numberOfRecords);
 	
-	public  HashMap<String, List> findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords);
+	public  EmployeeFacetWrapperModel findEmployeesByAnyCriteriaLazyLoad(HashMap<String, String> searchCriteria, int offset, int numberOfRecords);
 
 	public EmployeeModel findEmployeePerformanceDetails(EmployeeModel empModel);
 	

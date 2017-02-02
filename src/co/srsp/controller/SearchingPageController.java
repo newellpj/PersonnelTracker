@@ -4,10 +4,8 @@ package co.srsp.controller;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.srsp.config.ConfigHandler;
@@ -39,7 +36,7 @@ import co.srsp.hibernate.orm.EmployeeSkillset;
 import co.srsp.hibernate.orm.OrgDepartment;
 import co.srsp.rss.model.ValueNamePair;
 import co.srsp.service.EmployeeDataService;
-import co.srsp.solr.SolrSearchData;
+import co.srsp.viewmodel.EmployeeFacetWrapperModel;
 import co.srsp.viewmodel.EmployeeModel;
 
 @Controller
@@ -334,7 +331,7 @@ public class SearchingPageController {
 	}
 	
 	@RequestMapping(value = { "/searchForEmployee"}, method = RequestMethod.GET)
-	public @ResponseBody EmployeeModel[] searchEmployee(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody EmployeeFacetWrapperModel searchEmployee(HttpServletRequest request, HttpServletResponse response){
 			
 		log.info("request get param : "+request.getParameter(SessionConstants.EMPLOYEE_SEARCH_STRING));
 		
@@ -392,7 +389,7 @@ public class SearchingPageController {
 		
 		EmployeeDataService dataService = new EmployeeDataService();
 		
-		List<EmployeeModel> list = new ArrayList<EmployeeModel>();
+		List<EmployeeFacetWrapperModel> list = new ArrayList<EmployeeFacetWrapperModel>();
 		log.info("just before test !");
 
 		request.getSession().setAttribute(SessionConstants.EMPLOYEE_GIVEN_NAMES, givenNamesText);
@@ -427,16 +424,19 @@ public class SearchingPageController {
 			log.info("in here222");
 		}
 		
-		list.addAll(dataService.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, 0, 1000));
-
+        EmployeeFacetWrapperModel wrapperModel = dataService.findEmployeesByAnyCriteriaLazyLoad(searchCriteria, 0, 1000);
+		
+		//SessionConstants.EMPLOYEE_MODEL_LIZT
+		 //SessionConstants.FACET_MATCHED_LIZT
+        //TODO send back facet info and or store in session 
 		
 		int numRecords = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
 		
-		if(list.size() > numRecords){
-			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
-		}else{
-			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, null); //check for null when paginating and return nothing if null
-		}
+//		if(list.size() > numRecords){
+//			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+//		}else{
+//			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, null); //check for null when paginating and return nothing if null
+//		}
 		
 		if(list.size() < numRecords){
 			numRecords = list.size();
@@ -446,11 +446,11 @@ public class SearchingPageController {
 		
 		int count = 0;
 		
-		for(EmployeeModel model : list){
-			employeeModelArray[count] = model;
-			count++;
-			if(count >= numRecords) break;
-		}
+//		for(EmployeeModel model : list){
+//			employeeModelArray[count] = model;
+//			count++;
+//			if(count >= numRecords) break;
+//		}
 		
 		
 		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0+numRecords);
@@ -458,7 +458,7 @@ public class SearchingPageController {
 		log.info("employeeModelArray array size returned :: "+employeeModelArray.length);
 		
 		//modelView.setViewName("reviewsSearchBook");
-		return employeeModelArray;// buildEmployeeFullProfileDataModel(request, list);		
+		return wrapperModel;// buildEmployeeFullProfileDataModel(request, list);		
 	}
 	
 	@RequestMapping(value = { "/getEmployeePerformanceDetails"}, method = RequestMethod.GET)

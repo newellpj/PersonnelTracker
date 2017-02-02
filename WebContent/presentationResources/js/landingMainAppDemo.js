@@ -407,12 +407,12 @@ $scope.skillsetSelect = [];
             if(response.data.length == 0 || response.data[0]['employeeSurname'] == 'No Employees Found!!'){
                console.log('we wont display');
                $(objClass).css("display", "none");
-                $scope.data = "";
-              searchedDataSet = "";
-             }else{
-               console.log('we should display');
-               $(objClass).css("display", "table");
-             }
+                  $scope.data = "";
+                  searchedDataSet = "";
+               }else{
+                  console.log('we should display');
+                  $(objClass).css("display", "table");
+               }
 
 
           }, function errorCallback(response) {
@@ -657,28 +657,26 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
       }).then(function successCallback(response) {
 
-        $log.info("we are here : "+response.data.length);
-        $log.info("we are here : "+response.data);
+        $log.info("we are here employee models list length : "+response.data['employeeModels'].length);
+        $log.info("we are here facet group models list length : "+response.data['facetGroupModels'].length);
 
-        $log.info("index of ::: "+response.data.indexOf("html"));
-
-        if( response.data.indexOf("html") > -1 && response.data.indexOf("body") >  -1){
+        if(response.data['employeeModels'].length <=  0){
           $(dlg).dialog("close");
           $('.bookRevList').append("No employees details discovered");
         }else{
 
             document.getElementById("search").style.display = "inline";
             $scope.formattedSearchData = '';
-            if(undefined != response.data && response.data.length > 0 && response.data[0] != null){
+            if(undefined != response.data && response.data['employeeModels'].length > 0 && response.data['employeeModels'] != null){
 
                   $log.info("we here again :"+response.data[0]);
-                  for(var i = 0; i < response.data.length; i++){
+                  for(var i = 0; i < response.data['employeeModels'].length; i++){
 
                     //$log.info("first book in array : "+$('.bookRevList').html());
 
                     //$('.bookRevList').append("<div class='searchSegment'>");
 
-                      var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data[i], $log)+"</div>"
+                      var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data['employeeModels'][i], $log)+"</div>"
 
                       $('.bookRevList').append(formattedContent);
 
