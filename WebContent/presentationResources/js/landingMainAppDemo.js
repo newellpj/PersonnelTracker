@@ -60,16 +60,29 @@
 					</div>
 			<br/>
 		</form>
-</div>
-<div id="resultsSection" class="resultsSection responsive" >
 
-		<form id="searchResults" class="searchResults">
-			<div id="search" class="search" style="display:none; width:1000px !important;">
-				<ul id="bookRevList" class="bookRevList">
-				</ul>
-			</div>
-		</form>
-</div></div>		`
+
+    <div class="facetSidebar" ng-show="searchFormHide" >
+       <ul ng-repeat="gd in groupData">
+            <span class="facetGroupLabel">{{gd.groupLabel}}</span>
+           <li ng-repeat="facetData in gd.facetModelsMatchingGroupItems">
+                 <span><input type="checkbox" ng-click="" id="facetData.facetLabel">{{facetData.facetLabel}}</input></span>
+               <span>({{facetData.facetCount}})</span>
+           </li>
+       </ul>
+
+   </div>
+    {{searchFormHide}}
+      <div id="resultsSection" class="resultsSection responsive" >
+      		<form id="searchResults" class="searchResults">
+      			<div id="search" class="search" style="display:none; width:1000px !important;">
+      				<ul id="bookRevList" class="bookRevList">
+      				</ul>
+      			</div>
+      		</form>
+      </div>
+
+</div>`
     });
 
     var searchedDataSet;
@@ -205,6 +218,10 @@ appDemoModule.service('formatSearchService', function($log, searchDisplayInitSer
   }
 });
 
+
+
+
+
 appDemoModule.controller('searchPageController', function($scope, $log, $timeout, $http, formatSearchService, constructInstantSearchService) {
  $log.info("11 title text from search page controller : "+$scope.employeeName);
 
@@ -230,8 +247,10 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
       $scope.skillsetHide = true;
       $scope.deptHide = true;
 
-
       $scope.searchFormHide = false;
+
+
+
       document.getElementById("resultsSection").style.display = "none";
   }
 
@@ -294,6 +313,34 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
 
                console.log('error retrieving data : '+response);
           });
+
+  $scope.groupData = [];
+
+  $http({
+        url : 'searchForEmployee',
+        method : 'GET',
+        headers: {'Content-Type' : 'application/json'},
+        dataType: "JSON",
+        params: {
+        	e1employee_surname: '',
+        	e1employee_given_names: '',
+        	e1employee_first_name: '',
+        	dept_name: '',
+        	position_name: '',
+        	skillset_name: ''
+        }
+
+
+      }).then(function successCallback(response) {
+
+
+            $scope.groupData = response.data['facetGroupModels'];
+
+
+      }, function errorCallback(response) {
+
+
+      });
 
   $scope.positionSelect = [];
 
@@ -545,6 +592,7 @@ $scope.keys.push({ code: 40, action: function() { $scope.focusIndex++; }});
 
   $scope.setHideSearchFields = function(){
           $scope.searchFormHide = true;
+
   }
 
 });
@@ -552,7 +600,7 @@ $scope.keys.push({ code: 40, action: function() { $scope.focusIndex++; }});
 
 appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
-
+    $scope.groupData = '';
 
    $scope.performEmployeeSearch = function () {
       $scope.setHideSearchFields();
@@ -666,6 +714,13 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
         }else{
 
             document.getElementById("search").style.display = "inline";
+
+            $scope.groupData = response.data['facetGroupModels'];
+
+            $log.info("$scope.groupData length : "+$scope.groupData.length);
+            $log.info("$scope.groupData : "+$scope.groupData);
+            //facetData = response.data['facetGroupModels']['facetModelsMatchingGroupItems']
+
             $scope.formattedSearchData = '';
             if(undefined != response.data && response.data['employeeModels'].length > 0 && response.data['employeeModels'] != null){
 
@@ -690,6 +745,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             }else{
               $('.bookRevList').append("<span style='font-size:1.5em;'>No Records Found </span>");
               $scope.searchFormHide = false;
+              $scope.showFacet = false;
             }
 
             $(dlg).dialog("close");
