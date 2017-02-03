@@ -1,4 +1,62 @@
 
+
+var thisGroupData = [];
+
+function displayFacetCheckboxSelection(){
+   console.log($("input[type='checkbox']:checked").val()+' :  BULLSHIT! : '+thisGroupData.length);
+   //console.log($("input[type='checkbox']:checked").attr("id"));
+
+   $("input[type='checkbox']:checked").each(function(){
+         console.log($(this).attr("id"));//this is the checked checkbox
+       });
+
+}
+
+
+
+
+function formatFacetContent(groupData){
+
+  var formattedContent = '';
+
+  thisGroupData = groupData;
+
+  for(var i = 0; i <  groupData.length; i++){
+
+			facetList = groupData[i]['facetModelsMatchingGroupItems'];
+      formattedContent = formattedContent +" <ul class='groupData'><span class='facetGroupLabel'> "
+			+ groupData[i]['groupLabel']+"</span>";
+
+			for(var j = 0; j < facetList.length; j++){
+        if(facetList[j]['facetCount'] > 0){
+				    var theLabel = facetList[j]['facetLabel'];
+            console.log(theLabel);
+            formattedContent = formattedContent +  "<li><span><input type='checkbox' id='"+theLabel+"'"+"onclick='displayFacetCheckboxSelection()'>"+ theLabel+" </input> </span><span>("
+						+facetList[j]['facetCount']+")</span> </li>" ;
+          }
+			}
+
+			formattedContent = formattedContent + "</ul>"
+
+	}
+
+	return formattedContent;
+
+	/*"<ul class='groupData'>"
+	<ul class="groupData">
+			 <span class="facetGroupLabel">{{gd.groupLabel}}</span>
+			<li ng-repeat="facetData in gd.facetModelsMatchingGroupItems">
+						<span><input type="checkbox" ng-click="" id="facetData.facetLabel">{{facetData.facetLabel}}</input></span>
+					<span>({{facetData.facetCount}})</span>
+			</li>
+	</ul> */
+}
+
+
+function resetFacetMarkup(){
+	$('.groupData').remove();
+}
+
 	function formatSearchContent(searchData, $log){
 	//		$log.info("formatting");
 

@@ -63,16 +63,9 @@
 
 
     <div class="facetSidebar" ng-show="searchFormHide" >
-       <ul ng-repeat="gd in groupData">
-            <span class="facetGroupLabel">{{gd.groupLabel}}</span>
-           <li ng-repeat="facetData in gd.facetModelsMatchingGroupItems">
-                 <span><input type="checkbox" ng-click="" id="facetData.facetLabel">{{facetData.facetLabel}}</input></span>
-               <span>({{facetData.facetCount}})</span>
-           </li>
-       </ul>
+
 
    </div>
-    {{searchFormHide}}
       <div id="resultsSection" class="resultsSection responsive" >
       		<form id="searchResults" class="searchResults">
       			<div id="search" class="search" style="display:none; width:1000px !important;">
@@ -246,9 +239,9 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
       $scope.positionHide = true;
       $scope.skillsetHide = true;
       $scope.deptHide = true;
-
+      $scope.groupData = '';
       $scope.searchFormHide = false;
-
+      resetFacetMarkup();
 
 
       document.getElementById("resultsSection").style.display = "none";
@@ -314,7 +307,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
                console.log('error retrieving data : '+response);
           });
 
-  $scope.groupData = [];
+/*  $scope.groupData = [];
 
   $http({
         url : 'searchForEmployee',
@@ -340,7 +333,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
       }, function errorCallback(response) {
 
 
-      });
+      });*/
 
   $scope.positionSelect = [];
 
@@ -735,10 +728,15 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
                       $('.bookRevList').append(formattedContent);
 
+
+
                       attachScroll();
 
 
                   }
+
+                  $('.facetSidebar').append(formatFacetContent(response.data['facetGroupModels']));
+
 
 
 
