@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/demoApp.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/animation.css">
+  <link rel="stylesheet" type="text/css" href="./presentationResources/css/searchFacets.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/jquery.bxslider.css">
 
 <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans+Condensed:300" rel="stylesheet">
