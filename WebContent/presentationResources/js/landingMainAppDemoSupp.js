@@ -1,18 +1,116 @@
 
-
 var thisGroupData = [];
+
+var employeeSearchData = [];
 
 function displayFacetCheckboxSelection(){
    console.log($("input[type='checkbox']:checked").val()+' :  BULLSHIT! : '+thisGroupData.length);
    //console.log($("input[type='checkbox']:checked").attr("id"));
 
+    duplicatesRemovedList = [];
+
+
    $("input[type='checkbox']:checked").each(function(){
          console.log($(this).attr("id"));//this is the checked checkbox
-       });
+         clearSearchList(); //don't clear - but need to check if search item already exists
+
+         var facetLabelID = $(this).attr("id");
+
+
+
+         for(var i = 0; i <  thisGroupData.length; i++){
+            facetList = thisGroupData[i]['facetModelsMatchingGroupItems'];
+            console.log("facet list : "+facetList.length);
+            for(var j = 0; j < facetList.length; j++){
+              if(facetLabelID == facetList[j]['facetLabel']  && facetList[j]['facetCount'] > 0){
+                  console.log("employees matched against facet list : "+facetList[j]['employeesMatchedAgainstFacetCategory'].length+" :: "+
+                facetList[j]['employeesMatchedAgainstFacetCategory'][0]['employeeSurname']);
+                  duplicatesRemovedList = duplicatesRemovedList.concat(facetList[j]['employeesMatchedAgainstFacetCategory']);
+                  console.log("duplicate list before : "+duplicatesRemovedList.length);
+                  duplicatesRemovedList = testForDuplicates(duplicatesRemovedList);
+                  console.log("duplicate list after : "+duplicatesRemovedList.length);
+              }
+            }
+
+         }
+
+    });
+
+
+
+      // if(duplicatesRemovedAllList.length <= 0){
+      //       $('.bookRevList').append("<span style='font-size:1.5em;'>No Facets selected Found </span>");
+      //
+      // }else{
+
+            document.getElementById("search").style.display = "inline";
+            //now format the search list to display to user
+            for(var k = 0; k < duplicatesRemovedList.length; k++){
+
+                 console.log("employee data model object :: "+duplicatesRemovedList[k]['employeeSurname']);
+                 var formattedContent = "<div class='searchSegment'>"+formatSearchContent(duplicatesRemovedList[k], null)+"</div>";
+                 $('.bookRevList').append(formattedContent);
+                // attachScroll();
+            }
+
 
 }
 
 
+
+function testForDuplicates(arr){
+
+      var hash = (function() {
+      var keys = {};
+      return {
+          contains: function(key) {
+              return keys[key] === true;
+          },
+          add: function(key) {
+              if (keys[key] !== true){
+                  keys[key] = true;
+              }
+          }
+      };
+  })();
+
+  var key = null;
+  var result = [];
+  for (var i = 0; i < arr.length; i++){
+
+      key = arr[i]['idemployee'];
+
+      if (!hash.contains(key)){
+          result.push(arr[i]);
+          hash.add(key);
+      }
+  }
+
+    return result;
+}
+
+
+function clearSearchList(){
+    var html = document.getElementById("bookRevList").html;
+    var innerHTML = document.getElementById("bookRevList").innerHTML;
+
+    document.getElementById("resultsSection").style.display = "block";
+    document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
+
+    console.log("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
+
+    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
+
+          document.getElementById("bookRevList2").innerHTML = "";
+
+           $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
+              this.innerHTML = "";
+            });
+
+          $( ".searchSegment" ).remove();
+
+    }
+}
 
 
 function formatFacetContent(groupData){
@@ -42,20 +140,13 @@ function formatFacetContent(groupData){
 
 	return formattedContent;
 
-	/*"<ul class='groupData'>"
-	<ul class="groupData">
-			 <span class="facetGroupLabel">{{gd.groupLabel}}</span>
-			<li ng-repeat="facetData in gd.facetModelsMatchingGroupItems">
-						<span><input type="checkbox" ng-click="" id="facetData.facetLabel">{{facetData.facetLabel}}</input></span>
-					<span>({{facetData.facetCount}})</span>
-			</li>
-	</ul> */
 }
 
 
 function resetFacetMarkup(){
 	$('.groupData').remove();
 }
+
 
 	function formatSearchContent(searchData, $log){
 	//		$log.info("formatting");
@@ -102,6 +193,10 @@ function resetFacetMarkup(){
         //     console.log("we are here : "+data);
 
         //    $('.bookRevList').append(formatSearchContent(data[i]));
+
+          console.log("data length returned ::: "+data.length);
+
+            employeeSearchData = data;
             for(var i = 0; i < data.length; i++){
 
               //$log.info("first book in array : "+$('.bookRevList').html());
@@ -113,21 +208,14 @@ function resetFacetMarkup(){
                 $('.bookRevList').append(formattedContent);
 
             //	$('.bookRevList').append("</div>");
-                      $('.ajax-loader-2').remove();
+                  //    $('.ajax-loader-2').remove();
             }
 
             if(data == undefined || data == null || data.length < 1){
-
-              $('.ajax-loader-2').remove();
-          }else{
-            detachScroll();
-            //$(".search").append("<div class='next'><a href='thatone'>"+""+"</a> </div>");
-
-            /*$('.resultsSection').jscroll({
-              loadingHtml: "<center><div class='ajax-loader-2'> </div></center>",
-              callback: paginateHere()
-            }); */
-          }
+                $('.ajax-loader-2').remove();
+            }else{
+                detachScroll();
+            }
 
 
            },
@@ -149,21 +237,26 @@ function resetFacetMarkup(){
    }
 
 
-function attachScroll(){
+function attachScroll(data){
+
+   employeeSearchData = data;
+
    $( window ).scroll(function() {
 
 
       //console.log($(window).scrollTop()+' R: '+$(window).height());
       //console.log(getDocHeight()+": "+document.body.scrollHeight);
-      if($(window).scrollTop() + $(window).height() >= getDocHeight()) {
-            // console.log("bottom bitch : "+$('.ajax-loader-2').html());
+      if(employeeSearchData != undefined && employeeSearchData != null && employeeSearchData.length > 0){
+          if(($(window).scrollTop() + $(window).height()) >= getDocHeight()) {
+              // console.log("bottom bitch : "+$('.ajax-loader-2').html());
 
-            if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
+              if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
 
-                  $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
-                  paginateHere();
-            }
-        }
+                    $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
+                    paginateHere();
+              }
+          }
+      }
 
 
 

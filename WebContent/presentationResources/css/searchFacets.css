@@ -5,10 +5,11 @@
   background-color: #E5E5E5;
   max-width:18%;
   padding-top:1%;
-  margin-top:2%;
+  margin-top:7.3%;
   padding-right:2%;
   padding-bottom: 2%;
   border-radius: 7px;
+  float:left
 }
 
 
@@ -43,8 +44,8 @@
 }
 
 #resultsSection{
-  position:fixed;
-  top:200px;
+
+    float:left
 	display:none;
 	width: 77%;
 	padding: 2.5em;

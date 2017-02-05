@@ -730,7 +730,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
 
-                      attachScroll();
+                      attachScroll(response.data['employeeModels']);
 
 
                   }
