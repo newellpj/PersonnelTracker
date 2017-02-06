@@ -17,8 +17,6 @@ function displayFacetCheckboxSelection(){
          checkedFound = true;
          var facetLabelID = $(this).attr("id");
 
-
-
          for(var i = 0; i <  thisGroupData.length; i++){
             facetList = thisGroupData[i]['facetModelsMatchingGroupItems'];
             console.log("facet list : "+facetList.length);
@@ -32,9 +30,7 @@ function displayFacetCheckboxSelection(){
                   console.log("duplicate list after : "+duplicatesRemovedList.length);
               }
             }
-
          }
-
     });
 
     if(!checkedFound){  //re-display original search set before any facets were selected
@@ -50,27 +46,9 @@ function displayFacetCheckboxSelection(){
                  console.log("duplicate list after : "+duplicatesRemovedList.length);
              }
            }
-
-    //        var theList = [];
-          // for(var i = 0; i < duplicatesRemovedList.length; i++){
-  //            theList = testForDuplicates(duplicatesRemovedList);
-        //   }
-//duplicatesRemovedList = thisList;
          }
+      }
 
-            //     var theList = [];
-          //      for(var i = 0; i < duplicatesRemovedList.length; i++){
-            //       theList = testForDuplicates(duplicatesRemovedList);
-          //      }
-            //    duplicatesRemovedList = theList;
-    }
-
-
-
-      // if(duplicatesRemovedAllList.length <= 0){
-      //       $('.bookRevList').append("<span style='font-size:1.5em;'>No Facets selected Found </span>");
-      //
-      // }else{
 
             document.getElementById("search").style.display = "inline";
             //now format the search list to display to user
@@ -176,6 +154,7 @@ function formatFacetContent(groupData){
 
 	}
 
+
 	return formattedContent;
 
 }
@@ -183,6 +162,20 @@ function formatFacetContent(groupData){
 
 function resetFacetMarkup(){
 	$('.groupData').remove();
+}
+
+function matchSideBarToSearchResultsSection(){
+  var resultsSectionHeight = $('#resultsSection').height();
+  var sideBarHeight = $('.facetSidebar').height();
+
+  if(sideBarHeight > resultsSectionHeight){
+     var diff = sideBarHeight - resultsSectionHeight;
+     diff = diff + 50;
+     document.getElementById("resultsSection").style.marginBottom = diff+"px";
+  }else{
+     document.getElementById("resultsSection").style.marginBottom = "2%";
+  }
+
 }
 
 
@@ -218,6 +211,8 @@ function resetFacetMarkup(){
 
 			}
 
+      matchSideBarToSearchResultsSection();
+
 			return formattedMarkup;
 	 }
 
@@ -237,19 +232,16 @@ function resetFacetMarkup(){
             employeeSearchData = data;
             for(var i = 0; i < data.length; i++){
 
-              //$log.info("first book in array : "+$('.bookRevList').html());
 
-              //$('.bookRevList').append("<div class='searchSegment'>");
                 console.log(data[i]);
                 var formattedContent = "<div class='searchSegment'>"+formatSearchContent(data[i])+"</div>"
 
                 $('.bookRevList').append(formattedContent);
 
-            //	$('.bookRevList').append("</div>");
-                  //    $('.ajax-loader-2').remove();
+
             }
 
-          // employeeSearchData = data;
+
 
             if(data == undefined || data == null || data.length < 1){
             //    detachScroll();

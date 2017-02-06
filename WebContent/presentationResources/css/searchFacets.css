@@ -10,6 +10,7 @@
   padding-bottom: 2%;
   border-radius: 7px;
   float:left;
+  margin-bottom: 2%;
 }
 
 
@@ -44,7 +45,6 @@
 }
 
 #resultsSection{
-
 	display:none;
 	width: 77%;
 	padding: 2.5em;
@@ -55,6 +55,5 @@
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border: 0px solid #000;
-	/*box-shadow: 10px 10px 5px #888888;*/
 	border-radius: 7px;
 }
