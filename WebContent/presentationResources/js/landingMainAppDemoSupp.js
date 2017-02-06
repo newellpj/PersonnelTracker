@@ -58,11 +58,11 @@ function displayFacetCheckboxSelection(){
 //duplicatesRemovedList = thisList;
          }
 
-                 var theList = [];
+            //     var theList = [];
           //      for(var i = 0; i < duplicatesRemovedList.length; i++){
-                   theList = testForDuplicates(duplicatesRemovedList);
+            //       theList = testForDuplicates(duplicatesRemovedList);
           //      }
-                duplicatesRemovedList = theList;
+            //    duplicatesRemovedList = theList;
     }
 
 
@@ -74,6 +74,10 @@ function displayFacetCheckboxSelection(){
 
             document.getElementById("search").style.display = "inline";
             //now format the search list to display to user
+
+            $(".bookRevList").empty();
+            $(".bookRevList2").empty();
+
             for(var k = 0; k < duplicatesRemovedList.length; k++){
 
                  console.log("employee data model object :: "+duplicatesRemovedList[k]['employeeSurname']);
@@ -245,6 +249,8 @@ function resetFacetMarkup(){
                   //    $('.ajax-loader-2').remove();
             }
 
+          // employeeSearchData = data;
+
             if(data == undefined || data == null || data.length < 1){
             //    detachScroll();
                 $('.ajax-loader-2').remove();
@@ -283,11 +289,14 @@ function attachScroll(data){
       console.log(getDocHeight()+": "+document.body.scrollHeight);
 
           if(($(window).scrollTop() + $(window).height()) >= getDocHeight()) {
-
-              if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
-              //      console.log("bottom bitch : "+$('.ajax-loader-2').html());
-                    $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
-                    paginateHere();
+                console.log("1 bottom bitch : "+employeeSearchData);
+             if(employeeSearchData != undefined && employeeSearchData.length > 0){
+                      console.log("2 bottom bitch : ");
+                  if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
+                        console.log("3 bottom bitch : ");
+                        $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
+                        paginateHere();
+                  }
               }
 
       }
