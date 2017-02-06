@@ -54,7 +54,6 @@ function displayFacetCheckboxSelection(){
             //now format the search list to display to user
 
             $(".bookRevList").empty();
-            $(".bookRevList2").empty();
 
             for(var k = 0; k < duplicatesRemovedList.length; k++){
 
@@ -115,17 +114,6 @@ function clearSearchList(){
 
     console.log("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
 
-    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
-
-          document.getElementById("bookRevList2").innerHTML = "";
-
-           $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
-              this.innerHTML = "";
-            });
-
-          $( ".searchSegment" ).remove();
-
-    }
 }
 
 

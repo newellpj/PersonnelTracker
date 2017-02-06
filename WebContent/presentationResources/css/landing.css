@@ -26,38 +26,22 @@
 .quote1{
 	  font-size: 2rem;
 		font-style: italic;
-		margin-top: -15%;
+		margin-top: -20%;
 		margin-bottom:10%;
-		margin-left: 25%;
+		margin-left: 30%;
 		width: 30%;
 }
 
 .quote2{
 	  font-size: 2rem;
 		font-style: italic;
-		margin-top: -10%;
+		margin-top: -15%;
 		margin-bottom:5%;
-		margin-left: 3%;
+		margin-left: 5%;
 		width: 20%;
 }
 
-/*
-.bx-wrapper{
-		margin-left:55% !important;
-}
 
-.bx-wrapper .bx-next{
-	position:fixed !important;
-	  right:10% !important;
-		top: 40% !important;
-}
-
-.bx-wrapper .bx-prev{
-		position:fixed !important;
-	  left:40% !important;
-		top: 40% !important;
-}
-*/
 
 .scalable{
 		font-size:4rem;
@@ -194,7 +178,8 @@ section.performReviewOnline{
 
 form.contactForm{
     margin-left: 55%;
-		margin-top: -51%;
+		margin-top: -50%;
+		margin-bottom: 10%;
 	  position: static;
 }
 
@@ -224,9 +209,9 @@ form.contactForm{
 }
 
 .culture2 img{
-	margin-left: 25%;
+	margin-left: 30%;
 	border-radius: 5px;
-	margin-top:-4%;
+	margin-top:0%;
 	width: 200;
 	height: 166;
 	/*box-shadow: 5px 5px 10px #252728 ;*/

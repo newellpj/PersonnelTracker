@@ -169,16 +169,6 @@ this.searchDisplayInit = function(){
 
     $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
 
-    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
-
-      document.getElementById("bookRevList2").innerHTML = "";
-
-       $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
-          this.innerHTML = "";
-        });
-
-      $( ".searchSegment" ).remove();
-    }
 }
 
 });
@@ -606,19 +596,6 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
     $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
 
-    if(document.getElementById("bookRevList2") != null && document.getElementById("bookRevList2") != 'undefined'){
-
-      document.getElementById("bookRevList2").innerHTML = "";
-
-       $( ".bookRevList2" ).each(function( ) { //these are the search result divs that get added upon pagination of search results
-          this.innerHTML = "";
-        });
-
-      $( ".searchSegment" ).remove();
-
-
-
-    }
 
     //as search segment can get placed outside the book list by the jscroll function we should
     //remove all searchSegments - they will be re-added by javascript or the controllers dynamically
@@ -789,7 +766,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
            $(errorDialog).dialog("open");
-            window.parent.location.href = 'logout';
+          //  window.parent.location.href = 'logout';
           });
 
             $log.info("2222222222222 search form hide is true  ::: "+$scope.searchFormHide);
