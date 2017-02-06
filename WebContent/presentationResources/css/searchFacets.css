@@ -9,7 +9,7 @@
   padding-right:2%;
   padding-bottom: 2%;
   border-radius: 7px;
-  float:left
+  float:left;
 }
 
 
@@ -45,7 +45,6 @@
 
 #resultsSection{
 
-    float:left
 	display:none;
 	width: 77%;
 	padding: 2.5em;

@@ -66,6 +66,7 @@
 
 
    </div>
+
       <div id="resultsSection" class="resultsSection responsive" >
       		<form id="searchResults" class="searchResults">
       			<div id="search" class="search" style="display:none; width:1000px !important;">

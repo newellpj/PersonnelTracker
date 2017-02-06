@@ -9,11 +9,12 @@ function displayFacetCheckboxSelection(){
 
     duplicatesRemovedList = [];
 
+   var checkedFound = false;
 
    $("input[type='checkbox']:checked").each(function(){
          console.log($(this).attr("id"));//this is the checked checkbox
          clearSearchList(); //don't clear - but need to check if search item already exists
-
+         checkedFound = true;
          var facetLabelID = $(this).attr("id");
 
 
@@ -35,6 +36,34 @@ function displayFacetCheckboxSelection(){
          }
 
     });
+
+    if(!checkedFound){  //re-display original search set before any facets were selected
+
+         for(var i = 0; i <  thisGroupData.length; i++){
+           for(var j = 0; j < facetList.length; j++){
+             if(facetList[j]['facetCount'] > 0){
+                 console.log("employees matched against facet list : "+facetList[j]['employeesMatchedAgainstFacetCategory'].length+" :: "+
+                 facetList[j]['employeesMatchedAgainstFacetCategory'][0]['employeeSurname']);
+                 duplicatesRemovedList = duplicatesRemovedList.concat(facetList[j]['employeesMatchedAgainstFacetCategory']);
+                 console.log("duplicate list before : "+duplicatesRemovedList.length);
+                   duplicatesRemovedList = testForDuplicates(duplicatesRemovedList);
+                 console.log("duplicate list after : "+duplicatesRemovedList.length);
+             }
+           }
+
+    //        var theList = [];
+          // for(var i = 0; i < duplicatesRemovedList.length; i++){
+  //            theList = testForDuplicates(duplicatesRemovedList);
+        //   }
+//duplicatesRemovedList = thisList;
+         }
+
+                 var theList = [];
+          //      for(var i = 0; i < duplicatesRemovedList.length; i++){
+                   theList = testForDuplicates(duplicatesRemovedList);
+          //      }
+                duplicatesRemovedList = theList;
+    }
 
 
 
@@ -64,6 +93,9 @@ function testForDuplicates(arr){
       var keys = {};
       return {
           contains: function(key) {
+            for(var i = 0; i < keys.length; i++){
+                console.log("key value : "+keys[i]);
+            }
               return keys[key] === true;
           },
           add: function(key) {
@@ -79,13 +111,15 @@ function testForDuplicates(arr){
   for (var i = 0; i < arr.length; i++){
 
       key = arr[i]['idemployee'];
-
+      console.log(key +" :: contains::: "+hash.contains(key))
       if (!hash.contains(key)){
           result.push(arr[i]);
           hash.add(key);
       }
   }
 
+
+    console.log("result size : "+result.length);
     return result;
 }
 
@@ -160,7 +194,7 @@ function resetFacetMarkup(){
 
 				formattedMarkup = "<div style='float:left; margin-right:1.5em;' ><img alt='book thumb' width='"+searchData['imageWidth']+"' height='"+searchData['imageHeight']
 				+"' src='"+searchData['profilePicURL']+"' /></div>"+
-			"<span><b>Name : </b>"+searchData['employeeFirstName']+" "+
+			     "<span><b>Name : </b>"+searchData['employeeFirstName']+" "+
         searchData['employeeGivenNames'] +" "+searchData['employeeSurname']+"&nbsp;&nbsp;<b>Age : </b>"+searchData['employeeAge']+" <b>&nbsp;&nbsp;Gender : </b> "
         +searchData['employeeGender']+  "&nbsp;&nbsp;<b>Marital status : </b> " +searchData['employeeMaritalStatus']+" </span></br>"+
 
@@ -212,6 +246,7 @@ function resetFacetMarkup(){
             }
 
             if(data == undefined || data == null || data.length < 1){
+            //    detachScroll();
                 $('.ajax-loader-2').remove();
             }else{
                 detachScroll();
@@ -244,18 +279,17 @@ function attachScroll(data){
    $( window ).scroll(function() {
 
 
-      //console.log($(window).scrollTop()+' R: '+$(window).height());
-      //console.log(getDocHeight()+": "+document.body.scrollHeight);
-      if(employeeSearchData != undefined && employeeSearchData != null && employeeSearchData.length > 0){
+      console.log($(window).scrollTop()+' R: '+$(window).height());
+      console.log(getDocHeight()+": "+document.body.scrollHeight);
+
           if(($(window).scrollTop() + $(window).height()) >= getDocHeight()) {
-              // console.log("bottom bitch : "+$('.ajax-loader-2').html());
 
               if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
-
+              //      console.log("bottom bitch : "+$('.ajax-loader-2').html());
                     $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
                     paginateHere();
               }
-          }
+
       }
 
 
