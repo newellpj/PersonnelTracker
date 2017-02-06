@@ -62,7 +62,7 @@
 		</form>
 
 
-    <div class="facetSidebar" ng-show="searchFormHide" >
+    <div id="facetSidebar" class="facetSidebar responsive" >
 
 
    </div>
@@ -165,6 +165,7 @@ this.searchDisplayInit = function(){
     $log.info("results section");
 
     document.getElementById("resultsSection").style.display = "block";
+    document.getElementById("facetSidebar").style.display = "block";
     document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
 
     $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
@@ -236,6 +237,8 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
 
 
       document.getElementById("resultsSection").style.display = "none";
+      document.getElementById("facetSidebar").style.display = "none";
+
   }
 
   $scope.deptSelect = {
@@ -298,33 +301,6 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
                console.log('error retrieving data : '+response);
           });
 
-/*  $scope.groupData = [];
-
-  $http({
-        url : 'searchForEmployee',
-        method : 'GET',
-        headers: {'Content-Type' : 'application/json'},
-        dataType: "JSON",
-        params: {
-        	e1employee_surname: '',
-        	e1employee_given_names: '',
-        	e1employee_first_name: '',
-        	dept_name: '',
-        	position_name: '',
-        	skillset_name: ''
-        }
-
-
-      }).then(function successCallback(response) {
-
-
-            $scope.groupData = response.data['facetGroupModels'];
-
-
-      }, function errorCallback(response) {
-
-
-      });*/
 
   $scope.positionSelect = [];
 
@@ -362,11 +338,7 @@ $scope.skillsetSelect = [];
             }).then(function successCallback(response) {
               console.log("skills ret "+response.data);
 
-      //      response.data.push("name":"Please Select...", "value":"");
-             //console.log(obj);
-
              $scope.skillsetSelect.availableOptions = response.data;
-
              $scope.skillsetSelect.availableOptions.unshift({value: '', name: 'Please select..'});
              $scope.skillsetSelect.selectedOption = {value: '', name: 'Please select..'};
 
@@ -591,7 +563,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
     var html = document.getElementById("bookRevList").html;
     var innerHTML = document.getElementById("bookRevList").innerHTML;
 
-    document.getElementById("resultsSection").style.display = "block";
+  //  document.getElementById("resultsSection").style.display = "block";
     document.getElementById("bookRevList").innerHTML = ""; //this is the original search results div that gets displayed
 
     $log.info("inner html of  book rev list : "+document.getElementById("bookRevList").innerHTML);
@@ -675,6 +647,8 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
 
       }).then(function successCallback(response) {
+        document.getElementById("resultsSection").style.display = "block";
+        document.getElementById("facetSidebar").style.display = "block";
 
         $log.info("we are here employee models list length : "+response.data['employeeModels'].length);
         $log.info("we are here facet group models list length : "+response.data['facetGroupModels'].length);
@@ -730,6 +704,8 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
          }
 
       }, function errorCallback(response) {
+            document.getElementById("resultsSection").style.display = "block";
+            document.getElementById("facetSidebar").style.display = "block";
         $log.error("we errored here");
 
         $(dlg).dialog("close");
