@@ -44,13 +44,7 @@
 	   			</props>
 	   		</property>
 	   </bean>
-	   
-	   <bean id="solrSearchManager" class="co.srsp.solr.SolrSearchManager">
-	   		<property name="connectionString" value="http://localhost:8983/solr/booksandreviews" />
-	   		<property name="solrFieldsList" value="author:title:id:stream_content_type" />
-	   		<property name="mimetypeToThumbnailLocList" value="vnd.openxmlformats-officedocument.wordprocessingml.document:./presentationResources/images/worddoc.jpg,pdf:./presentationResources/images/pdficon.jpg,msword:./presentationResources/images/worddoc.jpg,rtf:./presentationResources/images/rtficon.png,txt:./presentationResources/images/texticon.png" />
-	   </bean>
-	   
+
   	 	<bean id="transactionManagerHibernate" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		  <property name="sessionFactory" ref="employeeHibernateSessionFactory" />
 	    </bean>

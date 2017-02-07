@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/bootstrap-custom.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/font-awesome.css">
+<link rel="stylesheet" type="text/css" href="./presentationResources/css/responsive.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/myStyles.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/landing.css">
 <link rel="stylesheet" type="text/css" href="./presentationResources/css/demoApp.css">

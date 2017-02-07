@@ -11,27 +11,34 @@ function displayFacetCheckboxSelection(){
 
    var checkedFound = false;
 
-   $("input[type='checkbox']:checked").each(function(){
-         console.log($(this).attr("id"));//this is the checked checkbox
-         clearSearchList(); //don't clear - but need to check if search item already exists
-         checkedFound = true;
-         var facetLabelID = $(this).attr("id");
 
-         for(var i = 0; i <  thisGroupData.length; i++){
-            facetList = thisGroupData[i]['facetModelsMatchingGroupItems'];
-            console.log("facet list : "+facetList.length);
-            for(var j = 0; j < facetList.length; j++){
-              if(facetLabelID == facetList[j]['facetLabel']  && facetList[j]['facetCount'] > 0){
-                  console.log("employees matched against facet list : "+facetList[j]['employeesMatchedAgainstFacetCategory'].length+" :: "+
-                facetList[j]['employeesMatchedAgainstFacetCategory'][0]['employeeSurname']);
-                  duplicatesRemovedList = duplicatesRemovedList.concat(facetList[j]['employeesMatchedAgainstFacetCategory']);
-                  console.log("duplicate list before : "+duplicatesRemovedList.length);
-                  duplicatesRemovedList = testForDuplicates(duplicatesRemovedList);
-                  console.log("duplicate list after : "+duplicatesRemovedList.length);
-              }
-            }
-         }
-    });
+       $("input[type='checkbox']:checked").each(function(){
+
+          var facetChecked = $(this).attr("id").includes("facet");
+
+           if(facetChecked){
+                 console.log("checked label id found :: "+$(this).attr("id"));//this is the checked checkbox
+                 clearSearchList(); //don't clear - but need to check if search item already exists
+                 checkedFound = true;
+                 var facetLabelID = $(this).attr("id");
+                  facetLabelID = facetLabelID.replace("facet", "");
+                 for(var i = 0; i <  thisGroupData.length; i++){
+                    facetList = thisGroupData[i]['facetModelsMatchingGroupItems'];
+                    console.log("facet list : "+facetList.length);
+                    for(var j = 0; j < facetList.length; j++){
+                      if(facetLabelID == facetList[j]['facetLabel']  && facetList[j]['facetCount'] > 0){
+                          console.log("employees matched against facet list : "+facetList[j]['employeesMatchedAgainstFacetCategory'].length+" :: "+
+                        facetList[j]['employeesMatchedAgainstFacetCategory'][0]['employeeSurname']);
+                          duplicatesRemovedList = duplicatesRemovedList.concat(facetList[j]['employeesMatchedAgainstFacetCategory']);
+                          console.log("duplicate list before : "+duplicatesRemovedList.length);
+                          duplicatesRemovedList = testForDuplicates(duplicatesRemovedList);
+                          console.log("duplicate list after : "+duplicatesRemovedList.length);
+                      }
+                    }
+                 }
+             }
+        });
+
 
     if(!checkedFound){  //re-display original search set before any facets were selected
 
@@ -132,8 +139,9 @@ function formatFacetContent(groupData){
 			for(var j = 0; j < facetList.length; j++){
         if(facetList[j]['facetCount'] > 0){
 				    var theLabel = facetList[j]['facetLabel'];
-            console.log(theLabel);
-            formattedContent = formattedContent +  "<li><span><input type='checkbox' id='"+theLabel+"'"+"onclick='displayFacetCheckboxSelection()'>"+ theLabel+" </input> </span><span>("
+            console.log("building html with this label ::: "+theLabel);
+            formattedContent = formattedContent +  "<li><span><input type='checkbox' id='"+"facet"+theLabel+"'"
+               +"onclick='displayFacetCheckboxSelection()'>"+ theLabel+" </input> </span><span>("
 						+facetList[j]['facetCount']+")</span> </li>" ;
           }
 			}

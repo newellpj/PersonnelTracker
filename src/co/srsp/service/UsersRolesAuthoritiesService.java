@@ -7,8 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import co.srsp.hibernate.UsersBusinessObject;
 import co.srsp.hibernate.orm.Authorities;
 import co.srsp.hibernate.orm.Users;
-import co.srsp.markup.handlers.RSSHandlerImpl;
-import co.srsp.viewmodel.UsersModel;
+
 
 public class UsersRolesAuthoritiesService {
 

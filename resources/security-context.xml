@@ -11,7 +11,6 @@
 
    <security:http auto-config="true" use-expressions="true" create-session="always">
      <security:intercept-url pattern="/landing" access="permitAll" />
-     <security:intercept-url pattern="/compTest" access="permitAll" />
      <security:intercept-url pattern="/loginSignup" access="permitAll" /> 
      <security:intercept-url pattern="/sendEnquiry" access="permitAll" />  
      <security:intercept-url pattern="/getSkillsets" access="permitAll" /> 
@@ -19,7 +18,6 @@
      <security:intercept-url pattern="/getEmployeePerformanceDetails" access="permitAll" />     
      <security:intercept-url pattern="/getCompanyPositions" access="permitAll" /> 
      <security:intercept-url pattern="/searchForEmployee" access="permitAll" />
-     <security:intercept-url pattern="/retrieveNextPaginatedResults" access="permitAll" />
 	 <security:intercept-url pattern="/addAdmin" access="hasRole('ROLE_ADMIN')" />
      <security:intercept-url pattern="/partialSearchForName" access="permitAll" />   
      <security:intercept-url pattern="/updateSearchCriteriaAndPaginationOffset" access="hasRole('ROLE_USER')" />  
