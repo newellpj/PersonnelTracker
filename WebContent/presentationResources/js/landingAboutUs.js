@@ -40,7 +40,7 @@
 											<div ng-hide="contactForm.contactDetEmail.$valid || !contactForm.$dirty" >A valid email is required</div>
 										</div>
 							  <input type="email" name="contactDetPhone" id="contactDetPhone" ng-model="contactDetPhone" placeholder="Contact number" />
-							  <textarea type="text" name="contactDetMessage" id="contactDetMessage" ng-model="contactDetMessage" placeholder="Enquiry [Required]" required></textarea>
+							  <textarea rows="6" type="text" name="contactDetMessage" id="contactDetMessage" ng-model="contactDetMessage" placeholder="Enquiry [Required]" required></textarea>
 										<div class="errorEnq resposive" ng-messages="contactForm.contactDetMessage.$error">
 											<div ng-hide="contactForm.contactDetMessage.$valid  || !contactForm.$dirty">This field is required</div>
 										</div>

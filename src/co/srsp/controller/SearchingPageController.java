@@ -2,6 +2,7 @@
 package co.srsp.controller;
 
 import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -154,8 +155,15 @@ public class SearchingPageController {
 	         System.out.println("Sent message successfully....");
 	         
 	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
-	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("applicationImagesLocation"));
+	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("emailImage"));
+	         
+	         File file = new File(ConfigHandler.getInstance().readApplicationProperty("emailImage")+"emailSignScion.png");
+	         
+	         System.getProperty("user dir "+System.getProperty("user.dir"));
+	         
 	         log.info("thankYouMsg :::: "+thankYouMsg);
+	         log.info("image exists? : "+file.exists());
+	         log.info("image abs path? : "+file.getAbsolutePath());
 	         message = new MimeMessage(session);
 	         message.setFrom(new InternetAddress("info@scionsolutionsgroup.com"));
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(sendersEmail));
