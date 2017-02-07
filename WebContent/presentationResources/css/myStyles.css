@@ -38,7 +38,7 @@ div{
  border: 1px solid #c3c3c3;
  font-weight: normal;
  max-width:20%;
- border-radius: 3px;
+ border-radius: 3px 3px 0px 0px;
 
 }
 
@@ -52,7 +52,7 @@ div{
   		color: black;
   		font-weight: normal;
   		text-shadow: 1px 1px 1px #a8a8a8 !important;
-      border-radius: 3px;
+      border-radius: 3px 3px 0px 0px;
 	 }
 
 .ajax-loader-2{
