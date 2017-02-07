@@ -155,7 +155,9 @@ public class SearchingPageController {
 	         System.out.println("Sent message successfully....");
 	         
 	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
-	         thankYouMsg = thankYouMsg.replace(":path:", ConfigHandler.getInstance().readApplicationProperty("emailImage"));
+	         thankYouMsg = thankYouMsg.replace(":path:", "http://localhost:8080/PersonnelTracker/presentationResources/images/");
+	         thankYouMsg = thankYouMsg.replace(":name:", name);
+	         
 	         
 	         File file = new File(ConfigHandler.getInstance().readApplicationProperty("emailImage")+"emailSignScion.png");
 	         
