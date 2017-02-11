@@ -1,0 +1,209 @@
+@media screen and (max-width:1600px){
+
+}
+
+@media screen and (max-width:1400px){
+
+
+  div.sectionContent.responsive{
+  	  margin-left: 14%;
+  		width: 17%;
+  }
+
+  section.responsive{
+      margin-left: -5%;
+  }
+
+  div.carouselAndBuzzSection.responsive{
+     margin-top:-65%;
+
+  }
+
+  .pageHeaderLogo.responsive{
+  		width:50%;
+  }
+}
+
+@media screen and (max-width:1300px){
+  div.carouselAndBuzzSection.responsive{
+     margin-top:-75%;
+
+  }
+}
+
+@media screen and (max-width:1200px){
+  div.carouselAndBuzzSection.responsive{
+     margin-left: 32%;
+
+  }
+
+}
+
+
+@media screen and (max-width:1080px){
+  div.sectionContent.responsive{
+      margin-left: 25%;
+      width: 30%;
+  }
+
+  div.carouselAndBuzzSection.responsive{
+     margin-left: 5%;
+     margin-top:5%;
+      max-width:80%;
+  }
+
+}
+
+@media screen and (max-width:920px){
+
+  .pageHeaderLogo.responsive{
+  		width:90%;
+  }
+
+  .scalable.responsive{
+  		font-size:3rem;
+  }
+
+  .customizable.responsive{
+  		font-size:2rem;
+  }
+
+  .enterpriseWideSolution.responsive{
+  		font-size:2.5rem;
+      top: -25px;
+      left: 130px;
+  }
+
+  .lightweight.responsive{
+  		font-size:1.5rem;
+      top: -60px;
+  }
+
+  .mainSpiel.responsive{
+     max-width:80%;
+     margin-left: -5%;
+     margin-bottom: 5%;
+  }
+
+}
+
+@media screen and (max-width:800px){
+  div.carouselAndBuzzSection.responsive{
+     margin-left: 0%;
+     margin-top:5%;
+      max-width:85%;
+  }
+
+  .main-box.responsive{
+    width:90%;
+    margin-left: 5%;
+  }
+
+
+
+  div.sectionContent.responsive{
+      margin-left: 25%;
+      width: 60%;
+  }
+
+  section.responsive{
+    margin-left: 0%;
+  }
+
+}
+
+
+@media screen and (max-width:720px){
+
+}
+
+
+
+@media screen and (max-width:600px){
+  div.carouselAndBuzzSection.responsive{
+     margin-left: -5%;
+     margin-top:5%;
+      max-width:85%;
+  }
+
+  section.responsive{
+    margin-left: -8%;
+  }
+
+ ._stickFigureElement.responsive{
+   display:none;
+ }
+
+}
+
+@media screen and (max-width:510px){
+  div.sectionContent.responsive{
+      margin-left: 30%;
+      width: 50%;
+  }
+
+  div.carouselAndBuzzSection.responsive{
+     margin-left: -15%;
+     margin-top:10%;
+      max-width:95%;
+  }
+}
+
+@media screen and (max-width:470px){
+  div.sectionContent.responsive{
+      margin-left: 35%;
+      width: 45%;
+  }
+
+  div.carouselAndBuzzSection.responsive{
+     margin-left: -15%;
+     margin-top:10%;
+      max-width:85%;
+  }
+
+  section.responsive{
+    margin-left: -11%;
+  }
+
+  .scalable.responsive{
+      font-size:2.5rem;
+  }
+
+  .customizable.responsive{
+      font-size:1.6rem;
+  }
+
+  .enterpriseWideSolution.responsive{
+      font-size:2.1rem;
+      top: -25px;
+      left: 30px;
+  }
+
+  .lightweight.responsive{
+      font-size:1.2rem;
+      top: -50px;
+      left: 150px;
+  }
+}
+
+@media screen and (max-width:420px){
+
+
+}
+
+@media screen and (max-width:370px){
+  div.sectionContent.responsive{
+      margin-left: 35%;
+      width: 50%;
+  }
+
+  section.responsive{
+    margin-left: -20%;
+  }
+
+}
+
+@media screen and (max-width:350px){
+
+
+}
