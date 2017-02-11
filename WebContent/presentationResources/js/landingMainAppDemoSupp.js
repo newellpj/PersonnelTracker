@@ -133,7 +133,7 @@ function formatFacetContent(groupData){
   for(var i = 0; i <  groupData.length; i++){
 
 			facetList = groupData[i]['facetModelsMatchingGroupItems'];
-      formattedContent = formattedContent +" <ul class='groupData'><span class='facetGroupLabel'> "
+      formattedContent = formattedContent +" <ul class='groupData responsive'><span class='facetGroupLabel'> "
 			+ groupData[i]['groupLabel']+"</span>";
 
 			for(var j = 0; j < facetList.length; j++){
@@ -185,7 +185,7 @@ function matchSideBarToSearchResultsSection(){
 			if(undefined != searchData){
 
 
-				formattedMarkup = "<div style='float:left; margin-right:1.5em;' ><img alt='book thumb' width='"+searchData['imageWidth']+"' height='"+searchData['imageHeight']
+				formattedMarkup = "<div class='profilePicImg responsive' style='float:left; margin-right:1.5em;' ><img alt='book thumb' width='"+searchData['imageWidth']+"' height='"+searchData['imageHeight']
 				+"' src='"+searchData['profilePicURL']+"' /></div>"+
 			     "<span><b>Name : </b>"+searchData['employeeFirstName']+" "+
         searchData['employeeGivenNames'] +" "+searchData['employeeSurname']+"&nbsp;&nbsp;<b>Age : </b>"+searchData['employeeAge']+" <b>&nbsp;&nbsp;Gender : </b> "

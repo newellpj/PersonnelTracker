@@ -150,6 +150,10 @@
      height: 140px;
   }
 
+  /* .ui-dialog.responsive{
+    max-width:50%;
+  } */
+
   #resultsSection.responsive{
     width: 80%;
     margin-left: 22%;
@@ -318,6 +322,20 @@
 
 
 @media screen and (max-width:720px){
+  .profilePicImg.responsive img{
+     width: 120px;
+     height: 120px;
+  }
+
+  .facetSidebar.responsive{
+    margin-top: 16.1%;
+    margin-left: -2%;
+    max-width: 22%;
+  }
+
+  .searchSegment.responsive{
+      max-height:350px;
+  }
 
 }
 
@@ -328,6 +346,26 @@
      margin-left: -5%;
      margin-top:5%;
       max-width:85%;
+  }
+
+  .profilePicImg.responsive img{
+     width: 100px;
+     height: 100px;
+  }
+
+  .facetSidebar.responsive{
+    margin-top: 16.1%;
+    margin-left: -2%;
+    max-width: 26%;
+  }
+
+  #resultsSection.responsive{
+    width: 70%;
+    margin-left: 28%;
+  }
+
+  .searchSegment.responsive{
+      max-height:580px;
   }
 
   section.responsive{
@@ -344,6 +382,18 @@
   div.sectionContent.responsive{
       margin-left: 30%;
       width: 50%;
+  }
+
+  .demo.responsive{
+    font-size: 10px;
+  }
+
+  .searchSegment.responsive{
+      max-height:690px;
+  }
+
+  .groupData.responsive{
+         margin-left: -40%;
   }
 
   div.carouselAndBuzzSection.responsive{
@@ -383,9 +433,20 @@
 }
 
 @media screen and (max-width:470px){
+
+  .facetSidebar.responsive{
+    margin-top: 20.1%;
+    margin-left: -2%;
+    max-width: 26%;
+  }
+
   div.sectionContent.responsive{
       margin-left: 35%;
       width: 45%;
+  }
+
+  .searchSegment.responsive{
+      max-height:890px;
   }
 
   div.carouselAndBuzzSection.responsive{
@@ -434,6 +495,10 @@
   div.sectionContent.responsive{
       margin-left: 35%;
       width: 50%;
+  }
+
+  .facetSidebar.responsive{
+    margin-top: 25%;
   }
 
 

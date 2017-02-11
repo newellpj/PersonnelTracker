@@ -7,7 +7,7 @@
 
 
     appDemoModule.component('appPageDemo', {
-      template: `<div ng-controller="searchPageController" >
+      template: `<div ng-controller="searchPageController" class="demo responsive">
        <span ng-show="searchFormHide"><button id="searchAgain" class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button> </span>
       	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel" ng-hide="searchFormHide">
 
@@ -189,7 +189,7 @@ appDemoModule.service('formatSearchService', function($log, searchDisplayInitSer
     $log.info("data to format length :::: "+dataToFormat);
 
     for(var i = 0; i < dataToFormat.length; i++){
-      var formattedContent = "<div class='searchSegment'>"+formatSearchContent(dataToFormat[i], $log)+"</div>"
+      var formattedContent = "<div class='searchSegment responsive'>"+formatSearchContent(dataToFormat[i], $log)+"</div>"
       $('.bookRevList').append(formattedContent);
     }
 
@@ -614,19 +614,19 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
       $log.info("publisher text ::: "+empGivenNames);
       $log.info("skillsetSelect text ::: "+skillsetSelect);
 
-       var dlg = $("<div></div>").dialog({
+       var dlg = $("<div class='responsive'></div>").dialog({
         hide: 'fade',
-        maxWidth: 600,
+        maxWidth: 800,
         modal: true,
         height: 200,
         show: 'fade',
-        title: 'Searching Books....',
-        width: ( ('__proto__' in {}) ? '600' : 600 )
+        title: 'Searching Employees....',
+        width: ( ('__proto__' in {}) ? '700' : 700 )
       });
 
       $(dlg).parent().find('button').remove();
 
-      $(dlg).html("<div class='ajax-loader-2 help-inline pull-right'></div><div><p>Searching books...</p></div>");
+      $(dlg).html("<div class='ajax-loader-2 help-inline pull-right'></div><div><p>Searching employees...</p></div>");
 
       $(dlg).dialog("open");
 
@@ -659,12 +659,10 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
         }else{
 
             document.getElementById("search").style.display = "inline";
-
             $scope.groupData = response.data['facetGroupModels'];
 
             $log.info("$scope.groupData length : "+$scope.groupData.length);
             $log.info("$scope.groupData : "+$scope.groupData);
-            //facetData = response.data['facetGroupModels']['facetModelsMatchingGroupItems']
 
             $scope.formattedSearchData = '';
             if(undefined != response.data && response.data['employeeModels'].length > 0 && response.data['employeeModels'] != null){
@@ -672,25 +670,13 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
                   $log.info("we here again :"+response.data[0]);
                   for(var i = 0; i < response.data['employeeModels'].length; i++){
 
-                    //$log.info("first book in array : "+$('.bookRevList').html());
-
-                    //$('.bookRevList').append("<div class='searchSegment'>");
-
-                      var formattedContent = "<div class='searchSegment'>"+formatSearchContent(response.data['employeeModels'][i], $log)+"</div>"
+                      var formattedContent = "<div class='searchSegment responsive'>"+formatSearchContent(response.data['employeeModels'][i], $log)+"</div>"
 
                       $('.bookRevList').append(formattedContent);
-
-
-
                       attachScroll(response.data['employeeModels']);
-
-
                   }
 
                   $('.facetSidebar').append(formatFacetContent(response.data['facetGroupModels']));
-
-
-
 
             }else{
               $('.bookRevList').append("<span style='font-size:1.5em;'>No Records Found </span>");
