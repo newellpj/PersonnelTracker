@@ -4,7 +4,7 @@
   }
 
   .facetSidebar.responsive{
-    margin-top: 9%;
+    margin-top: 2%;
   }
 }
 
@@ -41,8 +41,16 @@
 
 @media screen and (max-width:1400px){
 
+  #waiter.responsive{
+  	display:none;
+  	margin-left: 55%;
+  	margin-top: -5%;
+  	max-width: 45%;
+
+  }
+
   .facetSidebar.responsive{
-    margin-top: 9.5%;
+    margin-top: 2%;
   }
 
   .searchSegment.responsive{
@@ -120,7 +128,7 @@
   }
 
   .facetSidebar.responsive{
-    margin-top: 10.8%;
+    margin-top: 2%;
   }
 
   .searchSegment.responsive{
@@ -169,7 +177,7 @@
 
 
   .facetSidebar.responsive{
-    margin-top: 12.7%;
+    margin-top: 2%;
     margin-left: -2%;
     max-width: 22%;
   }
@@ -328,7 +336,7 @@
   }
 
   .facetSidebar.responsive{
-    margin-top: 16.1%;
+    margin-top: 2%;
     margin-left: -2%;
     max-width: 22%;
   }
@@ -354,7 +362,7 @@
   }
 
   .facetSidebar.responsive{
-    margin-top: 16.1%;
+    margin-top: 2%;
     margin-left: -2%;
     max-width: 26%;
   }
@@ -435,7 +443,7 @@
 @media screen and (max-width:470px){
 
   .facetSidebar.responsive{
-    margin-top: 20.1%;
+    margin-top: 2%;
     margin-left: -2%;
     max-width: 26%;
   }
@@ -498,7 +506,7 @@
   }
 
   .facetSidebar.responsive{
-    margin-top: 25%;
+    margin-top: 2%;
   }
 
 

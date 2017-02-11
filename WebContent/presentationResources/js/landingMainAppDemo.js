@@ -9,6 +9,7 @@
     appDemoModule.component('appPageDemo', {
       template: `<div ng-controller="searchPageController" class="demo responsive">
        <span ng-show="searchFormHide"><button id="searchAgain" class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button> </span>
+       <div id="waiter" class="ajax-loader-2 responsive"><div style="float:right; min-width:120px;">Searching...</div></div>
       	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel" ng-hide="searchFormHide">
 
         <div class="note"> * PLEASE NOTE ALL DETAILS AND COMPANIES LISTED HERE ARE FICTIONAL. PICTURES ARE USED FOR DEMONSTRATION AND DETAILS ARE NOT IN ANY WAY RELATED TO THE PERSON ILLUSTRATED IN THE PHOTOS </div>
@@ -614,7 +615,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
       $log.info("publisher text ::: "+empGivenNames);
       $log.info("skillsetSelect text ::: "+skillsetSelect);
 
-       var dlg = $("<div class='responsive'></div>").dialog({
+       /*var dlg = $("<div class='responsive'></div>").dialog({
         hide: 'fade',
         maxWidth: 800,
         modal: true,
@@ -628,8 +629,9 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
       $(dlg).html("<div class='ajax-loader-2 help-inline pull-right'></div><div><p>Searching employees...</p></div>");
 
-      $(dlg).dialog("open");
+      $(dlg).dialog("open"); */
 
+      document.getElementById("waiter").style.display = "block";
 
     $http({
         url : 'searchForEmployee',
@@ -654,7 +656,8 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
         $log.info("we are here facet group models list length : "+response.data['facetGroupModels'].length);
 
         if(response.data['employeeModels'].length <=  0){
-          $(dlg).dialog("close");
+    //      $(dlg).dialog("close");
+          document.getElementById("waiter").style.display = "none";
           $('.bookRevList').append("No employees details discovered");
         }else{
 
@@ -684,8 +687,8 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
               $scope.showFacet = false;
             }
 
-            $(dlg).dialog("close");
-
+          //  $(dlg).dialog("close");
+            document.getElementById("waiter").style.display = "none";
               $log.info("1bbbbbbbbbbb search form hide is true  ::: "+$scope.searchFormHide);
          }
 
@@ -694,7 +697,9 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             document.getElementById("facetSidebar").style.display = "block";
         $log.error("we errored here");
 
-        $(dlg).dialog("close");
+      //  $(dlg).dialog("close");
+
+       document.getElementById("waiter").style.display = "none";
 
         var errorDialog = $("<div></div>").dialog({
             hide: 'fade',

@@ -11,6 +11,16 @@ ul.nameSearchPossibles, ul.firstNameSearchPossibles, ul.givenNamesSearchPossible
     -webkit-padding-start: 10px;
 }
 
+#waiter{
+	display:none;
+	margin-left: 40%;
+	margin-top: -2%;
+	max-width: 45%;
+
+}
+
+
+
 
 
 ul.nameSearchPossibles li span:hover{
