@@ -65,7 +65,7 @@
 
 	<div id="main-box" class="main-box responsive">
 
-<h1 class="pageHeaderLogo"> Personnel Tracker <span>360</span> </h1>
+<h1 class="pageHeaderLogo responsive"> Personnel Tracker <span>360</span> </h1>
 <ul class="tab">
   <li><a href="javascript:void(0)" class="tablinks defaultTab glyphicon glyphicon-blackboard"
 				onclick="openTab(event, 'welcomeTab')" id="openByDefault" >
@@ -76,7 +76,7 @@
 
   <li><a href="javascript:void(0)" class="tablinks glyphicon glyphicon-info-sign" onclick="openTabAboutUs(event, 'aboutTab')">
 		 <span style="font-family: 'Roboto Condensed',sans-serif !important;">About Us</span></a></li>
-	<div class="_stickFigureElement"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure2.png' /></div>
+	<div class="_stickFigureElement responsive"><img class="imgAnime" src='./presentationResources/images/profilePics/stickfigure2.png' /></div>
 </ul>
 
 

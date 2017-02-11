@@ -1,7 +1,7 @@
 (function(angular) {
 
 		angular.module('aboutUsTabPage', []).component('aboutUsPage', {
-			template: `<div class="aboutUsSpiel"><p>Personnel Tracker is an evolving
+			template: `<div class="aboutUsSpiel responsive"><p>Personnel Tracker is an evolving
 			organisational performance tracking
 			system built using AngularJS, Java 8, Spring, Hibernate,
 			MySQL and Solr. It aims to streamline the process of improving your

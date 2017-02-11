@@ -14,7 +14,7 @@
 				  template: `
 							<div id="welcomeTab" class="welcomeTab responsive">
 							  <div class="mainSpiel responsive">
-								    <h2>Personnel Tracker 360 empowers organisations to accurately track all aspects of employee
+								    <h2 >Personnel Tracker 360 empowers organisations to accurately track all aspects of employee
 										management - from personal details through to skillset to current role matching and performance reporting.</h2>
 								</div>
 
@@ -39,11 +39,11 @@
 											 </div>
 									</section>
 
-              <div class="carouselAndBuzzSection">
-									<div class="scalable">Scalable</div>
-									<div class="customizable">Customizable</div>
-									<div class="lightweight">Lightweight</div>
-									<div class="enterpriseWideSolution">Enterprise wide solution</div>
+              <div class="carouselAndBuzzSection responsive">
+									<div class="scalable responsive">Scalable</div>
+									<div class="customizable responsive">Customizable</div>
+									<div class="lightweight responsive">Lightweight</div>
+									<div class="enterpriseWideSolution responsive">Enterprise wide solution</div>
 
 									<div class="profileHeading responsive"><h3>See profile and performance summaries
 									   of your employees based on general or faceted search results</h3></div>

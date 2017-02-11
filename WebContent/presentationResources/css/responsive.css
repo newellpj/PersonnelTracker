@@ -1,11 +1,59 @@
 @media screen and (max-width:1600px){
+   .culture.responsive img{
+     margin-left: 0%;
+   }
+
+   div.quote1.responsive{
+     font-size: 1.7rem;
+     margin-top: -25%;
+     margin-bottom:10%;
+     margin-left: 30%;
+     width: 30%;
+   }
+
+
+   div.quote2.responsive{
+   	  font-size: 1.7rem;
+   		font-style: italic;
+
+   }
 
 }
 
 @media screen and (max-width:1400px){
 
 
-  div.sectionContent.responsive{
+ div.quote1.responsive{
+   margin-top: -20%;
+   margin-bottom:10%;
+   margin-left: 25%;
+ }
+
+  contactForm.responsive{
+    margin-left: 65%;
+    margin-top: -50%;
+    margin-bottom: 5%;
+    position: static;
+  }
+
+  .contactImg.responsive img{
+     width: 240px;
+     height: 90px;
+  }
+
+  .culture.responsive img{
+    width: 180px;
+    height: 150px;
+  }
+
+  .culture2.responsive img{
+    width: 180px;
+    height: 150px;
+  }
+
+
+
+  div.sectionContent.responsive {
   	  margin-left: 14%;
   		width: 17%;
   }
@@ -34,8 +82,25 @@
 @media screen and (max-width:1200px){
   div.carouselAndBuzzSection.responsive{
      margin-left: 32%;
-
   }
+
+  form.contactForm.responsive{
+    margin-top: -75%;
+  }
+
+
+  .contactImg.responsive img{
+     margin-left: 15%;
+  }
+
+  div.quote1.responsive{
+    font-size: 1.6rem;
+    margin-left: 28%;
+  }
+
+   div.quote2.responsive{
+     font-size: 1.6rem;
+   }
 
 }
 
@@ -52,9 +117,61 @@
       max-width:80%;
   }
 
+   div.quote1.responsive{
+     font-size: 1.5rem;
+   }
+
+    div.quote2.responsive{
+      font-size: 1.5rem;
+    }
+
+  .culture.responsive img{
+    width: 150px;
+    height: 125px;
+  }
+
+  .culture2.responsive img{
+    width: 150px;
+    height: 125px;
+  }
+
 }
 
 @media screen and (max-width:920px){
+
+  .aboutUsSpiel.responsive{
+    max-width:85%;
+  }
+
+  form.contactForm.responsive{
+    margin-left: 10%;
+    margin-top: 10%;
+  }
+
+  .contactImg.responsive img{
+     margin-left: 25%;
+  }
+
+  div.quote1.responsive{
+     margin-top: -25%;
+  }
+
+
+  div.quote2.responsive{
+     margin-left: 35%;
+     margin-top: -25%;
+  }
+
+  .culture1.responsive img{
+
+  }
+
+
+    .culture2.responsive img{
+      margin-left: 62%;
+    }
+
+
 
   .pageHeaderLogo.responsive{
   		width:90%;
@@ -99,6 +216,29 @@
     margin-left: 5%;
   }
 
+
+    div.quote1.responsive{
+       margin-top: -25%;
+       margin-left: 40%;
+       font-size: 1.4rem;
+    }
+
+
+    div.quote2.responsive{
+       margin-left: 15%;
+       margin-top: -25%;
+        font-size: 1.4rem;
+    }
+
+
+      .culture1.responsive img{
+         margin-left: 10%;
+      }
+
+
+        .culture2.responsive img{
+          margin-left: 46%;
+        }
 
 
   div.sectionContent.responsive{
@@ -147,6 +287,35 @@
      margin-top:10%;
       max-width:95%;
   }
+
+  div.quote1.responsive{
+     margin-top: -43%;
+     margin-left: 65%;
+     font-size: 1.3rem;
+  }
+
+
+  div.quote2.responsive{
+     margin-left: 5%;
+     margin-top: -43%;
+      font-size: 1.3rem;
+  }
+
+  .culture1.responsive img{
+     margin-top: 15%;
+  }
+
+  .contactImg.responsive img{
+     margin-left: 15%;
+     width: 200px;
+     height: 66px;
+  }
+
+    .culture2.responsive img{
+
+    }
+
+
 }
 
 @media screen and (max-width:470px){
@@ -159,6 +328,10 @@
      margin-left: -15%;
      margin-top:10%;
       max-width:85%;
+  }
+
+  .contactImg.responsive img{
+     margin-left: 13%;
   }
 
   section.responsive{
@@ -187,7 +360,9 @@
 }
 
 @media screen and (max-width:420px){
-
+  .contactImg.responsive img{
+     margin-left: 10%;
+  }
 
 }
 
@@ -197,6 +372,7 @@
       width: 50%;
   }
 
+
   section.responsive{
     margin-left: -20%;
   }
@@ -204,6 +380,8 @@
 }
 
 @media screen and (max-width:350px){
-
+  .contactImg.responsive img{
+     margin-left: 1%;
+  }
 
 }
