@@ -1,6 +1,20 @@
+@media screen and (max-width:1800px){
+  .searchSegment.responsive{
+      max-height:240px;
+  }
+
+  .facetSidebar.responsive{
+    margin-top: 9%;
+  }
+}
+
 @media screen and (max-width:1600px){
    .culture.responsive img{
      margin-left: 0%;
+   }
+
+   .searchSegment.responsive{
+       max-height:260px;
    }
 
    div.quote1.responsive{
@@ -9,6 +23,11 @@
      margin-bottom:10%;
      margin-left: 30%;
      width: 30%;
+   }
+
+   .profilePicImg.responsive img{
+      width: 170px;
+      height: 170px;
    }
 
 
@@ -22,11 +41,23 @@
 
 @media screen and (max-width:1400px){
 
+  .facetSidebar.responsive{
+    margin-top: 9.5%;
+  }
+
+  .searchSegment.responsive{
+      max-height:300px;
+  }
 
  div.quote1.responsive{
    margin-top: -20%;
    margin-bottom:10%;
    margin-left: 25%;
+ }
+
+ .profilePicImg.responsive img{
+    width: 155px;
+    height: 155px;
  }
 
   contactForm.responsive{
@@ -88,6 +119,13 @@
     margin-top: -75%;
   }
 
+  .facetSidebar.responsive{
+    margin-top: 10.8%;
+  }
+
+  .searchSegment.responsive{
+      max-height:320px;
+  }
 
   .contactImg.responsive img{
      margin-left: 15%;
@@ -106,6 +144,32 @@
 
 
 @media screen and (max-width:1080px){
+
+  .profilePicImg.responsive img{
+     width: 140px;
+     height: 140px;
+  }
+
+  #resultsSection.responsive{
+    width: 80%;
+    margin-left: 22%;
+  }
+
+  .groupData.responsive{
+    margin-left: -20%;
+  }
+
+  .searchSegment.responsive{
+      margin-left: -10%;
+  }
+
+
+  .facetSidebar.responsive{
+    margin-top: 12.7%;
+    margin-left: -2%;
+    max-width: 22%;
+  }
+
   div.sectionContent.responsive{
       margin-left: 25%;
       width: 30%;
