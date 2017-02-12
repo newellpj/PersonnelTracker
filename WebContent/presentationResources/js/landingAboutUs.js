@@ -83,12 +83,17 @@
 									//		$(dlg).dialog("close");
                       //document.getElementById("waiter").style.display = "none";
 											  $(".ajax-loader-2a").css("display", "none");
+												$(".successErrorMsg").html("Enquiry successfully sent!");
 												$(".successErrorMsg").fadeIn("slow");
                         $(".successErrorMsg").fadeIn("3000"); //.css("display", "block");
-											  $(".successErrorMsg").html("Enquiry successfully sent!");
+
 												$(".successErrorMsg").fadeOut("slow");
                         $(".successErrorMsg").fadeOut("3000");
                          $("#submitEnquiry").prop("disabled", false);
+                         //$(".resetBtn").click();
+
+												/* $scope.contactDetEmail = '';  $scope.contactDetPhone='';
+			 									   $scope.contactDetName =''; $scope.contactDetMessage=''; */
 
 								}, function errorCallback(response) {
 											$log.error("we errored here : "+data[0]);
