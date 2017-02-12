@@ -124,9 +124,25 @@ function openTab(evt, tabName) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
+
+
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+
+    if(tabName = 'welcomeTab'){
+			var bxViewportHeight = $(".bx-viewport").height();
+			console.log("viewport height : "+bxViewportHeight);
+
+			if(bxViewportHeight < 300){
+				   console.log("in herefdsfs");
+					$(".carouselAndBuzzSection").css("margin-bottom", "20%");
+			}else{
+					$(".carouselAndBuzzSection").css("margin-bottom", "0%");
+			}
+	  }
+
+
 }
 
 function paginateFinish(){

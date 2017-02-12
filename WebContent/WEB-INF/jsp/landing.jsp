@@ -54,6 +54,16 @@
 					 $('.bxslider').bxSlider({
 							captions: true
 					 });
+
+          var bxViewportHeight = $(".bx-viewport").height();
+          console.log("height : "+bxViewportHeight);
+
+          if(bxViewportHeight < 300){
+              $(".carouselAndBuzzSection").css("margin-bottom", "20%");
+          }else{
+              $(".carouselAndBuzzSection").css("margin-bottom", "0%");
+          }
+
     });
 
 
