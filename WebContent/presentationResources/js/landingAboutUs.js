@@ -44,7 +44,10 @@
 										<div class="errorEnq resposive" ng-messages="contactForm.contactDetMessage.$error">
 											<div ng-hide="contactForm.contactDetMessage.$valid  || !contactForm.$dirty">This field is required</div>
 										</div>
-								<button name="submit" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="submitEnquiry()"
+								 <div id="waiter2" class="ajax-loader-2a waiter2a responsive"><div style="float:right; min-width:160px;">Sending enquiry...</div></div>
+                   <div id="successErrorMsg" class="successErrorMsg responsive"></div>
+
+								<button id="submitEnquiry" name="submit" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="submitEnquiry()"
 									class="contactUs responsive" value="Contact us" ng-disabled="!contactForm.contactDetName.$valid  ||
 									                                                             !contactForm.contactDetEmail.$valid ||
 																																							 !contactForm.contactDetMessage.$valid ">
@@ -60,19 +63,9 @@
 					var $contactFormCtrl = this;
 
 					$scope.submitEnquiry = function(){
+               document.getElementById("waiter2").style.display = "block";
 
-								var dlg = $("<div></div>").dialog({
-									hide: 'fade',
-									maxWidth: 600,
-									modal: true,
-									show: 'fade',
-									title: 'Sending enquiry',
-									width: ( ('__proto__' in {}) ? '600' : 600 )
-								});
-
-								$(dlg).parent().find('button').remove();
-								$(dlg).html("<div class='ajax-loader-2 help-inline pull-right'></div><div><p>Your enquiry is being sent. </p></div>");
-								$(dlg).dialog("open");
+							 $("#submitEnquiry").prop("disabled", true);
 
 								$http({
 										url : 'sendEnquiry',
@@ -87,60 +80,29 @@
 										}
 							   }).then(function successCallback(successErrorCode) {
 											$log.info('successErrorCode : '+successErrorCode[0]);
-											$(dlg).dialog("close");
-
-											var confirmDialog = $("<div></div>").dialog({
-													hide: 'fade',
-													maxWidth: 300,
-													modal: true,
-													show: 'fade',
-													open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-														buttons: [
-															{
-																'class': 'btn btn-primary',
-																click: function(e) {
-																	$(".resetBtn").click();
-																	$(this).dialog("close");
-																},
-																text: 'OK'
-															}
-
-														],
-
-													title: 'Your enquiry has been sent',
-													width: ( 300 )
-												});
-
-												$(confirmDialog).dialog("open");
-												$(confirmDialog).html("<div style='align:center'><p>Thank you for your enquiry. We will be in touch shortly </p></div>");
-
+									//		$(dlg).dialog("close");
+                      //document.getElementById("waiter").style.display = "none";
+											  $(".ajax-loader-2a").css("display", "none");
+												$(".successErrorMsg").fadeIn("slow");
+                        $(".successErrorMsg").fadeIn("3000"); //.css("display", "block");
+											  $(".successErrorMsg").html("Enquiry successfully sent!");
+												$(".successErrorMsg").fadeOut("slow");
+                        $(".successErrorMsg").fadeOut("3000");
+                         $("#submitEnquiry").prop("disabled", false);
 
 								}, function errorCallback(response) {
 											$log.error("we errored here : "+data[0]);
+                    //  document.getElementById("waiter2").innerHTML = "<span style='color:red;'>Enquiry not sent</span>";
 
-											$(dlg).dialog("close");
-
-											var confirmDialog = $("<div></div>").dialog({
-													hide: 'fade',
-													maxWidth: 300,
-													modal: true,
-													show: 'fade',
-													open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-														buttons: [
-															{
-																'class': 'btn btn-primary',
-																click: function(e) {
-																	$(".resetBtn").click();
-																	$(this).dialog("close");
-																},
-																text: 'OK'
-															}
-
-														],
-
-													title: 'Enquiry could not be sent',
-													width: ( 300 )
-												});
+											$(".ajax-loader-2a").css("display", "none");
+                      $(".successErrorMsg").fadeIn("slow");
+                      $(".successErrorMsg").fadeIn("2000") ;
+											$(".successErrorMsg").html("<span style='color:red;'>Enquiry not sent</span>");
+											//.css("display", "block");
+											$(".successErrorMsg").html("Enquiry successfully sent!");
+											$(".successErrorMsg").fadeOut("slow");
+											$(".successErrorMsg").fadeOut("3000");
+                      $("#submitEnquiry").prop("disabled", false);
 
 												$(confirmDialog).dialog("open");
 												$(confirmDialog).html("<div style='align:center'><p>Your enquiry could not be sent. Please check your email address and send again.</p></div>");

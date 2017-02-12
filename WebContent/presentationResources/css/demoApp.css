@@ -19,7 +19,20 @@ ul.nameSearchPossibles, ul.firstNameSearchPossibles, ul.givenNamesSearchPossible
 
 }
 
+#waiter2{
+	display:none;
+	margin-left: 40%;
+	margin-top: -2%;
+	max-width: 45%;
 
+}
+
+.successErrorMsg{
+	  display:none;
+		margin-left: 40%;
+		margin-top: -2%;
+		max-width: 45%;
+}
 
 
 
