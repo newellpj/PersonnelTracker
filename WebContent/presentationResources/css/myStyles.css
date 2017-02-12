@@ -63,6 +63,14 @@ div{
 	background-image:url(../images/ajax-loader-2.gif)
 }
 
+.ajax-loader-2a{
+	width: 3em;
+	height: 3em;
+  margin-right:2rem;
+  margin-top:1rem;
+	background-image:url(../images/ajax-loader-2.gif)
+}
+
 .selected {
   background-color: #CFD8DC !important;
   color: white;

@@ -230,7 +230,7 @@ function matchSideBarToSearchResultsSection(){
 
 
                 console.log(data[i]);
-                var formattedContent = "<div class='searchSegment'>"+formatSearchContent(data[i])+"</div>"
+                var formattedContent = "<div class='searchSegment responsive'>"+formatSearchContent(data[i])+"</div>"
 
                 $('.bookRevList').append(formattedContent);
 
@@ -243,6 +243,7 @@ function matchSideBarToSearchResultsSection(){
             //    detachScroll();
                 $('.ajax-loader-2').remove();
             }else{
+              $('.ajax-loader-2').remove();
                 detachScroll();
             }
 
@@ -280,14 +281,13 @@ function attachScroll(data){
                 console.log("1 bottom bitch : "+employeeSearchData);
              if(employeeSearchData != undefined && employeeSearchData.length > 0){
                       console.log("2 bottom bitch : ");
-                  if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
+                 if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
                         console.log("3 bottom bitch : ");
                         $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
                         paginateHere();
-                  }
+                 }
               }
-
-      }
+           }
 
 
 

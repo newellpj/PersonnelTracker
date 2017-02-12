@@ -23,7 +23,9 @@
   	list-style-type:none;
 }
 
-
+.searchingInProgressItems{
+   width:100%;  
+}
 
 .searchSegment{
 	border-top: 1px dotted #A9A9A9;

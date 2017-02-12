@@ -8,8 +8,8 @@
 
     appDemoModule.component('appPageDemo', {
       template: `<div ng-controller="searchPageController" class="demo responsive">
-       <span ng-show="searchFormHide"><button id="searchAgain" class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button> </span>
-       <div id="waiter" class="ajax-loader-2 responsive"><div style="float:right; min-width:120px;">Searching...</div></div>
+       <div class="searchingInProgressItems responsive"><span ng-show="searchFormHide"><button id="searchAgain" class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button> </span>
+       <div id="waiter" class="ajax-loader-2a responsive"><div style="float:right; min-width:120px;">Searching...</div></div></div>
       	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel" ng-hide="searchFormHide">
 
         <div class="note"> * PLEASE NOTE ALL DETAILS AND COMPANIES LISTED HERE ARE FICTIONAL. PICTURES ARE USED FOR DEMONSTRATION AND DETAILS ARE NOT IN ANY WAY RELATED TO THE PERSON ILLUSTRATED IN THE PHOTOS </div>

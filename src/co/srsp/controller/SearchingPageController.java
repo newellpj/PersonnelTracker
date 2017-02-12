@@ -399,7 +399,7 @@ public class SearchingPageController {
 		
 		EmployeeDataService dataService = new EmployeeDataService();
 		
-		List<EmployeeFacetWrapperModel> list = new ArrayList<EmployeeFacetWrapperModel>();
+		List<EmployeeModel> list = new ArrayList<EmployeeModel>();
 		log.info("just before test !");
 
 		request.getSession().setAttribute(SessionConstants.EMPLOYEE_GIVEN_NAMES, givenNamesText);
@@ -440,34 +440,31 @@ public class SearchingPageController {
 		 //SessionConstants.FACET_MATCHED_LIZT
         //TODO send back facet info and or store in session 
 		
-		int numRecords = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
+		int numRecordsToPaginate = Integer.parseInt(ConfigHandler.getInstance().readApplicationProperty("paginationValue"));
 		
-//		if(list.size() > numRecords){
-//			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
-//		}else{
-//			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, null); //check for null when paginating and return nothing if null
-//		}
+		list = wrapperModel.getEmployeeModels();
 		
-		if(list.size() < numRecords){
-			numRecords = list.size();
+		if(list.size() > numRecordsToPaginate){
+			
+			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list);
+		}else{
+			request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, null); //check for null when paginating and return nothing if null
 		}
 		
-		employeeModelArray = new EmployeeModel[numRecords];
+		if(list.size() < numRecordsToPaginate){
+			numRecordsToPaginate = list.size();
+		}
 		
-		int count = 0;
+
 		
-//		for(EmployeeModel model : list){
-//			employeeModelArray[count] = model;
-//			count++;
-//			if(count >= numRecords) break;
-//		}
-		
-		
-		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0+numRecords);
+		request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, 0+numRecordsToPaginate);
 		
 		log.info("employeeModelArray array size returned :: "+employeeModelArray.length);
 		
 		//modelView.setViewName("reviewsSearchBook");
+		List<EmployeeModel> subList = list.subList(0, numRecordsToPaginate);
+		wrapperModel.setEmployeeModels(subList);
+		
 		return wrapperModel;// buildEmployeeFullProfileDataModel(request, list);		
 	}
 	

@@ -160,11 +160,6 @@ public class PaginationController {
 			
 			log.info("sublist size is : "+listToAlter.size());
 			
-			for(EmployeeModel aModel : listToAlter){
-			
-				count++;
-				if(count >= breakValue) break;
-			}
 			
 			//request.getSession().setAttribute(SessionConstants.EMPLOYEE_FULL_PROFILE_LIST, list); //this would be setting the sublist which we don't wish to do
 			request.getSession().setAttribute(SessionConstants.CURRENT_PAGINATION_OFFSET, currentPaginationOffset + appPaginationValue);
@@ -200,7 +195,7 @@ public class PaginationController {
 			
 	
 			if(listToAlter != null){
-				log.info("bookslist size "+booksLists2.size());
+				log.info("bookslist size "+model.length);
 				//model.addObject("booksLists2", booksLists2);
 			}else{
 				
