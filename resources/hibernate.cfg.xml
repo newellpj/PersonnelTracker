@@ -7,7 +7,9 @@
         <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.password">fdg78DSA78</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/personnel_tracker</property>
+       <!-- <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/personnel_tracker</property> -->
+       <property name="hibernate.connection.url">jdbc:mysql://aaws0lce52f18e.c1nazef1u6br.ap-southeast-2.rds.amazonaws.com:3306/personnel_tracker</property> 
+       
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.search.autoregister_listeners">false</property>
