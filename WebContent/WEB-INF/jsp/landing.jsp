@@ -69,6 +69,11 @@
 
 </script>
 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="title" content="Personnel Tracker 360" />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<meta name="description" content="Personnel Tracker 360 by Scion Solutions Group empowers organisations to accurately track all aspects of employee management. Matching skillset to current roles and providing performance reporting. " />
+
 </head>
 <body>
 

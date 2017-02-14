@@ -16,7 +16,7 @@
 	      <!--<property name="url" value="jdbc:mysql://localhost:3306/personnel_tracker"/>-->
 	      <property name="url" value="jdbc:mysql://aaws0lce52f18e.c1nazef1u6br.ap-southeast-2.rds.amazonaws.com:3306/personnel_tracker"/>     
 	      <property name="username" value="root"/>
-	      <property name="password" value="f&7go!5Jdls"/>
+	      <property name="password" value="fdg88DSA88"/>
 	   </bean>
 	   
 	   <bean id="employeeHibernateSessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

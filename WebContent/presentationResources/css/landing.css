@@ -29,7 +29,13 @@
 		 /*font-family: 'Open Sans Condensed', sans-serif;*/
 }
 
+.scionLogoFooter:visited{
+	color: #726f6f !important;
+}
 
+.scionLogoFooter{
+	color: #726f6f !important;
+}
 
 
 .quote1{
