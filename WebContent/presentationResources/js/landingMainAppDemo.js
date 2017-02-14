@@ -679,7 +679,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
                       attachScroll(response.data['employeeModels']);
                   }
 
-                  $('.resultsSection').append(formatFacetContent(response.data['facetGroupModels']));
+                  $('.facetSidebar').append(formatFacetContent(response.data['facetGroupModels']));
 
             }else{
               $('.bookRevList').append("<span style='font-size:1.5em;'>No Records Found </span>");
