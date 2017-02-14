@@ -679,7 +679,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
                       attachScroll(response.data['employeeModels']);
                   }
 
-                  $('.facetSidebar').append(formatFacetContent(response.data['facetGroupModels']));
+                  $('.resultsSection').append(formatFacetContent(response.data['facetGroupModels']));
 
             }else{
               $('.bookRevList').append("<span style='font-size:1.5em;'>No Records Found </span>");
@@ -694,14 +694,16 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
 
       }, function errorCallback(response) {
             document.getElementById("resultsSection").style.display = "block";
-            document.getElementById("facetSidebar").style.display = "block";
-        $log.error("we errored here");
+            document.getElementById("facetSidebar").style.display = "none";
+
+            document.getElementById("search").style.display = "block";
+            $log.error("we errored here");
 
       //  $(dlg).dialog("close");
 
-       document.getElementById("waiter").style.display = "none";
-
-        var errorDialog = $("<div></div>").dialog({
+             document.getElementById("waiter").style.display = "none";
+              $('.bookRevList').append("<span style='color:red'>There was an error. please wait 30 seconds and try again.</span>");
+    /*    var errorDialog = $("<div></div>").dialog({
             hide: 'fade',
             maxWidth: 300,
             modal: true,
@@ -732,7 +734,7 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
           $('.ui-dialog-buttonset').css("backgroundColor", "#c3c3c3");
 
 
-           $(errorDialog).dialog("open");
+           $(errorDialog).dialog("open"); */
           //  window.parent.location.href = 'logout';
           });
 

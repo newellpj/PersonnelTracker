@@ -23,6 +23,15 @@
 	 transition: all 300ms 0ms ease-in-out;
 }
 
+.scionLogoFooter{
+	font-family: 'Lobster', cursive;
+	font-size: 1.5rem;
+		 /*font-family: 'Open Sans Condensed', sans-serif;*/
+}
+
+
+
+
 .quote1{
 	  font-size: 2rem;
 		font-style: italic;

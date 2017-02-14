@@ -10,7 +10,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 	    <property name="url" value="jdbc:mysql://aaws0lce52f18e.c1nazef1u6br.ap-southeast-2.rds.amazonaws.com:3306/personnel_tracker"/>
 	    <property name="username" value="root"/>
-	    <property name="password" value="fdg78DSA78"/>
+	    <property name="password" value="f&7go!5Jdls"/>
 		
 	</bean> 
 	
