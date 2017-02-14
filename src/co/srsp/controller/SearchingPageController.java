@@ -3,6 +3,7 @@ package co.srsp.controller;
 
 import java.awt.Image;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -155,16 +156,26 @@ public class SearchingPageController {
 	         System.out.println("Sent message successfully....");
 	         
 	         String thankYouMsg = ConfigHandler.getInstance().readApplicationProperty("thankYouMessage");
-	         thankYouMsg = thankYouMsg.replace(":path:", "http://localhost:8080/PersonnelTracker/presentationResources/images/");
-	         thankYouMsg = thankYouMsg.replace(":name:", name);
 	         
+	         String logoPath = ConfigHandler.getInstance().readApplicationProperty("urlRootProd")+"/presentationResources/images/";
 	         
-	         File file = new File(ConfigHandler.getInstance().readApplicationProperty("emailImage")+"emailSignScion.png");
+	         URL url = new URL(logoPath);
+	         log.info("logoPath 1 :::: "+logoPath);        
+	         
+	         File file = new File(logoPath+"emailSignScion.png");
 	         
 	         System.getProperty("user dir "+System.getProperty("user.dir"));
 	         
 	         log.info("thankYouMsg :::: "+thankYouMsg);
 	         log.info("image exists? : "+file.exists());
+	         
+	         if(!file.exists()){
+	        	 logoPath =  ConfigHandler.getInstance().readApplicationProperty("urlRootDev")+"/presentationResources/images/";
+	         }
+	         
+	         thankYouMsg = thankYouMsg.replace(":path:", logoPath);
+	         thankYouMsg = thankYouMsg.replace(":name:", name);
+	         
 	         log.info("image abs path? : "+file.getAbsolutePath());
 	         message = new MimeMessage(session);
 	         message.setFrom(new InternetAddress("info@scionsolutionsgroup.com"));
