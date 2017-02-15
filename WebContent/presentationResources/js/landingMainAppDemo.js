@@ -8,11 +8,11 @@
 
     appDemoModule.component('appPageDemo', {
       template: `<div ng-controller="searchPageController" class="demo responsive">
-       <div class="searchingInProgressItems responsive"><span ng-show="searchFormHide"><button id="searchAgain" class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button> </span>
-       <div id="waiter" class="ajax-loader-2a responsive"><div style="float:right; min-width:120px;">Searching...</div></div></div>
+       <div class="searchingInProgressItems responsive"><button id="searchAgain" class="responsive resetSearch" ng-click="resetTheSearch()"> Search again? </button>
+       <div id="waiter" class="ajax-loader-2a responsive"><div style="float:right; min-width:120px; margin-top:35%;">Searching...</div></div></div>
       	<form id="searchForm" name="searchForm"  commandName="bookReviewsModel" ng-hide="searchFormHide">
 
-        <div class="note"> * PLEASE NOTE ALL DETAILS AND COMPANIES LISTED HERE ARE FICTIONAL. PICTURES ARE USED FOR DEMONSTRATION AND DETAILS ARE NOT IN ANY WAY RELATED TO THE PERSON ILLUSTRATED IN THE PHOTOS </div>
+
 				<div class="surnameAndDept responsive" >
 					<input ng-model="employeeName" id="employeeName"  placeholder="Employee surname..."  type='text' name='employeeName' style="width:40%;">
 					<input id="deptCheck" type="checkbox"  ng-model="deptCheck" class="checks responsive" name="deptCheck" value="deptCheck" ng-click="deptHide = !deptHide" />Department
@@ -63,10 +63,8 @@
 		</form>
 
 
-    <div id="facetSidebar" class="facetSidebar responsive" >
-
-
-   </div>
+    <div id="facetSidebar" class="facetSidebar responsive">
+    </div>
 
       <div id="resultsSection" class="resultsSection responsive" >
       		<form id="searchResults" class="searchResults">
@@ -237,6 +235,7 @@ appDemoModule.controller('searchPageController', function($scope, $log, $timeout
       resetFacetMarkup();
 
 
+      document.getElementById("searchAgain").style.display = "none";
       document.getElementById("resultsSection").style.display = "none";
       document.getElementById("facetSidebar").style.display = "none";
 
@@ -656,11 +655,9 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
         $log.info("we are here facet group models list length : "+response.data['facetGroupModels'].length);
 
         if(response.data['employeeModels'].length <=  0){
-    //      $(dlg).dialog("close");
-          document.getElementById("waiter").style.display = "none";
-          $('.bookRevList').append("No employees details discovered");
+           document.getElementById("waiter").style.display = "none";
+           $('.bookRevList').append("No employees details discovered");
         }else{
-
             document.getElementById("search").style.display = "inline";
             $scope.groupData = response.data['facetGroupModels'];
 
@@ -688,9 +685,11 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             }
 
           //  $(dlg).dialog("close");
-            document.getElementById("waiter").style.display = "none";
+             document.getElementById("waiter").style.display = "none";
               $log.info("1bbbbbbbbbbb search form hide is true  ::: "+$scope.searchFormHide);
          }
+
+         document.getElementById("searchAgain").style.display = "block";
 
       }, function errorCallback(response) {
             document.getElementById("resultsSection").style.display = "block";
@@ -699,43 +698,9 @@ appDemoModule.controller('searchSubmitter', function($scope, $http, $log) {
             document.getElementById("search").style.display = "block";
             $log.error("we errored here");
 
-      //  $(dlg).dialog("close");
-
              document.getElementById("waiter").style.display = "none";
               $('.bookRevList').append("<span style='color:red'>There was an error. please wait 30 seconds and try again.</span>");
-    /*    var errorDialog = $("<div></div>").dialog({
-            hide: 'fade',
-            maxWidth: 300,
-            modal: true,
-            show: 'fade',
-            open: function(event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-              buttons: [
-                {
-                  'class': 'btn btn-primary',
-                  click: function(e) {
-                    $(this).dialog("close");
-                  },
-                  text: 'OK'
-                }
-
-              ],
-
-            create: function (event, ui) {
-              //$(event.target).parent().css('position', 'fixed'); - this stops the error message jumping around after initial popup
-            },
-            title: 'Could not find employees',
-            width: ( 300 )
-          });
-
-          msg = "There was an error searching";
-
-          $(errorDialog).html('<p>'+msg+'</p>');
-          $('.ui-dialog-buttonset').css("backgroundImage", "url('')");
-          $('.ui-dialog-buttonset').css("backgroundColor", "#c3c3c3");
-
-
-           $(errorDialog).dialog("open"); */
-          //  window.parent.location.href = 'logout';
+             document.getElementById("searchAgain").style.display = "block";
           });
 
             $log.info("2222222222222 search form hide is true  ::: "+$scope.searchFormHide);

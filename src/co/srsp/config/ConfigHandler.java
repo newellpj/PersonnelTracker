@@ -25,8 +25,8 @@ public class ConfigHandler {
 
 	private final static Logger log = Logger.getLogger(ConfigHandler.class); 
 	
-	public static final String CONFIG_ROOT_DIR = "../webapps/PersonnelTracker/presentationResources/";
-	public static final String CONFIG_ROOT_DIR_UNIT_TEST = "./WebContent/presentationResources/";
+	public static final String CONFIG_ROOT_DIR_DEV = "../webapps/PersonnelTracker/presentationResources/";
+	public static final String CONFIG_ROOT_DIR_PROD = "./webapps/ROOT/presentationResources/";
 	
 	private static ConfigHandler instance = null;
 	
@@ -66,10 +66,10 @@ public class ConfigHandler {
 		
 		String configDir = "";
 		
-		if(new File(CONFIG_ROOT_DIR+fileName).exists()){
-			configDir = CONFIG_ROOT_DIR;
+		if(new File(CONFIG_ROOT_DIR_DEV+fileName).exists()){
+			configDir = CONFIG_ROOT_DIR_DEV;
 		}else{
-			configDir = CONFIG_ROOT_DIR_UNIT_TEST;
+			configDir = CONFIG_ROOT_DIR_PROD;
 		}
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(configDir+fileName))) {
@@ -113,22 +113,24 @@ public class ConfigHandler {
 		Properties prop = new Properties();
 
 		log.info("USER DIR **************** "+ System.getProperty("user.dir"));
-		log.info("application properties path  ::: "+CONFIG_ROOT_DIR+"application.properties");
+		log.info("application properties path DEV  ::: "+CONFIG_ROOT_DIR_DEV+"application.properties");
+		log.info("application properties path PROD ::: "+CONFIG_ROOT_DIR_PROD+"application.properties");
+		
+		String systemDir = System.getProperty("user.dir");
 		
 		String propertiesDir = "";
 		
-		if(this.isUnderTest()){
-			propertiesDir = CONFIG_ROOT_DIR_UNIT_TEST+"application.properties";
+		String fileName = "application.properties";
+		
+		if(new File(CONFIG_ROOT_DIR_DEV+fileName).exists()){
+			propertiesDir = CONFIG_ROOT_DIR_DEV+fileName;
 		}else{
-			propertiesDir = CONFIG_ROOT_DIR+"application.properties";
-		}
+			propertiesDir = CONFIG_ROOT_DIR_PROD+fileName;
+		}	
 		
 		try(InputStream input = new FileInputStream(propertiesDir)) {
-			// load a properties file
 			prop.load(input);
 			return prop.getProperty(propLabel);
-			
-
 		} catch(IOException ioe){
 			 ioe.printStackTrace();
 			 log.error(ioe.getMessage());
