@@ -1,20 +1,23 @@
 
 var thisGroupData = [];
 
+var initialemployeeModelData = []
+
 var employeeSearchData = [];
+
+facetChecked = false;
 
 function displayFacetCheckboxSelection(){
    console.log($("input[type='checkbox']:checked").val()+' :  BULLSHIT! : '+thisGroupData.length);
    //console.log($("input[type='checkbox']:checked").attr("id"));
 
-    duplicatesRemovedList = [];
+      duplicatesRemovedList = [];
 
-   var checkedFound = false;
-
+      var checkedFound = false;
 
        $("input[type='checkbox']:checked").each(function(){
 
-          var facetChecked = $(this).attr("id").includes("facet");
+           facetChecked = $(this).attr("id").includes("facet");
 
            if(facetChecked){
                  console.log("checked label id found :: "+$(this).attr("id"));//this is the checked checkbox
@@ -41,8 +44,8 @@ function displayFacetCheckboxSelection(){
 
 
     if(!checkedFound){  //re-display original search set before any facets were selected
-
-         for(var i = 0; i <  thisGroupData.length; i++){
+        facetChecked = false;
+        /* for(var i = 0; i <  thisGroupData.length; i++){
            for(var j = 0; j < facetList.length; j++){
              if(facetList[j]['facetCount'] > 0){
                  console.log("employees matched against facet list : "+facetList[j]['employeesMatchedAgainstFacetCategory'].length+" :: "+
@@ -53,7 +56,9 @@ function displayFacetCheckboxSelection(){
                  console.log("duplicate list after : "+duplicatesRemovedList.length);
              }
            }
-         }
+         }*/
+         duplicatesRemovedList =initialemployeeModelData;
+
       }
 
 
@@ -124,9 +129,11 @@ function clearSearchList(){
 }
 
 
-function formatFacetContent(groupData){
+function formatFacetContent(groupData, initialemployeeModelDataReturned){
 
   var formattedContent = '';
+
+  initialemployeeModelData = initialemployeeModelDataReturned; //this will contain the number of records equal to or less than pagaination value
 
   thisGroupData = groupData;
 
@@ -218,11 +225,10 @@ function matchSideBarToSearchResultsSection(){
 
      $.ajax('retrieveNextPaginatedResults', {
            success: function(data) {
-        //     console.log("success we are here : "+data.length);
-        //     console.log("we are here : "+data);
 
-        //    $('.bookRevList').append(formatSearchContent(data[i]));
-
+         initialemployeeModelData = initialemployeeModelData.concat(data); //add the returned paginated data
+                                                                           //to initial search employee data so
+                                                                           //if user selects facets we can return the last paginated data
           console.log("data length returned ::: "+data.length);
 
             employeeSearchData = data;
@@ -234,10 +240,7 @@ function matchSideBarToSearchResultsSection(){
 
                 $('.bookRevList').append(formattedContent);
 
-
             }
-
-
 
             if(data == undefined || data == null || data.length < 1){
             //    detachScroll();
@@ -277,17 +280,19 @@ function attachScroll(data){
       console.log($(window).scrollTop()+' R: '+$(window).height());
       console.log(getDocHeight()+": "+document.body.scrollHeight);
 
-          if(($(window).scrollTop() + $(window).height()) >= getDocHeight()) {
-                console.log("1 bottom bitch : "+employeeSearchData);
-             if(employeeSearchData != undefined && employeeSearchData.length > 0){
-                      console.log("2 bottom bitch : ");
-                 if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
-                        console.log("3 bottom bitch : ");
-                        $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
-                        paginateHere();
-                 }
-              }
-           }
+        if(!facetChecked){
+            if(($(window).scrollTop() + $(window).height()) >= getDocHeight()) {
+                  console.log("1 bottom bitch : "+employeeSearchData);
+               if(employeeSearchData != undefined && employeeSearchData.length > 0){
+                        console.log("2 bottom bitch : ");
+                   if($('.ajax-loader-2').html() == undefined || $('.ajax-loader-2').html() == ''){
+                          console.log("3 bottom bitch : ");
+                          $('.resultsSection').append("<center><div class='ajax-loader-2'> </div></center>");
+                          paginateHere();
+                   }
+                }
+             }
+         }
 
 
 
