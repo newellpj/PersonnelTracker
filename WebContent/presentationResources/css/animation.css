@@ -35,10 +35,10 @@ img.imgAnime{width: 18px; height: 45px;  margin-left:1%;}
   }
 
 
-  80% {
+  /*80% {
     -webkit-transform: translate(150px, 0);
             transform: translate(150px, 0);
-  }
+  } */
 }
 
 @keyframes nudge {
@@ -61,10 +61,10 @@ img.imgAnime{width: 18px; height: 45px;  margin-left:1%;}
 
 
 
-  80% {
+  /*80% {
     -webkit-transform: translate(150px, 0);
             transform: translate(150px, 0);
-  }
+  }*/
 }
 
 
