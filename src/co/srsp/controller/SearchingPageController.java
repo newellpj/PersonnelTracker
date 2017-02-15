@@ -120,8 +120,13 @@ public class SearchingPageController {
 
 	      // Setup mail server
 	      properties.setProperty("mail.smtp.host", host);
-
+	      //properties.setProperty("mail.transport.protocol", "aws");
+	      //properties.setProperty("mail.aws.user", credentials.getAWSAccessKeyId());
+	      //properties.setProperty("mail.aws.password", credentials.getAWSSecretKey());
 	      // Get the default Session object.
+	      properties.put("mail.smtp.port", "587");
+	      properties.put("mail.smtp.auth", "true");
+	      properties.put("mail.smtp.starttls.enable", "true");
 	      Session session = Session.getDefaultInstance(properties);
 	      Transport transport = null;
 	      MimeMessage message = null;
@@ -145,10 +150,10 @@ public class SearchingPageController {
 
 	         // Now set the actual message
 	         message.setText(senderMessage);
-
+             
 	         // Send message
-	         
-	         transport = session.getTransport("smtps");   
+
+	         transport = session.getTransport("smtp");
 	         transport.connect(host, "pauljamesnewell@gmail.com", "5803871x");
 	         transport.sendMessage(message, message.getAllRecipients());
 	         transport.close();
@@ -366,7 +371,6 @@ public class SearchingPageController {
 		
 		
 		//return employeeModelArray;
-		
 		
 		if(request.getSession() == null){
 			return null;

@@ -44,7 +44,7 @@
 										<div class="errorEnq resposive" ng-messages="contactForm.contactDetMessage.$error">
 											<div ng-hide="contactForm.contactDetMessage.$valid  || !contactForm.$dirty">This field is required</div>
 										</div>
-								 <div id="waiter2" class="ajax-loader-2a waiter2a responsive"><div style="float:right; min-width:160px;">Sending enquiry...</div></div>
+								 <div id="waiter2" class="ajax-loader-2a waiter2a responsive"><div style="float:right; min-width:160px; margin-top:35%;">Sending enquiry...</div></div>
                    <div id="successErrorMsg" class="successErrorMsg responsive"></div>
 
 								<button id="submitEnquiry" name="submit" type="button"  style="box-shadow: 3px 3px 10px #252728 ;" ng-click="submitEnquiry()"
