@@ -136,7 +136,7 @@ function openTab(evt, tabName) {
 
 			if(bxViewportHeight < 300){
 				   console.log("in herefdsfs");
-					$(".carouselAndBuzzSection").css("margin-bottom", "20%");
+					$(".carouselAndBuzzSection").css("margin-bottom", "25%");
 			}else{
 					$(".carouselAndBuzzSection").css("margin-bottom", "0%");
 			}
